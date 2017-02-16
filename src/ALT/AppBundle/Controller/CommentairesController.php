@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CommentairesController extends Controller
 {
-    public function ajouter_commentaireAction($id, Request $request)
+    public function ajouterCommentaireAction($id, Request $request)
     {
 
         $em = $this->getDoctrine()->getManager();
@@ -69,7 +69,7 @@ class CommentairesController extends Controller
 
     }
 
-    public function modifier_commentaireAction($id)
+    public function modifierCommentaireAction($id)
     {
 
     }

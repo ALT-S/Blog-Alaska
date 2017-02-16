@@ -24,7 +24,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class AdminController extends Controller
 {
 
-    public function admin_accueilAction()
+    public function accueilAction()
     {
 
         $em = $this->getDoctrine()->getManager();
@@ -48,7 +48,7 @@ class AdminController extends Controller
 
     }
 
-    public function admin_lectureAction(Billet $billet)
+    public function lectureAction(Billet $billet)
     {
         return $this->render('ALTAppBundle:Admin:admin_lecture.html.twig', array(
             'billet'           => $billet
@@ -56,7 +56,7 @@ class AdminController extends Controller
 
     }
 
-    public function admin_ajouterAction(Request $request)
+    public function ajouterAction(Request $request)
     {
         // Création de l'entité - objet Billet
         $billet = new Billet();
@@ -102,7 +102,7 @@ class AdminController extends Controller
     }
 
 
-    public function admin_modifierAction($id, Request $request)
+    public function modifierAction($id, Request $request)
     {
         // Récupération d'un billet déjà existant, d'id $id.
         $billet = $this->getDoctrine()
@@ -149,7 +149,7 @@ class AdminController extends Controller
         ));
     }
 
-    public function admin_supprimerAction($id)
+    public function supprimerAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -171,7 +171,7 @@ class AdminController extends Controller
         return $this->redirectToRoute('alt_app_admin_liste_billets');
     }
 
-    public function admin_liste_billetsAction()
+    public function listeBilletsAction()
     {
         $em = $this->getDoctrine()->getManager();
         $billets = $em->getRepository('ALTAppBundle:Billet')->findBy(array(),array("id"=>"desc"));
@@ -181,7 +181,7 @@ class AdminController extends Controller
         ));
     }
 
-    public function admin_liste_contactsAction()
+    public function listeContactsAction()
     {
         $em = $this->getDoctrine()->getManager();
         $contacts = $em->getRepository('ALTAppBundle:Contact')->findBy(array(),array("id"=>"desc"));
@@ -193,7 +193,7 @@ class AdminController extends Controller
         ));
     }
 
-    public function admin_liste_commentairesAction()
+    public function listeCommentairesAction()
     {
         $em = $this->getDoctrine()->getManager();
         $commentaires = $em->getRepository('ALTAppBundle:Commentaire')->findBy(array(),array("id"=>"desc"));
@@ -205,7 +205,7 @@ class AdminController extends Controller
         ));
     }
 
-    public function admin_liste_commentaires_par_idAction($id)
+    public function listeCommentairesParIdAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -223,7 +223,7 @@ class AdminController extends Controller
         ));
     }
 
-    public function admin_supprimer_commentaireAction($id)
+    public function supprimerCommentaireAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -240,7 +240,7 @@ class AdminController extends Controller
         return $this->redirectToRoute('alt_app_admin_liste_commentaires');
     }
 
-    public function publier_billetAction($id){
+    public function publierBilletAction($id){
 
         $em = $this->getDoctrine()->getManager();
 
@@ -255,7 +255,7 @@ class AdminController extends Controller
         return $this->redirectToRoute('alt_app_admin_liste_billets');
     }
 
-    public function depublier_billetAction($id){
+    public function depublierBilletAction($id){
 
         $em = $this->getDoctrine()->getManager();
 
@@ -270,7 +270,7 @@ class AdminController extends Controller
         return $this->redirectToRoute('alt_app_admin_liste_billets');
     }
 
-    public function admin_modifier_commentaireAction($id, Request $request)
+    public function modifierCommentaireAction($id, Request $request)
     {
         // Récupération du commentaire déjà existant, d'id $id.
         $commentaire = $this->getDoctrine()

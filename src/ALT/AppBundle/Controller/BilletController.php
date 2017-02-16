@@ -54,7 +54,7 @@ class BilletController extends Controller
 
     
 
-    public function monblogAction($page)
+    public function monBlogAction($page)
     {
 
         // On ne sait pas combien de pages il y a
