@@ -37,19 +37,6 @@
             </div>
         </div>
 
-
-        <div class="form-group">
-            {# Génération du label. #}
-            {{ form_label(form.titre, "Titre", {'label_attr': {'class': 'col-lg-2 control-label'}}) }}
-
-            {# Affichage des erreurs pour ce champ précis. #}
-            {{ form_errors(form.titre) }}
-
-            <div class="col-lg-5">
-                {# Génération de l'input. #}
-                {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
-            </div>
-        </div>
         <hr>
         <div class="form-group">
             {# Génération du label. #}

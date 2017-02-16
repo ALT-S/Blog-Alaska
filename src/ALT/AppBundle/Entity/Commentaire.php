@@ -44,12 +44,6 @@ class Commentaire
      */
     private $auteur;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="titre", type="string", length=255)
-     */
-    private $titre;
 
     /**
      * @var string
@@ -123,29 +117,7 @@ class Commentaire
         return $this->auteur;
     }
 
-    /**
-     * Set titre
-     *
-     * @param string $titre
-     *
-     * @return Commentaire
-     */
-    public function setTitre($titre)
-    {
-        $this->titre = $titre;
-
-        return $this;
-    }
-
-    /**
-     * Get titre
-     *
-     * @return string
-     */
-    public function getTitre()
-    {
-        return $this->titre;
-    }
+    
 
     /**
      * Set contenu

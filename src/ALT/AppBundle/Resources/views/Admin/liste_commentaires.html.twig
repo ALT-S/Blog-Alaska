@@ -12,7 +12,6 @@
                 <th style="width: 120px">Titre du Billet</th>
                 <th>Auteur</th>
                 <th style="width: 120px">Date</th>
-                <th>Titre</th>
                 <th>Contenu</th>
                 <th style="width:150px;">&nbsp;</th>
             </tr>
@@ -25,7 +24,6 @@
                 <td>{{ commentaire.billet.titre }}</td>
                 <td>{{ commentaire.auteur }}</td>
                 <td>{{ commentaire.date | date('d-m-Y') }}</td>
-                <td>{{ commentaire.titre }}</td>
                 <td>{{ commentaire.contenu }}</td>
                 <td>
                     <a href="{{ path('alt_app_admin_modifier_commentaire', {'id': commentaire.id}) }}" class="btn btn-default">
