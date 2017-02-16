@@ -1,0 +1,177 @@
+* {
+    color: #18344c;
+}
+
+.jumbotron {
+    background-color: #a8eed6;
+    color: white;
+    background-image: url(../image/club.jpg);
+    text-align: center;
+    margin-bottom: 75px;
+    height: 356px;
+}
+
+#menu,h2,h5{
+    color: #428bca;
+}
+
+h2{
+    font-family: ELEGANCE;
+    font-size: 36px;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+
+h1 {
+    margin-top: 193px;
+    margin-bottom: 0;
+    font-family: ELEGANCE;
+}
+
+a {
+    color: #18344c;
+}
+
+a, h3, h4{
+    font-family: fantasy;
+}
+h4{
+    text-decoration: underline;
+}
+a + h3{
+    font-family: "Calisto MT" ;
+}
+.well{
+    color: #102e4d;
+    margin-bottom: 11px;
+    box-shadow: 10px 10px 15px 0px #86b3da;
+    margin-right: 10px;
+}
+
+.monblog_contenu{
+    box-shadow: 6px 6px 19px 0px #c3d8ea;
+    color: #102e4d;
+    margin-top: 10px;
+    margin-right: 10px;
+    padding: 19px;
+    border-radius: 4px;
+
+}
+
+.formContact{
+    color: #102e4d;
+    margin-bottom: 50px;
+    padding: 22px;
+    border-radius: 10px;
+    box-shadow: 10px 10px 15px 0px #86b3da;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+}
+
+
+
+.com{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.com_contenu{
+    color: #18344c;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+h1 + p{
+    color: rgb(230, 234, 237);
+    background-color: #00264a;
+}
+
+@media screen and (max-width: 1200px){
+    .jumbotron {
+        padding-bottom: 5px;
+    }
+}
+
+@media screen and (max-width: 1561px){
+    .jumbotron h1, .jumbotron .h1 {
+        margin-top: 58px;
+    }
+}
+
+.navbar-default .navbar-brand {
+    color: #1e5155;
+    background-color: #a8eed6;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #777;
+}
+
+.navbar-default .navbar-nav>li>a:hover{
+    background-color: #a8eed6;
+}
+
+@media screen and (min-width: 768px){
+    .jumbotron h1, .jumbotron .h1 {
+        font-size: 72px;
+    }
+}
+
+.navbar-default {
+    border-color: #f8f8f8;
+}
+
+.btn {
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+
+
+.container{
+    background-color: #f8f8f8;
+}
+
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    background-color: rgba(2, 33, 66, 0.94);
+}
+
+.Nbr_com  p  {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+.Nbr_com  p a {
+    padding-left: 10px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    color: #166fc3;
+    font-family: fantasy
+}
+
+
+.Nbr_com :hover {
+    color: #d60004;
+
+}
+
+span{
+    text-decoration: underline;
+    color: #18344c;
+    padding-right: 10px;
+    font-family: fantasy
+}
+
+.glyphicon {
+       margin-right: 10px;
+}
+
+p a .btn-default .glyphicon-comment{
+    background-color: #dbe6f1;
+}
+
+.auteur {
+    text-align: center;
+}

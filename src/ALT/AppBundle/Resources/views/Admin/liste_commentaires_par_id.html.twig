@@ -1,0 +1,55 @@
+{% extends '::layout-admin.html.twig' %}
+
+{% block body %}
+
+    <hr>
+    <div class="liste"><h2 >Liste des commentaires du Billet "{{ billet.titre }}"</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+
+
+                <th>Auteur</th>
+                <th style="width: 120px">Date</th>
+                <th>Titre</th>
+                <th >Contenu</th>
+                <th style="width:150px;">&nbsp;</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for commentaire in commentaires %}
+            <tr>
+
+
+                <td>{{ commentaire.auteur }}</td>
+                <td>{{ commentaire.date | date('d-m-Y') }}</td>
+                <td>{{ commentaire.titre }}</td>
+                <td>{{ commentaire.contenu }}</td>
+                <td class="action">
+                    <a href="{{ path('alt_app_admin_modifier_commentaire', {'id': commentaire.id}) }}" class="btn btn-default">
+                        <i class="glyphicon glyphicon-edit"></i>
+                        Modifier le commentaire
+                    </a>
+
+                    <a href="{{ path('alt_app_admin_supprimer_commentaire', {'id': commentaire.id}) }}" class="btn btn-danger">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        Supprimer le commentaire
+                    </a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <hr>
+        <p>
+            <a href="{{ path('alt_app_admin_accueil') }}" class="btn btn-default">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                Retour à la page d'accueil
+            </a>
+        </p>
+    </div>
+{% endblock %}

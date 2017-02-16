@@ -1,0 +1,19 @@
+{% extends "ALTAppBundle::layout.html.twig" %}
+{% block body %}
+
+    <h2>Derniers billets</h2>
+
+    {% for billet in billets %}
+        <h3>
+            <a href="{{ path('alt_app_lecture', {'id': billet.id}) }}">{{ billet.titre }}</a>
+        </h3>
+
+        <p>{{ billet.contenu | truncate(500) }}</p>
+
+        <hr>
+    {% endfor %}
+
+
+{% endblock %}
+
+

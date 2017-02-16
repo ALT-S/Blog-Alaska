@@ -1,0 +1,41 @@
+{% extends "::layout-admin.html.twig" %}
+
+{% block body %}
+    <h3>{{ billet.titre }}</h3>
+    <i>Le {{ billet.date|date('d/m/Y') }}</i>
+
+    <hr>
+
+    <div class="well">
+        {{ billet.contenu }}
+    </div>
+
+
+<div class="com">
+    <h4>Commentaires :</h4>{#nombres de commentaires#}
+    {% for commentaire in billet.commentaires %}
+        <div class="billet-commentaire">
+            <hr>
+            <h5>{{ commentaire.auteur }} <i>, Le {{ commentaire.date | date('d-m-Y') }} </i></h5>
+
+            <div class="com_contenu">{{ commentaire.contenu }}</div>
+        </div>
+    {% endfor %}
+</div>
+
+    <p>
+        <a href="{{ path('alt_app_admin_accueil') }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour à la page d'accueil
+        </a>
+        <a href="{{ path('alt_app_admin_modifier', {'id': billet.id}) }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-edit"></i>
+            Modifier le billet
+        </a>
+        <a href="{{ path('alt_app_admin_supprimer', {'id': billet.id}) }}" class="btn btn-danger">
+            <i class="glyphicon glyphicon-trash"></i>
+            Supprimer le billet
+        </a>
+    </p>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "ALTAppBundle::layout.html.twig" %}
+{% block body %}
+
+    {% for billet in billets %}
+
+        <h2>
+            <a href="{{ path('alt_app_lecture', {'id': billet.id}) }}">{{ billet.titre }}</a>
+        </h2>
+        <i>Le {{ billet.date|date('d/m/Y') }}</i>
+
+        <div class="monblog_contenu">
+            {{ billet.contenu }}
+        </div>
+
+        <div class="Nbr_com row col-lg-offset-9 col-sm-offset-7  ">
+
+        <p class="glyphicon glyphicon-comment"><a href="{{ path('alt_app_lecture', {'id': billet.id}) }}">
+            <span>Nombre de commentaire(s):</span> {{ billet.commentaires | length }}
+            </a>
+        </p>
+
+        </div>
+        <hr>
+    {% endfor %}
+
+
+{% endblock %}

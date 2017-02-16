@@ -1,0 +1,7 @@
+services:
+#    alt_app.example:
+#        class: ALT\AppBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+ alt_app.billet_service:
+        class: ALT\AppBundle\Service\BilletService

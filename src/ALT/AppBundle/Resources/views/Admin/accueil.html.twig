@@ -1,0 +1,17 @@
+{% extends '::layout-admin.html.twig' %}
+
+
+
+{% block body %}
+
+    <h2 class="tableau_bord">Tableau de bord</h2>
+
+    <ul>
+        <li><p>Nombre total de billets : {{ nbBillets }}</p></li>
+        <li><p>Nombre total de commentaires : {{ nbCommentaires }}</p></li>
+        <li><p>Nombre total d'utilisateurs : </p></li>
+        <li><p>Nombre total de demande de contact : </p></li>
+        <li><p>Nombre total de demande de contact en attente de réponse: </p></li>
+
+    </ul>
+{% endblock %}

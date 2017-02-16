@@ -1,0 +1,9 @@
+<ul class="nav nav-pills nav-stacked">
+    {% for billet in listeBillets %}
+        <li>
+            <a href="{{ path('alt_app_lecture', {'id': billet.id}) }}">
+                {{ billet.titre }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>

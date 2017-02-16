@@ -1,0 +1,57 @@
+{% extends "ALTAppBundle::layout.html.twig" %}
+
+{% block texte %}
+
+{% endblock %}
+
+{% block altfront_body %}
+    <h3>{{ billet.titre }}</h3>
+    <i>Le {{ billet.date|date('d/m/Y') }}</i>
+
+    <hr>
+
+    <div class="well">
+        {{ billet.contenu }}
+    </div>
+    <p>
+        {#<a href="{{ path('alt_app_ajouter_commentaire', {'id': billet.id}) }}" class=" row btn btn-default col-lg-offset-10 ">
+            <i class="glyphicon glyphicon-edit"></i>
+            Ajouter un commentaire
+        </a>#}
+    </p>
+
+<div class="com">
+    <div class="Nbr_com_lecture row col-lg-offset-9 col-sm-offset-7  ">
+
+        <p class="glyphicon glyphicon-comment">
+            <span>Nombre de commentaire(s):</span> {{ listeCommentaires | length }}
+        </p>
+
+    </div>
+    <p>
+        <a href="{{ path('alt_app_ajouter_commentaire', {id: billet.id}) }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-comment"></i>
+            Ajouter commentaire
+        </a>
+    </p>
+
+    <h4>Commentaires :</h4>
+
+    {% for commentaire in listeCommentaires %}
+        <div class="billet-commentaire">
+            <hr>
+            <h5>{{ commentaire.auteur }} <i>, Le {{ commentaire.date | date('d-m-Y') }} </i></h5>
+
+            <div class="com_contenu">{{ commentaire.contenu }}</div>
+        </div>
+    {% endfor %}
+</div>
+
+    <p>
+        <a href="{{ path('alt_app_homepage') }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour à la page d'accueil
+         </a>
+    </p>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends '::layout-admin.html.twig' %}
+
+{% block body %}
+
+    {{ form(form) }}
+
+    <p>
+        <a href="{{ path('alt_app_admin_accueil') }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour à la page d'accueil
+        </a>
+    </p>
+
+{% endblock %}

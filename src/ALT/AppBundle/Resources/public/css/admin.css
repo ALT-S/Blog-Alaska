@@ -1,0 +1,99 @@
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    background-color: rgba(2, 33, 66, 0.94);
+}
+.container {
+    background-color: #f8f8f8;
+}
+a, h3, h4{
+    font-family: fantasy;
+}
+* {
+    color: #18344c;
+}
+
+h1{
+    text-align: center;
+    font-family: ELEGANCE;
+    font-size: 36px;
+}
+
+h2{
+    font-family: ELEGANCE;
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+
+table {
+    border: medium solid #102e4d;
+    background-color: rgba(16, 46, 77, 0.29);
+}
+td, th {
+    border: thin solid #6495ed;
+    font-size: 20px;
+}
+.table-striped{
+    background-color: rgba(204, 204, 204, 0.43);
+    box-shadow: 10px 10px 15px 0px #86b3da;
+}
+
+.menu_admin{
+    box-shadow: 10px 10px 15px 0px #86b3da;
+    background-color: #f5f5f5;
+    border: 1px solid #102e4d;
+    color: #102e4d;
+    margin: 50px;
+    padding: 22px;
+}
+
+.liste{
+    margin: 50px;
+    padding: 22px;
+}
+
+.btn-default{
+    margin: 5px;
+}
+
+.glyphicon-ok{
+  color: green;
+}
+
+.glyphicon-remove{
+    color: red;
+}
+
+thead{
+    background-color: #a8c7e2;
+    border: medium solid #102e4d;
+}
+
+.glyphicon {
+    margin-right: 10px;
+}
+
+.action{
+    text-align: center;
+}
+.glyphicon-trash{
+    color: white;
+}
+
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th,
+.table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+
+    vertical-align: middle;
+
+}
+
+.bonjour{
+    vertical-align: middle;
+    margin-top: 19px;
+}
+
+.tableau_bord{
+    text-decoration: underline;
+    padding-bottom: 32px;
+}

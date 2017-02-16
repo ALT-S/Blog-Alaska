@@ -1,0 +1,110 @@
+alt_app_homepage:
+    path:     /
+    defaults:
+        _controller: ALTAppBundle:Front:accueil
+
+alt_app_contact:
+    path:     /contact
+    defaults:
+        _controller: ALTAppBundle:Contact:contact
+
+alt_app_monblog:
+    path:      /blog/{page}
+    defaults:
+        _controller: ALTAppBundle:Billet:monblog
+        page: 1
+    requirements:
+        id: \d+
+
+alt_app_lecture:
+    path:    /lecture/{id}
+    defaults:
+        _controller: ALTAppBundle:Billet:lecture
+    requirements:
+        id: \d+
+
+alt_app_ajouter_commentaire:
+    path:     /billet/{id}/ajouter_commentaire
+    defaults:
+        _controller: ALTAppBundle:Commentaires:ajouter_commentaire
+
+alt_app_admin_ajouter:
+    path:      /admin/billet/ajouter
+    defaults:
+        _controller: ALTAppBundle:Admin:admin_ajouter
+
+alt_app_admin_modifier:
+    path:      /admin/billet/{id}/modifier
+    defaults:
+        _controller: ALTAppBundle:Admin:admin_modifier
+    requirements:
+        id: \d+
+
+alt_app_admin_modifier_commentaire:
+    path:      /admin/commentaire/{id}/modifier_commentaire
+    defaults:
+        _controller: ALTAppBundle:Admin:admin_modifier_commentaire
+    requirements:
+        id: \d+
+
+alt_app_admin_supprimer_commentaire:
+    path:      /admin/commentaire/{id}/supprimer
+    defaults:
+        _controller: ALTAppBundle:Admin:admin_supprimer_commentaire
+    requirements:
+        id: \d+
+
+alt_app_admin_supprimer:
+    path:      /admin/billet/{id}/supprimer
+    defaults:
+        _controller: ALTAppBundle:Admin:admin_supprimer
+    requirements:
+        id: \d+
+
+alt_app_admin_accueil:
+    path: /admin
+    defaults:
+        _controller: ALTAppBundle:Admin:admin_accueil
+
+alt_app_admin_lecture:
+    path:    /admin/billet/{id}
+    defaults:
+        _controller: ALTAppBundle:Admin:admin_lecture
+    requirements:
+        id: \d+
+
+alt_app_admin_liste_billets:
+    path: /admin/billets/liste
+    defaults:
+        _controller: ALTAppBundle:Admin:admin_liste_billets
+
+alt_app_admin_liste_contacts:
+    path: /admin/contacts/liste
+    defaults:
+        _controller: ALTAppBundle:Admin:admin_liste_contacts
+
+alt_app_admin_liste_commentaires:
+    path: /admin/commentaires/liste
+    defaults:
+        _controller: ALTAppBundle:Admin:admin_liste_commentaires
+
+alt_app_admin_liste_commentaires_par_id:
+    path: /admin/commentaires/liste/{id}
+    defaults:
+        _controller: ALTAppBundle:Admin:admin_liste_commentaires_par_id
+    requirements:
+        id: \d+
+
+alt_app_admin_publier_billet:
+    path:    /admin/billet/{id}/publier
+    defaults:
+        _controller: ALTAppBundle:Admin:publier_billet
+    requirements:
+        id: \d+
+
+alt_app_admin_depublier_billet:
+    path:    /admin/billet/{id}/depublier
+    defaults:
+        _controller: ALTAppBundle:Admin:depublier_billet
+    requirements:
+        id: \d+

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}Blog - Billet simple pour l'Alaska{% endblock %}</title>
+
+    {% block stylesheets %}
+        {# On charge le CSS de bootstrap depuis le site directement #}
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ asset('bundles/altapp/css/blog.css') }}">
+    {% endblock %}
+</head>
+
+<body>
+<div class="row container col-lg-offset-1 col-lg-10 col-xs-offset-2 col-xs-10">
+    <div id="header" class="jumbotron">
+        <h1>Mon blog "Billet simple pour l'Alaska"</h1>
+        {% block texte %}<p>
+            Pour ce roman, j'ai souhaité innover et vous faire partager mes écrits,
+            en publiant ces récits par épisodes.
+            Bonne lecture...
+        </p>{% endblock %}
+    </div>
+    <div class="row navbar navbar-default navbar-fixed-top col-lg-offset-1 col-lg-10 col-xs-2">
+        <div class="container-nav">
+            <ul class="nav navbar-nav">
+                <li><a {% if app.request.attributes.get('_route') == 'alt_app_homepage' %}navbar-brand{% endif %} " href="{{ path('alt_app_homepage') }}"><i class=" glyphicon glyphicon-home"></i>Accueil</a></li>
+                <li><a class="{% if app.request.attributes.get('_route') == 'alt_app_monblog' %}navbar-brand{% endif %}" href="{{ path('alt_app_monblog') }}">Mon blog</a></li>
+                <li><a class="{% if app.request.attributes.get('_route') == 'alt_app_contact' %}navbar-brand{% endif %}"href="{{ path('alt_app_contact') }}">Contact</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="row">
+        <div id="menu" class="col-sm-3">
+            <h3>Derniers billets</h3>
+            <ul class="nav nav-pills nav-stacked">
+            <li> {{ render(controller("ALTAppBundle:Billet:menu", {'limit': 3})) }}</li>
+            </ul>
+        </div>
+
+        <div class="col-sm-9">
+
+            {% if app.session.flashBag.has('notice') %}
+                <div class="alert alert-success">
+                    {% for msg in app.session.flashBag.get('notice') %}
+                        {{ msg }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% block body %}
+            {% endblock %}
+        </div>
+
+    </div>
+
+    <hr>
+
+    <footer>
+        <div class="auteur ">
+            <p><span>Jean Forteroche,</span>acteur et écrivain</p>
+        </div>
+    </footer>
+</div>
+
+{% block javascripts %}
+    {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+{% endblock %}
+
+</body>
+</html>
