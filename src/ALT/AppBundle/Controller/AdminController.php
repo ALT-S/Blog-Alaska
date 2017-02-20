@@ -41,10 +41,23 @@ class AdminController extends Controller
 
         $nbCommentaires = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbCommentaires
 
+
+        $qb = $em->getRepository('ALTAppBundle:Contact')->createQueryBuilder('c'); // Création du querybuilder pour l'entité "Contact"
+        $qb->select('COUNT(c.id)'); // On veut récupérer le  nombre de contacts via la fonction COUNT()
+
+        $nbContacts = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbContacts
+
+        $qb = $em->getRepository('ALTAppBundle:Contact')->createQueryBuilder('cr'); // Création du querybuilder pour l'entité "Contact"
+        $qb ->select('COUNT(cr.id)'); // On veut récupérer le  nombre de contacts via la fonction COUNT()
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        $nbContactsAttenteReponse = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbContacts
+
         // On affiche la page qui va afficher l'accueil, on fait passer les paramètres dans la vue
         return $this->render('@ALTApp/Admin/accueil.html.twig', array(
             'nbBillets' => $nbBillets,
-            'nbCommentaires' => $nbCommentaires
+            'nbCommentaires' => $nbCommentaires,
+            'nbContacts' => $nbContacts,
+            'nbContactsAttenteReponse' => $nbContactsAttenteReponse
         ));
     }
 
@@ -405,34 +418,9 @@ class AdminController extends Controller
 
     public function lectureContactReponseAction(Contact $contact)
     {
-        $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
-
-        $qb = $em->getRepository('ALTAppBundle:Contact')->createQueryBuilder('c'); // Création du querybuilder pour l'entité "Contact"
-        $qb->select('COUNT(c.id)'); // On veut récupérer le  nombre de contacts via la fonction COUNT()
-
-        $nbContacts = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbContacts
-
-        $this->render('@ALTApp/Admin/accueil.html.twig', array(
-
-            'nbContacts' => $nbContacts,));
-
         // On affiche la page qui va afficher la lecture de billet, on fait passer le paramètre dans la vue
         return $this->render('ALTAppBundle:Admin:lecture_contact_reponse.html.twig', array(
             'contact' => $contact,
         ));
-    }
-
-    public function nbAction(Contact $contact)
-    {
-        $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
-
-        $qb = $em->getRepository('ALTAppBundle:Contact')->createQueryBuilder('c'); // Création du querybuilder pour l'entité "Contact"
-        $qb->select('COUNT(c.id)'); // On veut récupérer le  nombre de contacts via la fonction COUNT()
-
-        $nbContacts = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbContacts
-
-        return $this->render('@ALTApp/Admin/accueil.html.twig', array(
-            'nbContacts' => $nbContacts,
-            ));
     }
 }
