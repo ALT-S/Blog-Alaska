@@ -14,16 +14,21 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CommentairesController extends Controller
 {
+    /**
+     * Récupération de billets via ParamConverter
+     *
+     * @param Billet $billet
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function ajouterCommentaireAction(Billet $billet, Request $request)
     {
+        $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
 
-        $em = $this->getDoctrine()->getManager();
-        
-        // Création de l'entité - objet Billet
-        $commentaire = new Commentaire();
+        $commentaire = new Commentaire();// Création de l'entité - objet Commentaire
 
-        $commentaire->setBillet($billet); // lier billet au commentaire
-        $commentaire->setDate(new \Datetime()); // préremplit date du jour
+        $commentaire->setBillet($billet); // On lie le billet au commentaire
+        $commentaire->setDate(new \Datetime()); // On préremplit date du jour
 
         //Création du formulaire "FormBuilder" par le service form factory
         $form= $this->get('form.factory')->createBuilder(FormType::class, $commentaire)
@@ -43,15 +48,14 @@ class CommentairesController extends Controller
             // On vérifie que les valeurs entrées sont correctes
             if ($form->isValid()) {
                 // On enregistre notre objet $billet dans la base de données
-                // On récupère l'EntityManager
+                // On a déjà récupèré l'EntityManager pour dialoguer avec la base de données
+                $em->persist($commentaire);// puis on « persiste » l'entité, garde cette entité en mémoire
+                $em->flush();// Et on déclenche l'enregistrement
 
-                $em->persist($commentaire);
-                // On déclenche l'enregistrement
-                $em->flush();
-
+                // Création du « flashBag » qui contient les messages flash
                 $this->addFlash('notice', 'Le commentaire a bien été enregistré !');
 
-                // On redirige vers la page de visualisation du billet crée
+                // On redirige vers la page qui va afficher la lecture du billet on fait passer le paramètre dans la vue
                 return $this->redirectToRoute('alt_app_lecture', array('id' => $billet->getId()));
             }
         }
@@ -59,10 +63,10 @@ class CommentairesController extends Controller
         // À ce stade, le formulaire n'est pas valide car :
         // - Soit la requête est de type GET, donc le visiteur vient d'arriver sur la page et veut voir le formulaire
         // - Soit la requête est de type POST, mais le formulaire contient des valeurs invalides, donc on l'affiche de nouveau
+        // Donc on affiche la page qui va afficher ajouter un commentaire, on fait passer le paramètre form dans la vue
         return $this->render('ALTAppBundle:Billet:ajout_commentaire.html.twig', array(
             'form' => $form->createView(),
         ));
-
     }
 
     public function modifierCommentaireAction($id)
