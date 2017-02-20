@@ -9,8 +9,8 @@
 namespace ALT\AppBundle\Controller;
 
 
-
 use ALT\AppBundle\Entity\Billet;
+use ALT\AppBundle\Entity\Commentaire;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -19,7 +19,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AdminController extends Controller
 {
@@ -102,14 +101,9 @@ class AdminController extends Controller
     }
 
 
-    public function modifierAction($id, Request $request)
+    public function modifierAction(Billet $billet, Request $request)
     {
-        // Récupération d'un billet déjà existant, d'id $id.
-        $billet = $this->getDoctrine()
-            ->getManager()
-            ->getRepository('ALTAppBundle:Billet')
-            ->find($id)
-        ;
+        // Récupération d'un billet déjà existant par ParamConverter
 
         // Et on construit le formBuilder avec l' instance du billet
         $form= $this->get('form.factory')->createBuilder(FormType::class, $billet)
@@ -135,7 +129,7 @@ class AdminController extends Controller
                 $em->flush();
             }
 
-            $request->getSession()->getFlashBag()->add('notice', 'Le billet a bien été modifié !');
+            $this->addFlash('notice', 'Le billet a bien été modifié !');
 
             // On redirige vers la page de visualisation du billet crée
             return $this->redirectToRoute('alt_app_admin_liste_billets');
@@ -149,18 +143,9 @@ class AdminController extends Controller
         ));
     }
 
-    public function supprimerAction($id)
+    public function supprimerAction(Billet $billet)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $billet = $em->getRepository('ALTAppBundle:Billet')->find($id);
-
-        // Vérifie que le billet existe, sinon 404
-        //si le billet est nul ou n'existe pas, on affiche un message
-        if (null === $billet) {
-            throw new NotFoundHttpException("L'annonce d'id ".$id." n'existe pas.");
-        }
-
         $em->remove($billet);
         $em->flush();
 
@@ -205,31 +190,20 @@ class AdminController extends Controller
         ));
     }
 
-    public function listeCommentairesParIdAction($id)
+    public function listeCommentairesParIdAction(Billet $billet)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $billet = $em->getRepository('ALTAppBundle:Billet')->find($id);
-
-
-        $em = $this->getDoctrine()->getManager();
         $commentaires = $em->getRepository('ALTAppBundle:Commentaire')->findBy(array('billet' => $billet),array("id"=>"desc"));
-
 
         return $this->render('ALTAppBundle:Admin:liste_commentaires_par_id.html.twig', array(
             'commentaires' => $commentaires,
             'billet'           => $billet
-
         ));
     }
 
-    public function supprimerCommentaireAction($id)
+    public function supprimerCommentaireAction(Commentaire $commentaire)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $commentaire = $em->getRepository('ALTAppBundle:Commentaire')->find($id);
-
-
         $em->remove($commentaire);
         $em->flush();
 
@@ -240,11 +214,9 @@ class AdminController extends Controller
         return $this->redirectToRoute('alt_app_admin_liste_commentaires');
     }
 
-    public function publierBilletAction($id){
+    public function publierBilletAction(Billet $billetPublie){
 
         $em = $this->getDoctrine()->getManager();
-
-        $billetPublie = $em->getRepository('ALTAppBundle:Billet')->find($id);
         $billetPublie->setPublier(true);
         $em->flush();
 
@@ -255,11 +227,9 @@ class AdminController extends Controller
         return $this->redirectToRoute('alt_app_admin_liste_billets');
     }
 
-    public function depublierBilletAction($id){
+    public function depublierBilletAction(Billet $billetPublie){
 
         $em = $this->getDoctrine()->getManager();
-
-        $billetPublie = $em->getRepository('ALTAppBundle:Billet')->find($id);
         $billetPublie->setPublier(false);
         $em->flush();
 
@@ -270,15 +240,8 @@ class AdminController extends Controller
         return $this->redirectToRoute('alt_app_admin_liste_billets');
     }
 
-    public function modifierCommentaireAction($id, Request $request)
+    public function modifierCommentaireAction(Commentaire $commentaire, Request $request)
     {
-        // Récupération du commentaire déjà existant, d'id $id.
-        $commentaire = $this->getDoctrine()
-            ->getManager()
-            ->getRepository('ALTAppBundle:Commentaire')
-            ->find($id)
-        ;
-
         // Et on construit le formBuilder avec l' instance du commentaire
         $form= $this->get('form.factory')->createBuilder(FormType::class, $commentaire)
             // On ajoute les champs de l'entité que l'on veut à notre formulaire
@@ -302,7 +265,7 @@ class AdminController extends Controller
                 $em->flush();
             }
 
-            $request->getSession()->getFlashBag()->add('notice', 'Le commentaire a bien été modifié !');
+            $this->addFlash('notice', 'Le commentaire a bien été modifié !');
 
             // On redirige vers la page de visualisation du billet crée
             return $this->redirectToRoute('alt_app_admin_liste_commentaires');
