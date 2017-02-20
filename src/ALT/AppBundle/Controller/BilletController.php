@@ -71,7 +71,7 @@ class BilletController extends Controller
         $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
 
         // On récupère le répository de l'entité Billet, on lui appelle la méthode "findBy"
-        // pour récupérer lesbillets depuis notre base de données, triés par "id" en ordre descendant
+        // pour récupérer les billets depuis notre base de données, triés par "id" en ordre descendant
         // avec en paramètre une limite de 5 billets
         $listeBillets = $em->getRepository('ALTAppBundle:Billet')->findBy(array(),array("id"=>"desc"),5);
 

@@ -15,6 +15,10 @@ use Symfony\Component\Validator\Constraints\Email;
 
 class ContactController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function contactAction(Request $request)
     {
         $contact = new Contact();// Création de l'entité - objet Contact
