@@ -75,7 +75,6 @@ class AdminController extends Controller
             ->add('date',      DateType::class)
             ->add('titre',     TextType::class)
             ->add('contenu',   TextareaType::class)
-           // ->add('auteur',    TextType::class)
             ->add('publier', CheckboxType::class, array('required' => false))
             ->add('enregistrer',      SubmitType::class)
             ->getForm()
@@ -325,14 +324,13 @@ class AdminController extends Controller
         // Si la requête est en POST
         if ($request->isMethod('POST')) {
             // On fait le lien Requête <-> Formulaire
-            // À partir de maintenant, la variable $billet contient les valeurs entrées dans le formulaire par le visiteur
+            // À partir de maintenant, la variable $commentaire contient les valeurs entrées dans le formulaire par le visiteur
             $form->handleRequest($request);
 
             // On vérifie que les valeurs entrées sont correctes
             if ($form->isValid()) {
-                // On enregistre notre objet $billet dans la base de données
+                // On enregistre notre objet $commentaire dans la base de données
                 $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
-                $em->persist($commentaire);// puis on « persiste » l'entité, garde cette entité en mémoire
                 $em->flush();// Et on déclenche l'enregistrement
             }
 

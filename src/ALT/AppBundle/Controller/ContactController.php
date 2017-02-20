@@ -17,10 +17,9 @@ class ContactController extends Controller
 {
     public function contactAction(Request $request)
     {
-        // Création de l'entité - objet Billet
-        $contact = new Contact();
-        // préremplit date du jour
-        $contact->setDate(new \Datetime());
+        $contact = new Contact();// Création de l'entité - objet Contact
+        $contact->setDate(new \Datetime());// On préremplit date du jour
+
         //Création du formulaire "FormBuilder" par le service form factory
         $formContact= $this->get('form.factory')->createBuilder(FormType::class, $contact)
             // On ajoute les champs de l'entité que l'on veut à notre formulaire
@@ -42,24 +41,26 @@ class ContactController extends Controller
 
             // On vérifie que les valeurs entrées sont correctes
             if ($formContact->isSubmitted() && $formContact->isValid()) {
-                // On enregistre notre objet $billet dans la base de données
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($contact);
-                $em->flush();
+                // On enregistre notre objet $contact dans la base de données
+                $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
+                $em->persist($contact);// puis on « persiste » l'entité, garde cette entité en mémoire
+                $em->flush();// Et on déclenche l'enregistrement
 
-
+                // Création de l'e-mail avec SwiftMailer
                 $message = \Swift_Message::newInstance()
-                    ->setContentType('text/html')
-                    ->setSubject($contact->getSujet())
-                    ->setFrom($contact->getEmail())
-                    ->setTo($this-> getParameter('mailer_user'))
-                    ->setBody($contact->getContenu());
+                    ->setContentType('text/html')//Message en HTML
+                    ->setSubject("Contact de :".$contact->getEmail()." : ".$contact->getSujet())//Email et le titre du mail devient le sujet de mon objet contact
+                    ->setFrom($this-> getParameter('mailer_user'))// Email de l'expéditeur est le destinataire du mail
+                    ->setTo($this-> getParameter('mailer_user')) // destinataire du mail
+                    ->setBody($contact->getContenu()); // contenu du mail
 
+                //Envoi mail
                 $this->get('mailer')->send($message);
 
+                // Création du « flashBag » qui contient les messages flash
                 $this->addFlash('notice', 'Votre message a bien été envoyé !');
 
-                // On redirige vers la page de visualisation du billet crée
+                // On redirige vers la page qui va afficher contact
                 return $this->redirectToRoute('alt_app_contact');
             }
         }
@@ -67,6 +68,7 @@ class ContactController extends Controller
         // À ce stade, le formulaire n'est pas valide car :
         // - Soit la requête est de type GET, donc le visiteur vient d'arriver sur la page et veut voir le formulaire
         // - Soit la requête est de type POST, mais le formulaire contient des valeurs invalides, donc on l'affiche de nouveau
+        // Donc on affiche la page qui va afficher contact, on fait passer le paramètre formContact  dans la vue
         return $this->render('ALTAppBundle:Front:contact.html.twig', array(
             'form' => $formContact->createView(),
         ));
