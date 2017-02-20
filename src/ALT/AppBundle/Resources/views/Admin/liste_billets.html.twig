@@ -27,7 +27,7 @@
                         </a>
                     </h4>
                 </td>
-                <td>{{ billet.date | date('d-m-Y') }}</td>
+                <td>{{ billet.date | date('d-m-Y H:i:s') }}</td>
                 <td>
                     {% if billet.publier == 1 %}
                         <span class="glyphicon glyphicon-ok"></span>
