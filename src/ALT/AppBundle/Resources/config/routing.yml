@@ -108,3 +108,17 @@ alt_app_admin_depublier_billet:
         _controller: ALTAppBundle:Admin:depublierBillet
     requirements:
         id: \d+
+
+alt_app_admin_contact_repondre:
+    path:     /admin/contact/{id}/repondre
+    defaults:
+        _controller: ALTAppBundle:Admin:reponseContact
+    requirements:
+        id: \d+
+
+alt_app_admin_contact_lecture:
+    path:     /admin/contact/{id}/lecture
+    defaults:
+        _controller: ALTAppBundle:Admin:lectureContactReponse
+    requirements:
+        id: \d+

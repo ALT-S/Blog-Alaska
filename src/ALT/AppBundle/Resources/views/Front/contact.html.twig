@@ -11,18 +11,6 @@
         {{ form_errors(form) }}
 
 
-        <div class="form-group">
-            {# Génération du label. #}
-            {{ form_label(form.date, "Date", {'label_attr': {'class': 'col-lg-2 control-label'}}) }}
-
-            {# Affichage des erreurs pour ce champ précis. #}
-            {{ form_errors(form.date) }}
-
-            <div class="col-lg-5">
-                {# Génération de l'input. #}
-                {{ form_widget(form.date) }}
-            </div>
-        </div>
         {# Génération manuelle et éclatée : #}
         <div class="form-group">
             {# Génération du label. #}
@@ -83,7 +71,7 @@
 
             <div class="col-lg-10">
                 {# Génération de l'input. #}
-                {{ form_widget(form.contenu, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.contenu, {'attr': {'rows': 12, 'class': 'form-control'}}) }}
             </div>
         </div>
         {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}

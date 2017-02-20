@@ -13,8 +13,8 @@
                 <th>Email</th>
                 <th style="width: 120px">Date</th>
                 <th>Sujet</th>
-                <th>Contenu</th>
                 <th style="width:150px;">&nbsp;</th>
+
             </tr>
         </thead>
 
@@ -22,21 +22,24 @@
             {% for contact in contacts %}
             <tr>
 
-                <td>{{ contact.nom }}{{ contact.prenom }}</td>
+                <td>{{ contact.nom }} {{ contact.prenom }}</td>
                 <td>{{ contact.email }}</td>
-                <td>{{ contact.date | date('d-m-Y') }}</td>
+                <td>{{ contact.date | date('d-m-Y H:i:s') }}</td>
                 <td>{{ contact.sujet }}</td>
-                <td>{{ contact.contenu }}</td>
                 <td class="action">
-                    {% if contact.reponse == 1 %}
+                    {% if contact.dateReponse %}
                             <i class="glyphicon glyphicon-ok"></i>
+                        <a href="{{ path('alt_app_admin_contact_lecture', {id: contact.id}) }}">
+                        {{ contact.dateReponse | date('d-m-Y H:i:s') }}
+                            </a>
                     {% else %}
-                        <a href="#" class="btn btn-default">
+                        <a href="{{ path('alt_app_admin_contact_repondre', {id: contact.id}) }}" class="btn btn-default">
                             <i class="glyphicon glyphicon-edit"></i>
                             Répondre
                         </a>
                     {% endif %}
                 </td>
+
             </tr>
             {% endfor %}
         </tbody>

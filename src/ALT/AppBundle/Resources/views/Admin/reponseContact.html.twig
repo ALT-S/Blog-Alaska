@@ -1,0 +1,30 @@
+{% extends '::layout-admin.html.twig' %}
+
+{% block body %}
+
+    <em style="text-decoration: underline; font-weight: bold">De</em> : {{ contact.prenom }} {{ contact.nom }}<br>
+    <em style="text-decoration: underline; font-weight: bold">Titre</em> : {{ contact.sujet }}<br><br>
+    <em style="text-decoration: underline; font-weight: bold">Contenu</em> : {{ contact.contenu }}
+    <hr>
+    <div>
+        <h3 style="font-family: ELEGANCE;font-size: 26px;">Bonjour {{ contact.prenom }} {{ contact.nom }},</h3>
+        <div class="form-group">
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(form.contenuReponse) }}
+
+            <div>
+                {# Génération de l'input. #}
+                {{ form_widget(form.contenuReponse, {'attr': {'rows': 12, 'class': 'form-control'}}) }}
+            </div>
+            <div>
+                {# Génération de l'input. #}
+                {{ form_widget(form.enregistrer, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div>
+        <p style="font-style: italic">Jean Forteroche</p>
+    </div>
+
+{% endblock %}

@@ -5,6 +5,8 @@ body {
 .container {
     background-color: #f8f8f8;
 }
+
+
 a, h3, h4{
     font-family: fantasy;
 }
@@ -44,14 +46,11 @@ td, th {
     background-color: #f5f5f5;
     border: 1px solid #102e4d;
     color: #102e4d;
-    margin: 50px;
-    padding: 22px;
+    margin: 15px;
+    padding: 22px 0 22px 22px;
+
 }
 
-.liste{
-    margin: 50px;
-    padding: 22px;
-}
 
 .btn-default{
     margin: 5px;
@@ -90,10 +89,14 @@ thead{
 
 .bonjour{
     vertical-align: middle;
-    margin-top: 19px;
+    margin-top: 80px;
 }
 
 .tableau_bord{
     text-decoration: underline;
     padding-bottom: 32px;
+}
+
+.col-sm-9{
+    padding-right: 70px;
 }

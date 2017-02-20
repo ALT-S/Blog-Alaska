@@ -11,6 +11,7 @@ namespace ALT\AppBundle\Controller;
 
 use ALT\AppBundle\Entity\Billet;
 use ALT\AppBundle\Entity\Commentaire;
+use ALT\AppBundle\Entity\Contact;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -347,5 +348,91 @@ class AdminController extends Controller
         return $this->render('ALTAppBundle:Admin:modifier.html.twig', array(
             'form' => $form->createView(),
         ));
+    }
+
+    public function reponseContactAction(Contact $contact, Request $request)
+    {
+
+        // Et on construit le formBuilder avec l' instance du contact
+        $form = $this->get('form.factory')->createBuilder(FormType::class, $contact)
+            // On ajoute les champs de l'entité que l'on veut à notre formulaire
+            ->add('contenuReponse',      TextareaType::class)
+            ->add('enregistrer',      SubmitType::class)
+            ->getForm()
+        ;
+
+        // Si la requête est en POST
+        if ($request->isMethod('POST')) {
+            // On fait le lien Requête <-> Formulaire
+            // À partir de maintenant, la variable $contact contient les valeurs entrées dans le formulaire par le visiteur
+            $form->handleRequest($request);
+
+            // On vérifie que les valeurs entrées sont correctes
+            if ($form->isValid()) {
+                $contact->setDateReponse(new \DateTime());
+
+                // On enregistre notre objet $contact  dans la base de données
+                $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
+                $em->flush();// Et on déclenche l'enregistrement
+
+                // Création de l'e-mail avec SwiftMailer
+                $message = \Swift_Message::newInstance()
+                    ->setContentType('text/html')//Message en HTML
+                    ->setSubject("Réponse à : ".$contact->getSujet())//Email et le titre du mail devient le sujet de mon objet contact
+                    ->setFrom($this-> getParameter('mailer_user'))// Email de l'expéditeur - nous
+                    ->setTo($contact->getEmail()) // destinataire du mail
+                    ->setBody($this->renderView('@ALTApp/Admin/mail_reponse_contact.html.twig', array(
+                        'contact' => $contact
+                    ))); // contenu réponse du mail + contenu constact
+
+                //Envoi mail
+                $this->get('mailer')->send($message);
+            }
+
+            // Création du « flashBag » qui contient les messages flash
+            $this->addFlash('notice', 'Le réponse a bien été envoyée !');
+
+            // On redirige vers la page qui va afficher la liste des contacts
+            return $this->redirectToRoute('alt_app_admin_liste_contacts');
+        }
+
+        return $this->render('ALTAppBundle:Admin:reponseContact.html.twig', array(
+            'contact' => $contact,
+            'form' => $form->createView(),
+        ));
+
+    }
+
+    public function lectureContactReponseAction(Contact $contact)
+    {
+        $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
+
+        $qb = $em->getRepository('ALTAppBundle:Contact')->createQueryBuilder('c'); // Création du querybuilder pour l'entité "Contact"
+        $qb->select('COUNT(c.id)'); // On veut récupérer le  nombre de contacts via la fonction COUNT()
+
+        $nbContacts = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbContacts
+
+        $this->render('@ALTApp/Admin/accueil.html.twig', array(
+
+            'nbContacts' => $nbContacts,));
+
+        // On affiche la page qui va afficher la lecture de billet, on fait passer le paramètre dans la vue
+        return $this->render('ALTAppBundle:Admin:lecture_contact_reponse.html.twig', array(
+            'contact' => $contact,
+        ));
+    }
+
+    public function nbAction(Contact $contact)
+    {
+        $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
+
+        $qb = $em->getRepository('ALTAppBundle:Contact')->createQueryBuilder('c'); // Création du querybuilder pour l'entité "Contact"
+        $qb->select('COUNT(c.id)'); // On veut récupérer le  nombre de contacts via la fonction COUNT()
+
+        $nbContacts = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbContacts
+
+        return $this->render('@ALTApp/Admin/accueil.html.twig', array(
+            'nbContacts' => $nbContacts,
+            ));
     }
 }

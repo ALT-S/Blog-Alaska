@@ -175,3 +175,6 @@ p a .btn-default .glyphicon-comment{
 .auteur {
     text-align: center;
 }
+.col-sm-9{
+    padding-right: 70px;
+}

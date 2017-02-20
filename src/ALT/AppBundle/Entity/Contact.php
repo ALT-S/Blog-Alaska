@@ -63,6 +63,22 @@ class Contact
      */
     private $contenu;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contenu_reponse", type="text", nullable=true)
+     */
+    private $contenuReponse;
+
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_reponse", type="datetime", nullable=true)
+     */
+    private $dateReponse;
+
 //constructeur pour définir une date par défaut
     public function __construct()
     {
@@ -222,5 +238,31 @@ class Contact
     public function getPrenom()
     {
         return $this->prenom;
+    }
+
+   
+    public function setDateReponse($dateReponse)
+    {
+        $this->dateReponse = $dateReponse;
+
+        return $this;
+    }
+
+
+    public function getDateReponse()
+    {
+        return $this->dateReponse;
+    }
+
+    public function setContenuReponse($reponse)
+    {
+        $this->contenuReponse = $reponse;
+
+        return $this;
+    }
+
+    public function getContenuReponse()
+    {
+        return $this->contenuReponse;
     }
 }

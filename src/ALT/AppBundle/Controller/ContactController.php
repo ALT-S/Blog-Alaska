@@ -27,7 +27,6 @@ class ContactController extends Controller
         //Création du formulaire "FormBuilder" par le service form factory
         $formContact= $this->get('form.factory')->createBuilder(FormType::class, $contact)
             // On ajoute les champs de l'entité que l'on veut à notre formulaire
-            ->add('date',      DateType::class)
             ->add('nom',    TextType::class)
             ->add('prenom',    TextType::class)
             ->add('email',    EmailType::class, array('constraints' =>(array(new Email())))  )
