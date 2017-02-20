@@ -14,15 +14,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CommentairesController extends Controller
 {
-    public function ajouterCommentaireAction($id, Request $request)
+    public function ajouterCommentaireAction(Billet $billet, Request $request)
     {
 
         $em = $this->getDoctrine()->getManager();
-        // par le repository, on récupère l'entité correspondante au billet avec l'id : $id
-        // ($billet est une instance de JF\BlogBundle\Entity\Billet)
-        $billet = $em->getRepository('ALTAppBundle:Billet')->find($id);
-
-
+        
         // Création de l'entité - objet Billet
         $commentaire = new Commentaire();
 
@@ -53,7 +49,7 @@ class CommentairesController extends Controller
                 // On déclenche l'enregistrement
                 $em->flush();
 
-                $request->getSession()->getFlashBag()->add('notice', 'Le commentaire a bien été enregistré !');
+                $this->addFlash('notice', 'Le commentaire a bien été enregistré !');
 
                 // On redirige vers la page de visualisation du billet crée
                 return $this->redirectToRoute('alt_app_lecture', array('id' => $billet->getId()));
