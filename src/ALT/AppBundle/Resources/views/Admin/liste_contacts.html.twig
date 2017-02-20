@@ -3,42 +3,40 @@
 {% block body %}
 
     <hr>
-    <div class="liste"><h2 >Liste des commentaires</h2>
+    <div class="liste"><h2 >Liste des demandes de contacts</h2>
 
     <table class="table table-striped">
         <thead>
             <tr>
 
-                <th style="width: 120px">Titre du Billet</th>
-                <th>Auteur</th>
+                <th style="width: 120px">Nom / Prénom</th>
+                <th>Email</th>
                 <th style="width: 120px">Date</th>
-                <th>Titre</th>
+                <th>Sujet</th>
                 <th>Contenu</th>
                 <th style="width:150px;">&nbsp;</th>
             </tr>
         </thead>
 
         <tbody>
-            {% for commentaire in commentaires %}
+            {% for contact in contacts %}
             <tr>
 
-                <td>{{ commentaire.billet.titre }}</td>
-                <td>{{ commentaire.auteur }}</td>
-                <td>{{ commentaire.date | date('d-m-Y') }}</td>
-                <td>{{ commentaire.titre }}</td>
-                <td>{{ commentaire.contenu }}</td>
-                <td>
-                    <a href="{{ path('alt_app_admin_modifier_commentaire', {'id': commentaire.id}) }}" class="btn btn-default">
-                        <i class="glyphicon glyphicon-edit"></i>
-                        Modifier le commentaire
-                    </a>
-
-                    <a href="{{ path('alt_app_admin_supprimer_commentaire', {'id': commentaire.id}) }}" class="btn btn-danger">
-                        <i class="glyphicon glyphicon-trash"></i>
-                        Supprimer le commentaire
-                    </a>
+                <td>{{ contact.nom }}{{ contact.prenom }}</td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.date | date('d-m-Y') }}</td>
+                <td>{{ contact.sujet }}</td>
+                <td>{{ contact.contenu }}</td>
+                <td class="action">
+                    {% if contact.reponse == 1 %}
+                            <i class="glyphicon glyphicon-ok"></i>
+                    {% else %}
+                        <a href="#" class="btn btn-default">
+                            <i class="glyphicon glyphicon-edit"></i>
+                            Répondre
+                        </a>
+                    {% endif %}
                 </td>
-
             </tr>
             {% endfor %}
         </tbody>
