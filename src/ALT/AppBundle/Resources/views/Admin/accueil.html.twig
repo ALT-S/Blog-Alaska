@@ -6,11 +6,27 @@
 
     <h2 class="tableau_bord">Tableau de bord</h2>
 
-    <ul>
-        <li><p>Nombre total de billets : {{ nbBillets }}</p></li>
-        <li><p>Nombre total de commentaires : {{ nbCommentaires }}</p></li>
-        <li><p>Nombre total de messages : {{ nbContacts }} </p></li>
-        <li><p>Nombre total de messages en attente de réponse: {{ nbContactsAttenteReponse }}</p></li>
+    <ul class="liste_accueil">
+        <li>
+            <a href="{{ path('alt_app_admin_liste_billets') }}">
+                <p>Nombre total de billets : {{ nbBillets }}</p>
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('alt_app_admin_liste_commentaires') }}">
+                <p>Nombre total de commentaires : {{ nbCommentaires }}</p>
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('alt_app_admin_liste_contacts') }}">
+                <p>Nombre total de messages : {{ nbContacts }} </p>
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('alt_app_admin_liste_contacts_attente_reponse') }}">
+                <p>Nombre total de messages en attente de réponse: {{ nbContactsAttenteReponse }}</p>
+            </a>
+        </li>
 
     </ul>
 {% endblock %}

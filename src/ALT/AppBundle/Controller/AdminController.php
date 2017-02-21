@@ -48,9 +48,11 @@ class AdminController extends Controller
         $nbContacts = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbContacts
 
         $qb = $em->getRepository('ALTAppBundle:Contact')->createQueryBuilder('cr'); // Création du querybuilder pour l'entité "Contact"
-        $qb ->select('COUNT(cr.id)'); // On veut récupérer le  nombre de contacts via la fonction COUNT()
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        $qb ->andWhere($qb->expr()->isNull('cr.dateReponse'))
+            ->select('COUNT(cr.id)'); // On veut récupérer le  nombre de contacts via la fonction COUNT()
+
         $nbContactsAttenteReponse = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbContacts
+
 
         // On affiche la page qui va afficher l'accueil, on fait passer les paramètres dans la vue
         return $this->render('@ALTApp/Admin/accueil.html.twig', array(
@@ -224,6 +226,19 @@ class AdminController extends Controller
         ));
     }
 
+    public function listeContactsAttenteAction()
+    {
+        $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
+        // On récupère le répository de l'entité Contact, on lui appelle la méthode "findBy"
+        // pour récupérer des contacts depuis notre base de données, triés par "id" en ordre descendant.
+        $contacts = $em->getRepository('ALTAppBundle:Contact')->findBy(array(),array("id"=>"desc"));
+
+        // On affiche la page qui va afficher la liste des contacts, on fait passer le paramètre dans la vue
+        return $this->render('ALTAppBundle:Admin:liste_contacts_attente_reponse.html.twig', array(
+            'contacts' => $contacts,
+        ));
+    }
+    
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */

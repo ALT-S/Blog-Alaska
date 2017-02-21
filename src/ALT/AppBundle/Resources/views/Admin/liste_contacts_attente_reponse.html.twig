@@ -1,0 +1,58 @@
+{% extends '::layout-admin.html.twig' %}
+
+{% block body %}
+
+    <hr>
+    <div class="liste"><h2 >En attente de réponses</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+
+                <th style="width: 120px">Nom / Prénom</th>
+                <th>Email</th>
+                <th style="width: 120px">Date</th>
+                <th>Sujet</th>
+                <th style="width:150px;">&nbsp;</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for contact in contacts %}
+                {% if contact.dateReponse == NULL %}
+            <tr>
+
+                <td>{{ contact.nom }} {{ contact.prenom }}</td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.date | date('d-m-Y H:i:s') }}</td>
+                <td>{{ contact.sujet }}</td>
+                <td class="action">
+                    {% if contact.dateReponse %}
+                            <i class="glyphicon glyphicon-ok"></i>
+                        <a href="{{ path('alt_app_admin_contact_lecture', {id: contact.id}) }}">
+                        {{ contact.dateReponse | date('d-m-Y H:i:s') }}
+                            </a>
+                    {% else %}
+                        <a href="{{ path('alt_app_admin_contact_repondre', {id: contact.id}) }}" class="btn btn-default">
+                            <i class="glyphicon glyphicon-edit"></i>
+                            Répondre
+                        </a>
+                    {% endif %}
+                </td>
+
+            </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <hr>
+        <p>
+            <a href="{{ path('alt_app_admin_accueil') }}" class="btn btn-default">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                Retour à la page d'accueil
+            </a>
+        </p>
+    </div>
+{% endblock %}
