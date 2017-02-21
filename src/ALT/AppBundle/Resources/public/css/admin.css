@@ -100,11 +100,12 @@ thead{
 }
 
 .liste_accueil, p {
-    list-style: none;
-    color: #428bca;
+    color: #18344c;
     padding-bottom: 10px;
+    font-size: 18px;
+    font-family: ELEGANCE,Helvetica,Arial,sans-serif;
 }
 
 .liste_accueil p:hover{
-    color: #18344c;
+    color: #428bca;
 }
