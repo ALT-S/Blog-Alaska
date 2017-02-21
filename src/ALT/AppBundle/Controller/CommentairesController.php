@@ -33,7 +33,6 @@ class CommentairesController extends Controller
         //Création du formulaire "FormBuilder" par le service form factory
         $form= $this->get('form.factory')->createBuilder(FormType::class, $commentaire)
             // On ajoute les champs de l'entité que l'on veut à notre formulaire
-            ->add('date',      DateType::class)
             ->add('auteur',    TextType::class)
             ->add('contenu',   TextareaType::class)
             ->add('enregistrer',      SubmitType::class)
