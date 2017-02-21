@@ -12,14 +12,25 @@
 
 
 <div class="com">
-    <h4>Commentaires :</h4>{#nombres de commentaires#}
+    <h4>{{ billet.commentaires.count }} Commentaires :</h4>
     {% for commentaire in billet.commentaires %}
+
         <div class="billet-commentaire">
             <hr>
             <h5>{{ commentaire.auteur }} <i>, Le {{ commentaire.date | date('d-m-Y') }} </i></h5>
 
             <div class="com_contenu">{{ commentaire.contenu }}</div>
         </div>
+        <a href="{{ path('alt_app_admin_modifier_commentaire', {'id': commentaire.id}) }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-edit"></i>
+            Modifier
+        </a>
+
+        <a href="{{ path('alt_app_admin_supprimer_commentaire', {'id': commentaire.id}) }}" class="btn btn-danger">
+            <i class="glyphicon glyphicon-trash"></i>
+            Supprimer
+        </a>
+        <hr>
     {% endfor %}
 </div>
 

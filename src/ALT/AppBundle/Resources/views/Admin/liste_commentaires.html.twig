@@ -2,7 +2,6 @@
 
 {% block body %}
 
-    <hr>
     <div class="liste"><h2 >Liste des commentaires</h2>
 
     <table class="table table-striped">
@@ -28,12 +27,12 @@
                 <td>
                     <a href="{{ path('alt_app_admin_modifier_commentaire', {'id': commentaire.id}) }}" class="btn btn-default">
                         <i class="glyphicon glyphicon-edit"></i>
-                        Modifier le commentaire
+                        Modifier
                     </a>
 
                     <a href="{{ path('alt_app_admin_supprimer_commentaire', {'id': commentaire.id}) }}" class="btn btn-danger">
                         <i class="glyphicon glyphicon-trash"></i>
-                        Supprimer le commentaire
+                        Supprimer
                     </a>
                 </td>
 

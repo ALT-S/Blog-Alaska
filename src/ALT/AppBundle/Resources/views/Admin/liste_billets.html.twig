@@ -2,7 +2,6 @@
 
 {% block body %}
 
-    <hr>
     <div class="liste"><h2>Liste des billets</h2>
 
     <table class="table table-striped">
@@ -43,24 +42,24 @@
                     {% if billet.publier == 1 %}
                         <a href="{{ path('alt_app_admin_depublier_billet', {'id': billet.id}) }}" class="btn btn-default">
                             <i class="glyphicon glyphicon-remove"></i>
-                            Dépublier le billet
+                            Dépublier
                         </a>
                     {% else %}
                         <a href="{{ path('alt_app_admin_publier_billet', {'id': billet.id}) }}" class="btn btn-default">
                             <i class="glyphicon glyphicon-ok"></i>
-                            Publier le billet
+                            Publier
                         </a>
                     {% endif %}
 
 
                     <a href="{{ path('alt_app_admin_modifier', {'id': billet.id}) }}" class="btn btn-default">
                         <i class="glyphicon glyphicon-edit"></i>
-                        Modifier le billet
+                        Modifier
                     </a>
 
                     <a href="{{ path('alt_app_admin_supprimer', {'id': billet.id}) }}" class="btn btn-danger">
                         <i class="glyphicon glyphicon-trash"></i>
-                        Supprimer le billet
+                        Supprimer
                     </a>
                 </td>
 
