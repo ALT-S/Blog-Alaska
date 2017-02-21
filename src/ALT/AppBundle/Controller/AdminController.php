@@ -88,7 +88,6 @@ class AdminController extends Controller
         //Création du formulaire "FormBuilder" par le service form factory
         $formAjouter= $this->get('form.factory')->createBuilder(FormType::class, $billet)
             // On ajoute les champs de l'entité que l'on veut à notre formulaire
-            ->add('date',      DateType::class)
             ->add('titre',     TextType::class)
             ->add('contenu',   TextareaType::class)
             ->add('publier', CheckboxType::class, array('required' => false))
