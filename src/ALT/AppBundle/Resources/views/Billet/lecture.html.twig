@@ -44,6 +44,12 @@
 
             <div class="com_contenu">{{ commentaire.contenu }}</div>
         </div>
+        <p>
+            <a href="{{ path('alt_app_signaler_commentaire', {'billetId': billet.id, 'commentaireId': commentaire.id}) }}" class="btn btn-default">
+                <i class="glyphicon glyphicon-warning-sign"></i>
+                Signaler
+            </a>
+        </p>
     {% endfor %}
 </div>
 

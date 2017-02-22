@@ -5,8 +5,11 @@ namespace ALT\AppBundle\Controller;
 use ALT\AppBundle\Entity\Billet;
 use ALT\AppBundle\Entity\Commentaire;
 use ALT\AppBundle\Form\CommentaireType;
+use ALT\AppBundle\Form\DemandeContactType;
+use ALT\AppBundle\Form\SignalerType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class CommentairesController extends Controller
 {
@@ -59,8 +62,59 @@ class CommentairesController extends Controller
         ));
     }
 
-    public function modifierCommentaireAction($id)
+    /**
+     * @param $billetId
+     * @param $commentaireId
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    /*public function signalerCommentaireAction($billetId, $commentaireId, Request $request)
     {
+        $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
+        $commentaire = $em->getRepository('ALTAppBundle:Commentaire')->find($commentaireId);
 
-    }
+        //Externalisation du formulaire dans Form DemandeContact
+        $formSignaler = $this->get('form.factory')->create(SignalerType::class, $commentaire);
+
+        // Si la requête est en POST
+        if ($request->isMethod('POST')) {
+            // On fait le lien Requête <-> Formulaire
+            // À partir de maintenant, la variable $billet contient les valeurs entrées dans le formulaire par le visiteur
+            $formSignaler->handleRequest($request);
+
+            // On vérifie que les valeurs entrées sont correctes
+            if ($formSignaler->isSubmitted() && $formSignaler->isValid()) {
+                // On enregistre notre objet $contact dans la base de données
+                $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
+                $em->setSignale(true);
+                //$em->persist($billetId, $commentaireId);// puis on « persiste » l'entité, garde cette entité en mémoire
+                $em->flush();// Et on déclenche l'enregistrement
+
+                // Création de l'e-mail avec SwiftMailer
+                /*$message = \Swift_Message::newInstance()
+                    ->setContentType('text/html')//Message en HTML
+                    ->setSubject("SIGNALEMENT de :".$contact->getEmail()." Titre de l'alerte: ".$contact->getSujet())//Email et le titre du mail devient le sujet de mon objet contact
+                    ->setFrom($this-> getParameter('mailer_user'))// Email de l'expéditeur est le destinataire du mail
+                    ->setTo($this-> getParameter('mailer_user')) // destinataire du mail
+                    ->setBody($contact->getContenu()); // contenu du mail
+
+                //Envoi mail
+                $this->get('mailer')->send($message);
+
+                // Création du « flashBag » qui contient les messages flash
+                $this->addFlash('notice', 'Votre message a bien été signalé !');
+
+                // On redirige vers la page qui va afficher contact
+                return $this->redirectToRoute('alt_app_admin_lecture');
+            }
+        }
+
+        // À ce stade, le formulaire n'est pas valide car :
+        // - Soit la requête est de type GET, donc le visiteur vient d'arriver sur la page et veut voir le formulaire
+        // - Soit la requête est de type POST, mais le formulaire contient des valeurs invalides, donc on l'affiche de nouveau
+        // Donc on affiche la page qui va afficher contact, on fait passer le paramètre formContact  dans la vue
+        return $this->render('@ALTApp/Billet/signaler_commentaire.html.twig', array(
+            'form' => $formSignaler->createView(),
+        ));
+    }*/
 }

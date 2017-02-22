@@ -24,7 +24,7 @@ class BilletController extends Controller
         $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
         // On récupère le répository de l'entité Billet, on lui appelle la méthode "findBy"
         // pour récupérer des billets depuis notre base de données, triés par "id" en ordre descendant avec une limite
-        $listeBillets = $em->getRepository('ALTAppBundle:Billet')->findBy(array(),array("id"=>"desc"),$limit);
+        $listeBillets = $em->getRepository('ALTAppBundle:Billet')->findBy(array("publier" => 1),array("id"=>"desc"),$limit);
 
         // On affiche la page qui va afficher le menu , on fait passer le paramètre dans la vue
         return $this->render('ALTAppBundle:Billet:menu.html.twig',array(
@@ -73,7 +73,7 @@ class BilletController extends Controller
         // On récupère le répository de l'entité Billet, on lui appelle la méthode "findBy"
         // pour récupérer les billets depuis notre base de données, triés par "id" en ordre descendant
         // avec en paramètre une limite de 5 billets
-        $listeBillets = $em->getRepository('ALTAppBundle:Billet')->findBy(array(),array("id"=>"desc"),5);
+        $listeBillets = $em->getRepository('ALTAppBundle:Billet')->findBy(array("publier" => 1),array("id"=>"desc"),5);
 
         // On affiche la page qui va afficher monblog , on fait passer le paramètre dans la vue
         return $this->render('ALTAppBundle:Billet:monblog.html.twig', array(

@@ -28,6 +28,12 @@ alt_app_ajouter_commentaire:
     defaults:
         _controller: ALTAppBundle:Commentaires:ajouterCommentaire
 
+alt_app_signaler_commentaire:
+    path: /billet/{billetId}/commentaire/{commentaireId}/signaler
+    defaults:
+         _controller: ALTAppBundle:Commentaires:signalerCommentaire
+
+
 alt_app_admin_ajouter:
     path:      /admin/billet/ajouter
     defaults:

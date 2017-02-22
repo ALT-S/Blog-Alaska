@@ -8,7 +8,7 @@
 namespace ALT\AppBundle\Controller;
 
 
-use ALT\AppBundle\Entity\Connexion;
+use  ALT\AppBundle\Entity\Connexion;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;

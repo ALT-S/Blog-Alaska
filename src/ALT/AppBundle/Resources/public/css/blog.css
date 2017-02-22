@@ -175,3 +175,7 @@ p a .btn-default .glyphicon-comment{
 .col-sm-9{
     padding-right: 70px;
 }
+
+.glyphicon.glyphicon-warning-sign{
+    color: red;
+}

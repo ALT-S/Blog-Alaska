@@ -52,6 +52,11 @@ class Commentaire
      */
     private $contenu;
 
+    /**
+     * @ORM\Column(name="signale", type="boolean")
+     */
+    private $signale;
+
 
     //constructeur pour définir une date par défaut
     public function __construct()
@@ -157,15 +162,21 @@ class Commentaire
         return $this;
     }
 
-    /**
-     * Get billet
-     *
-     * @return \ALT\AppBundle\Entity\billet
-     */
     public function getBillet()
     {
         return $this->billet;
     }
 
+    public function setSignale($signale)
+    {
+        $this->signale = $signale;
 
+        return $this;
+    }
+
+
+    public function getSignale()
+    {
+        return $this->signale;
+    }
 }
