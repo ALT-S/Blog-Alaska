@@ -379,12 +379,11 @@ class AdminController extends Controller
 
     public function reponseContactAction(Contact $contact, Request $request)
     {
-
         // Et on construit le formBuilder avec l' instance du contact
         $form = $this->get('form.factory')->createBuilder(FormType::class, $contact)
             // On ajoute les champs de l'entité que l'on veut à notre formulaire
             ->add('contenuReponse',      TextareaType::class)
-            ->add('enregistrer',      SubmitType::class)
+            ->add('envoyer',      SubmitType::class)
             ->getForm()
         ;
 
@@ -400,6 +399,7 @@ class AdminController extends Controller
 
                 // On enregistre notre objet $contact  dans la base de données
                 $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
+                $em->persist($contact);// puis on « persiste » l'entité, garde cette entité en mémoire
                 $em->flush();// Et on déclenche l'enregistrement
 
                 // Création de l'e-mail avec SwiftMailer

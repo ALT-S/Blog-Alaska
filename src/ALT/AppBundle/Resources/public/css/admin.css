@@ -109,3 +109,12 @@ thead{
 .liste_accueil p:hover{
     color: #428bca;
 }
+
+.glyphicon-envelope.btn{
+    margin-bottom: 20px;
+    margin-top: 20px;
+    box-shadow: 7px 7px 14px 0 #86b3da;
+    background-color: #f5f5f5;
+    border: 1px solid #102e4d;
+    color: #102e4d;
+}

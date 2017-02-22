@@ -9,7 +9,10 @@
     <div>
         <h3 style="font-family: ELEGANCE;font-size: 26px;">Bonjour {{ contact.prenom }} {{ contact.nom }},</h3>
         <div class="form-group">
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
+            {# Les erreurs générales du formulaire. #}
+            {{ form_errors(form) }}
             {# Affichage des erreurs pour ce champ précis. #}
             {{ form_errors(form.contenuReponse) }}
 
@@ -17,11 +20,11 @@
                 {# Génération de l'input. #}
                 {{ form_widget(form.contenuReponse, {'attr': {'rows': 12, 'class': 'form-control'}}) }}
             </div>
-            <div>
-                {# Génération de l'input. #}
-                {{ form_widget(form.enregistrer, {'attr': {'class': 'form-control'}}) }}
-            </div>
-        </div>
+
+            {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+            {{ form_widget(form.envoyer, {'attr': {'class': 'glyphicon-envelope '}}) }}
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
     </div>
     <div>
         <p style="font-style: italic">Jean Forteroche</p>
