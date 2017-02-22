@@ -3,6 +3,7 @@
 namespace ALT\AppBundle\Controller;
 
 use ALT\AppBundle\Entity\Contact;
+use ALT\AppBundle\Form\DemandeContactType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -24,17 +25,8 @@ class ContactController extends Controller
         $contact = new Contact();// Création de l'entité - objet Contact
         $contact->setDate(new \Datetime());// On préremplit date du jour
 
-        //Création du formulaire "FormBuilder" par le service form factory
-        $formContact= $this->get('form.factory')->createBuilder(FormType::class, $contact)
-            // On ajoute les champs de l'entité que l'on veut à notre formulaire
-            ->add('nom',    TextType::class)
-            ->add('prenom',    TextType::class)
-            ->add('email',    EmailType::class, array('constraints' =>(array(new Email())))  )
-            ->add('sujet',     TextType::class)
-            ->add('contenu',   TextareaType::class)
-            ->add('enregistrer',      SubmitType::class)
-            ->getForm()
-        ;
+        //Externalisation du formulaire dans Form DemandeContact
+        $formContact = $this->get('form.factory')->create(DemandeContactType::class, $contact);
 
         // Si la requête est en POST
         if ($request->isMethod('POST')) {
