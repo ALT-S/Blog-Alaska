@@ -12,13 +12,10 @@ namespace ALT\AppBundle\Controller;
 use ALT\AppBundle\Entity\Billet;
 use ALT\AppBundle\Entity\Commentaire;
 use ALT\AppBundle\Entity\Contact;
+use ALT\AppBundle\Form\BilletType;
+use ALT\AppBundle\Form\CommentaireType;
+use ALT\AppBundle\Form\ContactType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 
 class AdminController extends Controller
@@ -85,15 +82,10 @@ class AdminController extends Controller
     {
         $billet = new Billet();// Création de l'entité - objet Billet
         $billet->setDate(new \Datetime());// On préremplit date du jour
-        //Création du formulaire "FormBuilder" par le service form factory
-        $formAjouter= $this->get('form.factory')->createBuilder(FormType::class, $billet)
-            // On ajoute les champs de l'entité que l'on veut à notre formulaire
-            ->add('titre',     TextType::class)
-            ->add('contenu',   TextareaType::class)
-            ->add('publier', CheckboxType::class, array('required' => false))
-            ->add('enregistrer',      SubmitType::class)
-            ->getForm()
-        ;
+
+        //Externalisation du formulaire dans Form Billet
+        $formAjouter = $this->get('form.factory')->create(BilletType::class, $billet);
+
         // Si la requête est en POST
         if ($request->isMethod('POST')) {
             // On fait le lien Requête <-> Formulaire
@@ -133,16 +125,9 @@ class AdminController extends Controller
      */
     public function modifierAction(Billet $billet, Request $request)
     {
-        // Et on construit le formBuilder avec l' instance du billet
-        $form= $this->get('form.factory')->createBuilder(FormType::class, $billet)
-            // On ajoute les champs de l'entité que l'on veut à notre formulaire
-            ->add('date',      DateType::class)
-            ->add('titre',     TextType::class)
-            ->add('contenu',   TextareaType::class)
-            ->add('publier', CheckboxType::class, array('required' => false))
-            ->add('enregistrer',      SubmitType::class)
-            ->getForm()
-        ;
+        //Externalisation du formulaire dans Form Billet
+        $form = $this->get('form.factory')->create(BilletType::class, $billet);
+
         // Si la requête est en POST
         if ($request->isMethod('POST')) {
             // On fait le lien Requête <-> Formulaire
@@ -340,15 +325,9 @@ class AdminController extends Controller
      */
     public function modifierCommentaireAction(Commentaire $commentaire, Request $request)
     {
-        // Et on construit le formBuilder avec l' instance du commentaire
-        $form= $this->get('form.factory')->createBuilder(FormType::class, $commentaire)
-            // On ajoute les champs de l'entité que l'on veut à notre formulaire
-            ->add('date',      DateType::class)
-            ->add('contenu',   TextareaType::class)
-            ->add('auteur', TextType::class)
-            ->add('enregistrer',      SubmitType::class)
-            ->getForm()
-        ;
+        //Externalisation du formulaire dans Form Commentaire
+        $form = $this->get('form.factory')->create(CommentaireType::class, $commentaire);
+
         // Si la requête est en POST
         if ($request->isMethod('POST')) {
             // On fait le lien Requête <-> Formulaire
@@ -379,14 +358,8 @@ class AdminController extends Controller
 
     public function reponseContactAction(Contact $contact, Request $request)
     {
-        // Et on construit le formBuilder avec l' instance du contact
-        $form = $this->get('form.factory')->createBuilder(FormType::class, $contact)
-            // On ajoute les champs de l'entité que l'on veut à notre formulaire
-            ->add('contenuReponse',      TextareaType::class)
-            ->add('envoyer',      SubmitType::class)
-            ->getForm()
-        ;
-
+        //Externalisation du formulaire dans Form Contact
+        $form = $this->get('form.factory')->create(ContactType::class, $contact);
         // Si la requête est en POST
         if ($request->isMethod('POST')) {
             // On fait le lien Requête <-> Formulaire
