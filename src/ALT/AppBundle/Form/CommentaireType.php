@@ -30,8 +30,10 @@ class CommentaireType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        if ($builder->getData()->getId() !== null) {
+            $builder->add('date', DateType::class);
+        }
         $builder
-            ->add('date',      DateType::class)
             ->add('contenu',   TextareaType::class)
             ->add('auteur', TextType::class)
             ->add('enregistrer',      SubmitType::class)

@@ -4,12 +4,8 @@ namespace ALT\AppBundle\Controller;
 
 use ALT\AppBundle\Entity\Billet;
 use ALT\AppBundle\Entity\Commentaire;
+use ALT\AppBundle\Form\CommentaireType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 
 class CommentairesController extends Controller
@@ -30,14 +26,9 @@ class CommentairesController extends Controller
         $commentaire->setBillet($billet); // On lie le billet au commentaire
         $commentaire->setDate(new \Datetime()); // On préremplit date du jour
 
-        //Création du formulaire "FormBuilder" par le service form factory
-        $form= $this->get('form.factory')->createBuilder(FormType::class, $commentaire)
-            // On ajoute les champs de l'entité que l'on veut à notre formulaire
-            ->add('auteur',    TextType::class)
-            ->add('contenu',   TextareaType::class)
-            ->add('enregistrer',      SubmitType::class)
-            ->getForm()
-        ;
+        //Externalisation du formulaire dans Form Commentaire
+        $form = $this->get('form.factory')->create(CommentaireType::class, $commentaire);
+
         // Si la requête est en POST
         if ($request->isMethod('POST')) {
             // On fait le lien Requête <-> Formulaire
