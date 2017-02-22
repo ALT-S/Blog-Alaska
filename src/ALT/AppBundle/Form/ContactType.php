@@ -17,8 +17,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Classe qui gère le formulaire d'ajout et de modification d'un billet
- * Dans le cas où on veut modifier un billet, on ajoute un champ "date" supplémentaire.
+ * Classe qui gère le formulaire de réponse à un contact
+ * 
  */
 class ContactType extends AbstractType
 {
