@@ -7,7 +7,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
-
+                <th>Signalement</th>
                 <th style="width: 120px">Titre du Billet</th>
                 <th>Auteur</th>
                 <th style="width: 120px">Date</th>
@@ -19,7 +19,13 @@
         <tbody>
             {% for commentaire in commentaires %}
             <tr>
-
+                <td style="text-align: center">
+                    {% if commentaire.signale == 0 %}
+                        <span class="glyphicon glyphicon-ok"></span>
+                    {% else %}
+                        <span class="glyphicon glyphicon-remove"></span>
+                    {% endif %}
+                </td>
                 <td>{{ commentaire.billet.titre }}</td>
                 <td>{{ commentaire.auteur }}</td>
                 <td>{{ commentaire.date | date('d-m-Y H:i:s') }}</td>

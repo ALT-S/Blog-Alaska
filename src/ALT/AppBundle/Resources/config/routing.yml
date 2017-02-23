@@ -29,9 +29,9 @@ alt_app_ajouter_commentaire:
         _controller: ALTAppBundle:Commentaires:ajouterCommentaire
 
 alt_app_signaler_commentaire:
-    path: /billet/{billetId}/commentaire/{commentaireId}/signaler
+    path: /commentaire/{id}/signaler
     defaults:
-         _controller: ALTAppBundle:Commentaires:signalerCommentaire
+         _controller: ALTAppBundle:Commentaires:signaler
 
 
 alt_app_admin_ajouter:

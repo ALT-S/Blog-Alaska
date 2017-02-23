@@ -3,6 +3,7 @@
 namespace ALT\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ALT\AppBundle\Entity\Billet;
 
 /**
  * Commentaire
@@ -15,8 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Commentaire
 {
     /**
-     * @ORM\ManyToOne(targetEntity="ALT\AppBundle\Entity\Billet",inversedBy="commentaires", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="ALT\AppBundle\Entity\Billet",inversedBy="commentaires", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $billet;
 
@@ -55,7 +56,7 @@ class Commentaire
     /**
      * @ORM\Column(name="signale", type="boolean")
      */
-    private $signale;
+    private $signale = false;
 
 
     //constructeur pour définir une date par défaut
@@ -151,17 +152,21 @@ class Commentaire
     /**
      * Set billet
      *
-     * @param \ALT\AppBundle\Entity\billet $billet
+     * @param Billet $billet
      *
      * @return Commentaire
      */
-    public function setBillet(\ALT\AppBundle\Entity\billet $billet)
+    public function setBillet(Billet $billet)
     {
         $this->billet = $billet;
 
         return $this;
     }
 
+    /**
+     * @return Billet
+     *
+     */
     public function getBillet()
     {
         return $this->billet;
