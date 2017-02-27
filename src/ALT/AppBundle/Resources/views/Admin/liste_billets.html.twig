@@ -2,7 +2,18 @@
 
 {% block body %}
 
-    <div class="liste"><h2>Liste des billets</h2>
+    {% set title = "Liste des billets" %}
+    {% if app.request.query.get('filtre') %} {# vérifie si dans l'URL, on trouve "?filtre=xxx" #}
+        {% set title = "Liste des billets non plubliés" %}
+    {% endif %}
+
+    <div class="liste"><h2>{{ title }}</h2>
+
+        {% if app.request.query.get('filtre') %}
+            <a href="{{ path('alt_app_admin_liste_billets') }}">Afficher tous les billets</a>
+        {% else %}
+            <a href="{{ path('alt_app_admin_liste_billets', {'filtre': 'depublie'}) }}">Afficher seulement les billets dépublié</a>
+        {% endif %}
 
     <table class="table table-striped">
         <thead>
@@ -21,7 +32,7 @@
 
                 <td>
                     <h4>
-                        <a href="{{ path('alt_app_admin_lecture', {'id': billet.id}) }}">
+                        <a href="{{ path('alt_app_admin_lecture', {'id': billet.id}) }} " title="Lire l'article">
                         {{ billet.titre }}
                         </a>
                     </h4>
@@ -35,7 +46,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    <a href="{{ path('alt_app_admin_liste_commentaires_par_id', {'id': billet.id}) }}"> {{ billet.commentaires | length }}
+                    <a href="{{ path('alt_app_admin_liste_commentaires_par_id', {'id': billet.id}) }}" title="Lire les commentaires" > {{ billet.commentaires | length }}
                     </a>
                 </td>
                 <td class="action">

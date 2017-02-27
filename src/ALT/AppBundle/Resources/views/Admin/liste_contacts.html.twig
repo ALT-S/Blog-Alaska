@@ -2,7 +2,19 @@
 
 {% block body %}
 
-    <div class="liste"><h2 >Liste des demandes de contacts</h2>
+    {% set title = "Liste des demandes de contacts" %}
+    {% if app.request.query.get('filtre') %} {# vérifie si dans l'URL, on trouve "?filtre=xxx" #}
+        {% set title = "Liste des demandes de contacts en attente de réponses" %}
+    {% endif %}
+
+
+    <div class="liste"><h2 >{{ title }}</h2>
+
+        {% if app.request.query.get('filtre') %}
+            <a href="{{ path('alt_app_admin_liste_contacts') }}">Afficher tous les contacts</a>
+        {% else %}
+            <a href="{{ path('alt_app_admin_liste_contacts', {'filtre': 'attente'}) }}">Afficher seulement les contacts en attente deréponses</a>
+        {% endif %}
 
     <table class="table table-striped">
         <thead>

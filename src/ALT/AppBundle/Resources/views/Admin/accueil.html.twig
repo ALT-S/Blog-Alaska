@@ -7,26 +7,46 @@
     <h2 class="tableau_bord">Tableau de bord</h2>
 
     <ul class="liste_accueil">
+        <h3 style=" font-family: cursive; color: #428bca;
+    text-decoration: underline;">Blog:</h3>
         <li>
             <a href="{{ path('alt_app_admin_liste_billets') }}">
                 <p>Nombre total de billets : {{ nbBillets }}</p>
             </a>
         </li>
+        {% if nbBilletsDepublies > 0 %}
+        <li style="color: red">
+            <a style="color: red" href="{{ path('alt_app_admin_liste_billets', {'filtre': 'depublie'}) }}">
+                <p>Nombre total de billets en attente de publication: {{ nbBilletsDepublies }}</p>
+            </a>
+        </li>
+        {% endif %}
         <li>
             <a href="{{ path('alt_app_admin_liste_commentaires') }}">
                 <p>Nombre total de commentaires : {{ nbCommentaires }}</p>
             </a>
         </li>
+        {% if nbContactsSignales > 0 %}
+        <li style="color: red">
+            <a style="color: red" href="{{ path('alt_app_admin_liste_commentaires', {'filtre': 'signaler'}) }}">
+                <p>Nombre total commentaires signalés: {{ nbContactsSignales }}</p>
+            </a>
+        </li>
+        {% endif %}
+        </br>
+        <h3 style=" font-family: cursive; color: #428bca;
+    text-decoration: underline;">Contacts:</h3>
         <li>
             <a href="{{ path('alt_app_admin_liste_contacts') }}">
                 <p>Nombre total de messages : {{ nbContacts }} </p>
             </a>
         </li>
-        <li>
-            <a href="{{ path('alt_app_admin_liste_contacts_attente_reponse') }}">
+        {% if nbContactsAttenteReponse > 0 %}
+        <li style="color: red">
+            <a style="color: red" href="{{ path('alt_app_admin_liste_contacts', {'filtre': 'attente'}) }}') }}">
                 <p>Nombre total de messages en attente de réponse: {{ nbContactsAttenteReponse }}</p>
             </a>
         </li>
-
+        {% endif %}
     </ul>
 {% endblock %}

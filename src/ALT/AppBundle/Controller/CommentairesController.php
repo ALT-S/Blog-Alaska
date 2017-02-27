@@ -5,8 +5,6 @@ namespace ALT\AppBundle\Controller;
 use ALT\AppBundle\Entity\Billet;
 use ALT\AppBundle\Entity\Commentaire;
 use ALT\AppBundle\Form\CommentaireType;
-use ALT\AppBundle\Form\DemandeContactType;
-use ALT\AppBundle\Form\SignalerType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -62,7 +60,10 @@ class CommentairesController extends Controller
         ));
     }
 
-
+    /**
+     * @param Commentaire $commentaire
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function signalerAction(Commentaire $commentaire)
     {
         $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données

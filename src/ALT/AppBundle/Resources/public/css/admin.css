@@ -118,3 +118,7 @@ thead{
     border: 1px solid #102e4d;
     color: #102e4d;
 }
+
+.liste_accueil li{
+    margin-left: 45px;
+}

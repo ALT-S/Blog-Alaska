@@ -1,3 +1,14 @@
 alt_app:
     resource: "@ALTAppBundle/Resources/config/routing.yml"
     prefix:   /
+
+login:
+    path: /login
+    defaults:
+        _controller: ALTUserBundle:Security:login
+
+login_check:
+    path: /login_check
+
+logout:
+    path: /logout

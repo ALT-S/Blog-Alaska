@@ -89,11 +89,6 @@ alt_app_admin_liste_contacts:
     defaults:
         _controller: ALTAppBundle:Admin:listeContacts
 
-alt_app_admin_liste_contacts_attente_reponse:
-    path: /admin/contacts/liste_attente_reponse
-    defaults:
-        _controller: ALTAppBundle:Admin:listeContactsAttente
-
 alt_app_admin_liste_commentaires:
     path: /admin/commentaires/liste
     defaults:
