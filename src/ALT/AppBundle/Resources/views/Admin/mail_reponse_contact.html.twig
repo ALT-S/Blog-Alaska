@@ -7,7 +7,7 @@
 
         <div>
             <h4>Bonjour {{ contact.prenom }} {{ contact.nom }},</h4>
-            <p>{{ contact.contenuReponse }}</p>
+            <p>{{ contact.contenuReponse |raw}}</p>
             <p style="font-style: italic">Jean Forteroche</p>
 
         </div>
@@ -17,7 +17,7 @@
         <div>
             <h4 style="text-decoration: underline">Votre message original :</h4> <i>Du : {{ contact.date | date('d-m-Y H:i:s') }}</i>
             <p>
-                {{ contact.contenu }}
+                {{ contact.contenu|raw }}
             </p>
         </div>
     </body>

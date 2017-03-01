@@ -13,7 +13,7 @@
         {% if app.request.query.get('filtre') %}
             <a href="{{ path('alt_app_admin_liste_contacts') }}">Afficher tous les contacts</a>
         {% else %}
-            <a href="{{ path('alt_app_admin_liste_contacts', {'filtre': 'attente'}) }}">Afficher seulement les contacts en attente deréponses</a>
+            <a href="{{ path('alt_app_admin_liste_contacts', {'filtre': 'attente'}) }}">Afficher seulement les contacts en attente de réponses</a>
         {% endif %}
 
     <table class="table table-striped">

@@ -8,7 +8,7 @@
             <a href="{{ path('alt_app_lecture', {'id': billet.id}) }}">{{ billet.titre }}</a>
         </h3>
 
-        <p>{{ billet.contenu | truncate(500) }}</p>
+        <p>{{ billet.contenu | truncate(500) |raw}}</p>
 
         <hr>
     {% endfor %}

@@ -4,7 +4,7 @@
 
     <em style="text-decoration: underline; font-weight: bold">De</em> : {{ contact.prenom }} {{ contact.nom }}<br>
     <em style="text-decoration: underline; font-weight: bold">Titre</em> : {{ contact.sujet }}<br><br>
-    <em style="text-decoration: underline; font-weight: bold">Contenu</em> : {{ contact.contenu }}
+    <em style="text-decoration: underline; font-weight: bold">Contenu</em> : {{ contact.contenu|raw }}
     <hr>
     <div>
         <h3 style="font-family: ELEGANCE;font-size: 26px;">Bonjour {{ contact.prenom }} {{ contact.nom }},</h3>

@@ -29,7 +29,7 @@
                 </td>
                 <td>{{ commentaire.auteur }}</td>
                 <td>{{ commentaire.date | date('d-m-Y H:i:s') }}</td>
-                <td>{{ commentaire.contenu }}</td>
+                <td>{{ commentaire.contenu|raw }}</td>
                 <td class="action">
                     <a href="{{ path('alt_app_admin_modifier_commentaire', {'id': commentaire.id}) }}" class="btn btn-default">
                         <i class="glyphicon glyphicon-edit"></i>

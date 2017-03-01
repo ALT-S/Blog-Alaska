@@ -11,7 +11,7 @@
     <hr>
 
     <div class="well">
-        {{ billet.contenu }}
+        {{ billet.contenu|raw }}
     </div>
     <p>
         {#<a href="{{ path('alt_app_ajouter_commentaire', {'id': billet.id}) }}" class=" row btn btn-default col-lg-offset-10 ">
@@ -42,7 +42,7 @@
             <hr>
             <h5>{{ commentaire.auteur }} <i>, Le {{ commentaire.date | date('d-m-Y H:i:s') }} </i></h5>
 
-            <div class="com_contenu">{{ commentaire.contenu }}</div>
+            <div class="com_contenu">{{ commentaire.contenu|raw }}</div>
         </div>
         <p>
             <a href="{{ path('alt_app_signaler_commentaire', {'id': commentaire.id}) }}" class="btn btn-default">

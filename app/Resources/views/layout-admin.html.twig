@@ -12,6 +12,18 @@
             <link rel="stylesheet" href="{{ asset('bundles/altapp/css/admin.css') }}">
 
         {% endblock %}
+        <script src="//cloud.tinymce.com/stable/tinymce.min.js"></script>
+        <script>tinymce.init({ selector:'textarea',
+                plugins: ["textcolor, advlist, lists "],
+                toolbar1:
+                "| bold italic underline strikethrough " +
+                "| alignleft aligncenter alignright alignjustify " +
+                "| formatselect fontselect fontsizeselect" +
+                "| forecolor backcolor",
+                toolbar2:
+                "| bullist numlist outdent indent" +
+                "| undo redo "
+            });</script>
     </head>
 
     <body>
