@@ -37,7 +37,7 @@ class BilletType extends AbstractType
 
         $builder
             ->add('titre',     TextType::class)
-            ->add('contenu',   TextareaType::class)
+            ->add('contenu',   TextareaType::class, array('required' => false))
             ->add('publier', CheckboxType::class, array('required' => false))
             ->add('enregistrer',      SubmitType::class)
         ;

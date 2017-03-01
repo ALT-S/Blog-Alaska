@@ -17,7 +17,7 @@
 
         <div class="billet-commentaire">
             <hr>
-            <h5>{{ commentaire.auteur }} <i>, Le {{ commentaire.date | date('d-m-Y') }} </i></h5>
+            <h5>{{ commentaire.auteur }} <i>, Le {{ commentaire.date | date('d-m-Y H:i:s') }}  </i></h5>
 
             <div class="com_contenu">{{ commentaire.contenu|raw }}</div>
         </div>

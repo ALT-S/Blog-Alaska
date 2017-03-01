@@ -9,10 +9,10 @@
         <i>Le {{ billet.date|date('d/m/Y') }}</i>
 
         <div class="monblog_contenu">
-            {{ billet.contenu }}
+            {{ billet.contenu|raw }}
         </div>
 
-        <div class="Nbr_com row col-lg-offset-9 col-sm-offset-7  ">
+        <div class="Nbr_com-blog  row col-sm-offset-8 ">
 
         <p class="glyphicon glyphicon-comment"><a href="{{ path('alt_app_lecture', {'id': billet.id}) }}">
             <span>Nombre de commentaire(s):</span> {{ billet.commentaires | length }}

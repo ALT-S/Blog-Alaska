@@ -27,44 +27,54 @@
     </head>
 
     <body>
-    <div class="container col-lg-offset-1 col-lg-10 col-xs-offset-2 col-xs-10">
+    <div class="container-fluid">
     {% block texte %}
 
         <h1>Admin</h1>
         <hr>
     {% endblock %}
-
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="menu_admin">
+            <div class="row">
+                <nav class="col-sm-3 sidebar">
+                    <div class="menu">
                     <ul class="nav nav-pills nav-stacked ">
-                        <li><a style="text-decoration: underline; color: #18344c; font-size: 20px;" href="{{ path('alt_app_homepage') }}">Voir le site</a></li></br>
-                        <li><a href="{{ path('alt_app_admin_accueil') }}">Accueil</a></li></br>
-                        <li><a href="{{ path('alt_app_admin_ajouter') }}">Ajouter un billet</a></li></br>
-                        <li><a href="{{ path('alt_app_admin_liste_billets') }}">Gestion des billets</a></li></br>
-                        <li><a href="{{ path('alt_app_admin_liste_commentaires') }}">Gestion des commentaires</a></li></br>
-                        <li><a href="{{ path('alt_app_admin_liste_contacts') }}">Gestion des contacts</a></li>
+                         <li><a style="text-align: center; text-decoration: underline; color: #18344c; font-size: 20px;" class="{% if app.request.attributes.get('_route') == 'alt_app_homepage' %}navbar-brand{% endif %}" href="{{ path('alt_app_homepage') }}">Voir le site</a></li>
+                         <li><a class="{% if app.request.attributes.get('_route') == 'alt_app_admin_accueil' %}navbar-brand{% endif %}" href="{{ path('alt_app_admin_accueil') }}">Accueil<i class=" glyphicon glyphicon-home"></i></a></li>
+                         <li><a class="{% if app.request.attributes.get('_route') == 'alt_app_admin_ajouter' %}navbar-brand{% endif %}" href="{{ path('alt_app_admin_ajouter') }}">Ajouter un billet</a></li>
+                         <li><a class="{% if app.request.attributes.get('_route') == 'alt_app_admin_liste_billets' %}navbar-brand{% endif %}" href="{{ path('alt_app_admin_liste_billets') }}">Gestion des billets</a></li>
+                         <li><a class="{% if app.request.attributes.get('_route') == 'alt_app_admin_liste_commentaires' %}navbar-brand{% endif %}" href="{{ path('alt_app_admin_liste_commentaires') }}">Gestion des commentaires</a></li>
+                         <li><a class="{% if app.request.attributes.get('_route') == 'alt_app_admin_liste_contacts' %}navbar-brand{% endif %}" href="{{ path('alt_app_admin_liste_contacts') }}">Gestion des contacts</a></li>
+
                     </ul>
+                    </div>
+
+                    <div class="deconnexion">
+                        <a href="{{ path('logout') }}">Se déconnecter<i class="glyphicon glyphicon-off"></i></a>
+                    </div>
+
+                </nav>
+
+
+
+
+                <div class=" bonjour col-sm-9">
+                    <div class="tab">
+                        {% if app.session.flashBag.has('notice') %}
+                        <div class="alert alert-success">
+                            {% for msg in app.session.flashBag.get('notice') %}
+                                {{ msg }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        {% block body %}
+                        {% endblock %}
+                    </div>
                 </div>
             </div>
-            <div class=" bonjour col-sm-9">
 
-                {% if app.session.flashBag.has('notice') %}
-                    <div class="alert alert-success">
-                        {% for msg in app.session.flashBag.get('notice') %}
-                            {{ msg }}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-
-                {% block body %}
-                {% endblock %}
-            </div>
-
-        </div>
 
 
     </div>
+
     </body>
 
 

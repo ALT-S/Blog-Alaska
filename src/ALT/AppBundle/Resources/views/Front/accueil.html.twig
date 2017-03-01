@@ -3,16 +3,9 @@
 
     <h2>Derniers billets</h2>
 
-    {% for billet in billets %}
-        <h3>
-            <a href="{{ path('alt_app_lecture', {'id': billet.id}) }}">{{ billet.titre }}</a>
-        </h3>
-
-        <p>{{ billet.contenu | truncate(500) |raw}}</p>
-
-        <hr>
-    {% endfor %}
-
+            <ul class="nav nav-pills nav-stacked">
+                <li> {{ render(controller("ALTAppBundle:Billet:menu", {'limit': 3})) }}</li>
+            </ul>
 
 {% endblock %}
 

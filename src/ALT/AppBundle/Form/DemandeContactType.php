@@ -36,7 +36,7 @@ class DemandeContactType extends AbstractType
         ->add('prenom',    TextType::class)
         ->add('email',    EmailType::class, array('constraints' =>(array(new Email())))  )
         ->add('sujet',     TextType::class)
-        ->add('contenu',   TextareaType::class)
+        ->add('contenu',   TextareaType::class, array('required' => false))
         ->add('enregistrer',      SubmitType::class)
         ;
     }

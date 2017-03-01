@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,50 +17,80 @@
 </head>
 
 <body>
-<div class="row container col-lg-offset-1 col-lg-10 col-xs-offset-2 col-xs-10">
-    <div id="header" class="jumbotron">
-        <h1>Mon blog "Billet simple pour l'Alaska"</h1>
-        {% block texte %}<p>
-            Pour ce roman, j'ai souhaité innover et vous faire partager mes écrits,
-            en publiant ces récits par épisodes.
-            Bonne lecture...
-        </p>{% endblock %}
-    </div>
-    <div class="row navbar navbar-default navbar-fixed-top col-lg-offset-1 col-lg-10 col-xs-2">
-        <div class="container-nav">
-            <ul class="nav navbar-nav">
-                <li><a {% if app.request.attributes.get('_route') == 'alt_app_homepage' %}navbar-brand{% endif %} " href="{{ path('alt_app_homepage') }}"><i class=" glyphicon glyphicon-home"></i>Accueil</a></li>
-                <li><a class="{% if app.request.attributes.get('_route') == 'alt_app_monblog' %}navbar-brand{% endif %}" href="{{ path('alt_app_monblog') }}">Mon blog</a></li>
-                <li><a class="{% if app.request.attributes.get('_route') == 'alt_app_contact' %}navbar-brand{% endif %}"href="{{ path('alt_app_contact') }}">Contact</a></li>
-            </ul>
-        </div>
 
-    </div>
+<div class="container">
     <div class="row">
-        <div id="menu" class="col-sm-3">
-            <h3>Derniers billets</h3>
-            <ul class="nav nav-pills nav-stacked">
-            <li> {{ render(controller("ALTAppBundle:Billet:menu", {'limit': 3})) }}</li>
-            </ul>
+        <div id="header" class="jumbotron">
+            <h1>Mon blog "Billet simple pour l'Alaska"</h1>
+            {% block texte %}<p>
+                Pour ce roman, j'ai souhaité innover et vous faire partager mes écrits,
+                en publiant ces récits par épisodes.
+                Bonne lecture...
+            </p>{% endblock %}
         </div>
-
-        <div class="col-sm-9">
-
-            {% if app.session.flashBag.has('notice') %}
-                <div class="alert alert-success">
-                    {% for msg in app.session.flashBag.get('notice') %}
-                        {{ msg }}
-                    {% endfor %}
-                </div>
-            {% endif %}
-
-            {% block body %}
-            {% endblock %}
-        </div>
-
     </div>
+</div>
 
-    <hr>
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm-3 sidebar">
+            <div class="menu">
+                <h4>Menu</h4>
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a class="{% if app.request.attributes.get('_route') == 'alt_app_homepage' %}navbar-brand{% endif %} " href="{{ path('alt_app_homepage') }}">Accueil<i class=" glyphicon glyphicon-home"></i></a></li>
+                    <li><a class="{% if app.request.attributes.get('_route') == 'alt_app_monblog' %}navbar-brand{% endif %}" href="{{ path('alt_app_monblog') }}">Mon blog</a></li>
+                    <li><a class="{% if app.request.attributes.get('_route') == 'alt_app_contact' %}navbar-brand{% endif %}" href="{{ path('alt_app_contact') }}">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="propos">
+                <h4>A propos</h4>
+                <p>
+                    <u>Biographie </u>:
+                    </br>
+                    </br>
+                    <em> Jean Forteroche,</em> j'ai commencé à voyager très jeune. Successivement,
+                    au gré de mes voyages, j'ai été employé dans une conserverie de poissons en Islande et sur les
+                    chantiers navals aux U.S.A., travailleur agricole au Canada, barman à Hong-Kong, et même
+                    pêcheur pendant dix ans en Alaska. Je vis aujourd’hui entre les Alpes de Haute-Provence et
+                    le Médoc, où j'ai été respectivement berger et ouvrier viticole.</br>
+                    </br>
+                    "Billet simple pour l'Alaska" est mon premier roman que je publie en ligne.
+                </p>
+            </div>
+
+            <div class="reseaux-sociaux">
+               <h3 class="sociaux">Suivez-moi</h3>
+                <p class="icone">
+                    <a alt="Icone Facebook" href="https://www.facebook.com/profile.php?id=100014181913336"><img src= {{ asset('bundles/altapp/image/facebook.png') }}></a>
+                    <a alt="Icone OpenClassroom"href="https://openclassrooms.com/projects/creez-un-blog-pour-un-ecrivain-1"><img src= {{ asset('bundles/altapp/image/fav-icon.png') }}></a>
+                </p>
+            </div>
+
+        </div><!-- /.sidebar -->
+
+        <div class="col-sm-8 blog">
+
+            <div class="blog-post">
+                {% if app.session.flashBag.has('notice') %}
+                    <div class="alert alert-success">
+                        {% for msg in app.session.flashBag.get('notice') %}
+                            {{ msg }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% block body %}
+                {% endblock %}
+            </div><!-- /.blog-post -->
+
+        </div><!-- /.blog-main -->
+
+    </div><!-- /.row -->
+
+
 
     <footer>
         <div class="auteur " style="text-align: center">
@@ -71,6 +101,7 @@
             </p>
         </div>
     </footer>
+
 </div>
 
 {% block javascripts %}

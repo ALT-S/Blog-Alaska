@@ -1,9 +1,19 @@
 <ul class="nav nav-pills nav-stacked">
     {% for billet in listeBillets %}
-        <li>
+    <div class="section row">
+        <li class="section-extrait">
             <a href="{{ path('alt_app_lecture', {'id': billet.id}) }}">
-                {{ billet.titre }}
+                <div class="date col-sm-2">Le {{ billet.date|date('d/m/Y') }}</div>
+
+                <div class="extrait col-sm-10">
+                    <h3>{{ billet.titre }}</h3>
+
+                    <p style="color: black"> {{ billet.contenu| truncate(200) |raw }}</p>
+                    <a style=" margin: 0 0 0 0; padding: 0 0 0 0" class="btn btn-outline-primary" href="{{ path('alt_app_lecture', {'id': billet.id}) }}" role="button">Voir plus... »</a>
+                    <hr>
+                </div>
             </a>
         </li>
+    </div>
     {% endfor %}
 </ul>
