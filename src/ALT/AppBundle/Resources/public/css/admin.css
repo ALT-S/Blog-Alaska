@@ -1,29 +1,29 @@
 body {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     background: #e9edf0;
 }
 
-h1{
+h1 {
     background: #18344c;
     color: white;
     text-align: center;
-    font-family: ELEGANCE,Helvetica,Arial,sans-serif;
+    font-family: ELEGANCE, Helvetica, Arial, sans-serif;
     font-size: 36px;
 
 }
 
-h2{
+h2 {
     margin-bottom: 60px;
     margin-top: 60px;
 }
 
-h4{
+h4 {
     color: #166fc3;
     padding-right: 10px;
     font-family: fantasy;
 }
 
-.container-fluid{
+.container-fluid {
     margin-left: 70px;
     margin-right: 70px;
     background-color: white;
@@ -49,17 +49,17 @@ h4{
     padding-right: 16px;
 }
 
-.nav>li>a {
+.nav > li > a {
     position: relative;
     display: block;
     padding: 10px 15px;
 }
 
-.nav-stacked>li {
+.nav-stacked > li {
     float: none;
 }
 
-.nav>li {
+.nav > li {
     position: relative;
     display: block;
 }
@@ -73,10 +73,9 @@ a.navbar-brand {
     background: #f5f5f5;;
 }
 
-.navbar-nav>li>a:hover{
+.navbar-nav > li > a:hover {
     background: #f5f5f5;;
 }
-
 
 table {
     border: medium solid #102e4d;
@@ -88,31 +87,29 @@ td, th {
     font-size: 20px;
 }
 
-
 .glyphicon {
     margin-left: 10px;
     margin-right: 10px;
 }
 
-.table-striped{
+.table-striped {
     background-color: #e9edf0;
     box-shadow: 10px 10px 15px 0 #86b3da;
 }
 
-
-.btn-default{
+.btn-default {
     margin: 5px;
 }
 
-.glyphicon-ok{
+.glyphicon-ok {
     color: green;
 }
 
-.glyphicon-remove{
+.glyphicon-remove {
     color: red;
 }
 
-thead{
+thead {
     background-color: #e9edf0;
     border: medium solid #102e4d;
 }
@@ -121,20 +118,20 @@ thead{
     margin-right: 10px;
 }
 
-.action{
+.action {
     text-align: center;
 }
 
-.glyphicon-trash{
+.glyphicon-trash {
     color: white;
 }
 
-.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th,
-.table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th,
+.table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
     vertical-align: middle;
 }
 
-.glyphicon-envelope.btn{
+.glyphicon-envelope.btn {
     margin-bottom: 20px;
     margin-top: 20px;
     box-shadow: 7px 7px 14px 0 #86b3da;
@@ -147,18 +144,18 @@ thead{
     color: #18344c;
     padding-bottom: 10px;
     font-size: 18px;
-    font-family: ELEGANCE,Helvetica,Arial,sans-serif;
+    font-family: ELEGANCE, Helvetica, Arial, sans-serif;
 }
 
-.liste_accueil p:hover{
+.liste_accueil p:hover {
     color: #428bca;
 }
 
-.liste_accueil li{
+.liste_accueil li {
     margin-left: 45px;
 }
 
-.deconnexion{
+.deconnexion {
     margin-top: 20px;
     text-decoration: underline;
     color: #18344c;
@@ -166,7 +163,7 @@ thead{
     margin-left: 30px;
 }
 
-.glyphicon-off{
+.glyphicon-off {
     color: #18344c;
 }
 

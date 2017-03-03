@@ -37,9 +37,9 @@ class ContactController extends Controller
                 // Création de l'e-mail avec SwiftMailer
                 $message = \Swift_Message::newInstance()
                     ->setContentType('text/html')//Message en HTML
-                    ->setSubject("Contact de :".$contact->getEmail()." : ".$contact->getSujet())//Email et le titre du mail devient le sujet de mon objet contact
-                    ->setFrom($this-> getParameter('mailer_user'))// Email de l'expéditeur est le destinataire du mail
-                    ->setTo($this-> getParameter('mailer_user')) // destinataire du mail
+                    ->setSubject("Contact de :" . $contact->getEmail() . " : " . $contact->getSujet())//Email et le titre du mail devient le sujet de mon objet contact
+                    ->setFrom($this->getParameter('mailer_user'))// Email de l'expéditeur est le destinataire du mail
+                    ->setTo($this->getParameter('mailer_user'))// destinataire du mail
                     ->setBody($contact->getContenu()); // contenu du mail
 
                 //Envoi mail

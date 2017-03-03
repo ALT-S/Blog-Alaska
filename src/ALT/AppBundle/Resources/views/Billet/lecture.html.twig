@@ -5,60 +5,62 @@
 {% endblock %}
 
 {% block altfront_body %}
-    <h3>{{ billet.titre }}</h3>
-    <i>Le {{ billet.date|date('d/m/Y') }}</i>
+    <div class="col-sm-11">
+        <h3>{{ billet.titre }}</h3>
+        <i>Le {{ billet.date|date('d/m/Y') }}</i>
 
-    <hr>
+        <hr>
 
-    <div class="well">
-        {{ billet.contenu|raw }}
-    </div>
-    <p>
-        {#<a href="{{ path('alt_app_ajouter_commentaire', {'id': billet.id}) }}" class=" row btn btn-default col-lg-offset-10 ">
-            <i class="glyphicon glyphicon-edit"></i>
-            Ajouter un commentaire
-        </a>#}
-    </p>
-
-<div class="com">
-    <div class="Nbr_com row col-sm-offset-8 ">
-
-        <p class="glyphicon glyphicon-comment">
-            <span>Nombre de commentaire(s):</span> {{ listeCommentaires | length }}
+        <div class="lecture_contenu">
+            {{ billet.contenu|raw }}
+        </div>
+        <p>
+            {#<a href="{{ path('alt_app_ajouter_commentaire', {'id': billet.id}) }}" class=" row btn btn-default col-lg-offset-10 ">
+                <i class="glyphicon glyphicon-edit"></i>
+                Ajouter un commentaire
+            </a>#}
         </p>
 
-    </div>
-    <p>
-        <a href="{{ path('alt_app_ajouter_commentaire', {id: billet.id}) }}" class="btn btn-default">
-            <i class="glyphicon glyphicon-comment"></i>
-            Ajouter commentaire
-        </a>
-    </p>
+        <div class="com">
+            <div class="Nbr_com row col-sm-offset-8 ">
 
-    <h4>Commentaires :</h4>
+                <p class="glyphicon glyphicon-comment">
+                    <span>Nombre de commentaire(s):</span> {{ listeCommentaires | length }}
+                </p>
 
-    {% for commentaire in listeCommentaires %}
-        <div class="billet-commentaire">
+            </div>
+            <p>
+                <a href="{{ path('alt_app_ajouter_commentaire', {id: billet.id}) }}" class="btn btn-default comment">
+                    <i class="glyphicon glyphicon-comment ajout"></i>
+                    Ajouter commentaire
+                </a>
+            </p>
 
-            <h5>{{ commentaire.auteur }} <i>, Le {{ commentaire.date | date('d-m-Y H:i:s') }} </i></h5>
+            <h4>Commentaires :</h4>
 
-            <div class="com_contenu">{{ commentaire.contenu|raw }}</div>
+            {% for commentaire in listeCommentaires %}
+                <div class="billet-commentaire">
+
+                    <h5>{{ commentaire.auteur }} <i>, Le {{ commentaire.date | date('d-m-Y H:i:s') }} </i></h5>
+
+                    <div class="com_contenu">{{ commentaire.contenu|raw }}</div>
+                </div>
+                <p class="commentaire" style="text-align: right;">
+                    <a href="{{ path('alt_app_signaler_commentaire', {'id': commentaire.id}) }}"
+                       class="btn btn-default warning">
+                        <i class="glyphicon glyphicon-warning-sign"></i>
+                        Signaler
+                    </a>
+                </p>
+                <hr>
+            {% endfor %}
         </div>
-        <p class="commentaire" style="text-align: right;">
-            <a  href="{{ path('alt_app_signaler_commentaire', {'id': commentaire.id}) }}" class="btn btn-default">
-                <i class="glyphicon glyphicon-warning-sign"></i>
-                Signaler
+
+        <p>
+            <a href="{{ path('alt_app_homepage') }}" class="btn btn-default">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                Retour à la page d'accueil
             </a>
         </p>
-        <hr>
-    {% endfor %}
-</div>
-
-    <p>
-        <a href="{{ path('alt_app_homepage') }}" class="btn btn-default">
-            <i class="glyphicon glyphicon-chevron-left"></i>
-            Retour à la page d'accueil
-         </a>
-    </p>
-
+    </div>
 {% endblock %}

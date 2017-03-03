@@ -32,6 +32,7 @@ class AdminController extends Controller
         $qb->select('COUNT(b.id)'); // On veut récupérer le  nombre de billets via la fonction COUNT()
 
         $nbBillets = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbBillets
+
         $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
 
         $qb = $em->getRepository('ALTAppBundle:Billet')->createQueryBuilder('b'); // Création du querybuilder pour l'entité "Billet"
@@ -39,15 +40,15 @@ class AdminController extends Controller
             ->select('COUNT(b.id)'); // On veut récupérer le  nombre de billets via la fonction COUNT()
 
         $nbBilletsDepublies = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbBillets
-        
+
         $qb = $em->getRepository('ALTAppBundle:Commentaire')->createQueryBuilder('c'); // Création du querybuilder pour l'entité "Commentaire"
         $qb->select('COUNT(c.id)'); // On veut récupérer le nombre de commentaires via la fonction COUNT()
 
         $nbCommentaires = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbCommentaires
 
         $qb = $em->getRepository('ALTAppBundle:Commentaire')->createQueryBuilder('c'); // Création du querybuilder pour l'entité "Commentaire"
-        $qb->andWhere($qb->expr()->in('c.signale', 1)) // ->andWhere('c.signale = 1')
-            ->select('COUNT(c.id)'); // On veut récupérer le nombre de commentaires via la fonction COUNT()
+        $qb->andWhere($qb->expr()->in('c.signale', 1))// ->andWhere('c.signale = 1')
+        ->select('COUNT(c.id)'); // On veut récupérer le nombre de commentaires via la fonction COUNT()
 
         $nbContactsSignales = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbCommentaires
 
@@ -58,7 +59,7 @@ class AdminController extends Controller
         $nbContacts = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbContacts
 
         $qb = $em->getRepository('ALTAppBundle:Contact')->createQueryBuilder('cr'); // Création du querybuilder pour l'entité "Contact"
-        $qb ->andWhere($qb->expr()->isNull('cr.dateReponse'))
+        $qb->andWhere($qb->expr()->isNull('cr.dateReponse'))
             ->select('COUNT(cr.id)'); // On veut récupérer le  nombre de contacts via la fonction COUNT()
 
         $nbContactsAttenteReponse = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbContacts
@@ -69,7 +70,7 @@ class AdminController extends Controller
             'nbBillets' => $nbBillets,
             'nbBilletsDepublies' => $nbBilletsDepublies,
             'nbCommentaires' => $nbCommentaires,
-            'nbContactsSignales'=> $nbContactsSignales,
+            'nbContactsSignales' => $nbContactsSignales,
             'nbContacts' => $nbContacts,
             'nbContactsAttenteReponse' => $nbContactsAttenteReponse
         ));
@@ -278,12 +279,12 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
         // On récupère le répository de l'entité Commentaire, on lui appelle la méthode "findBy"
         // pour récupérer des commentaires depuis notre base de données, qui prend en paramètre "id" du billet et triés par "id" en ordre descendant.
-        $commentaires = $em->getRepository('ALTAppBundle:Commentaire')->findBy(array('billet' => $billet),array("id"=>"desc"));
+        $commentaires = $em->getRepository('ALTAppBundle:Commentaire')->findBy(array('billet' => $billet), array("id" => "desc"));
 
         // On affiche la page qui va afficher la liste des commentaires par "id", on fait passer les paramètres dans la vue
         return $this->render('ALTAppBundle:Admin:liste_commentaires_par_id.html.twig', array(
             'commentaires' => $commentaires,
-            'billet'           => $billet
+            'billet' => $billet
         ));
     }
 
@@ -312,7 +313,8 @@ class AdminController extends Controller
      * @param Billet $billetPublie
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function publierBilletAction(Billet $billetPublie){
+    public function publierBilletAction(Billet $billetPublie)
+    {
 
         $em = $this->getDoctrine()->getManager(); // On récupère le manager pour dialoguer avec la base de données
         $billetPublie->setPublier(true); // On dit à l'objet "billetPublie" d'activer la publication de celui ci
@@ -331,7 +333,8 @@ class AdminController extends Controller
      * @param Billet $billetPublie
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function depublierBilletAction(Billet $billetPublie){
+    public function depublierBilletAction(Billet $billetPublie)
+    {
 
         $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
         $billetPublie->setPublier(false);// On dit à l'objet "billetPublie" de desactiver la publication de celui ci
@@ -406,9 +409,9 @@ class AdminController extends Controller
                 // Création de l'e-mail avec SwiftMailer
                 $message = \Swift_Message::newInstance()
                     ->setContentType('text/html')//Message en HTML
-                    ->setSubject("Réponse à : ".$contact->getSujet())//Email et le titre du mail devient le sujet de mon objet contact
-                    ->setFrom($this-> getParameter('mailer_user'))// Email de l'expéditeur - nous
-                    ->setTo($contact->getEmail()) // destinataire du mail
+                    ->setSubject("Réponse à : " . $contact->getSujet())//Email et le titre du mail devient le sujet de mon objet contact
+                    ->setFrom($this->getParameter('mailer_user'))// Email de l'expéditeur - nous
+                    ->setTo($contact->getEmail())// destinataire du mail
                     ->setBody($this->renderView('@ALTApp/Admin/mail_reponse_contact.html.twig', array(
                         'contact' => $contact
                     ))); // contenu réponse du mail + contenu constact

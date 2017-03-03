@@ -12,15 +12,15 @@
         <link rel="stylesheet" href="{{ asset('bundles/altapp/css/connexion.css') }}">
     {% endblock %}
     <script src="//cloud.tinymce.com/stable/tinymce.min.js"></script>
-    <script>tinymce.init({ selector:'textarea' });</script>
+    <script>tinymce.init({selector: 'textarea'});</script>
 
 </head>
 
 <body>
 {# S'il y a une erreur, on l'affiche dans un joli cadre #}
-    {% if error %}
-        <div class="alert alert-danger">{{ error.message }}</div>
-    {% endif %}
+{% if error %}
+    <div class="alert alert-danger">{{ error.message }}</div>
+{% endif %}
 
 <div class="container">
 
@@ -28,15 +28,16 @@
 
     {# Le formulaire, avec URL de soumission vers la route « login_check » comme on l'a vu #}
     <form action="{{ path('login_check') }}" method="post">
-        <h2 >Identification</h2>
-        <label for="username" ></label>
-        <input class="form-control" type="text" id="username" placeholder="Login" name="_username" value="{{ last_username }}" />
-        <br />
+        <h2>Identification</h2>
+        <label for="username"></label>
+        <input class="form-control" type="text" id="username" placeholder="Login" name="_username"
+               value="{{ last_username }}"/>
+        <br/>
 
         <label for="password"></label>
         <input class="form-control" type="password" id="password" name="_password" placeholder="Mot de passe"/>
-        <br />
-        <input class="envoyer" type="submit" value="Connexion" />
+        <br/>
+        <input class="envoyer" type="submit" value="Connexion"/>
     </form>
 
 </div>

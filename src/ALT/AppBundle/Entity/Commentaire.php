@@ -21,6 +21,24 @@ class Commentaire
      */
     private $billet;
 
+    /**
+     * @var
+     * @ORM\ManyToOne(targetEntity="ALT\AppBundle\Entity\Commentaire",inversedBy="enfants")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $parent;
+    
+    /**
+     * @var
+     * @ORM\OneToMany(targetEntity="ALT\AppBundle\Entity\Commentaire",mappedBy="parent")
+     */
+    private $enfants;
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer", options={"default":0})
+     */
+    private $niveau = 0;
 
     /**
      * @var int
@@ -183,5 +201,87 @@ class Commentaire
     public function getSignale()
     {
         return $this->signale;
+    }
+
+    /**
+     * Set niveau
+     *
+     * @param integer $niveau
+     *
+     * @return Commentaire
+     */
+    public function setNiveau($niveau)
+    {
+        $this->niveau = $niveau;
+
+        return $this;
+    }
+
+    /**
+     * Get niveau
+     *
+     * @return integer
+     */
+    public function getNiveau()
+    {
+        return $this->niveau;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \ALT\AppBundle\Entity\Commentaire $parent
+     *
+     * @return Commentaire
+     */
+    public function setParent(\ALT\AppBundle\Entity\Commentaire $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \ALT\AppBundle\Entity\Commentaire
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add enfant
+     *
+     * @param \ALT\AppBundle\Entity\Commentaire $enfant
+     *
+     * @return Commentaire
+     */
+    public function addEnfant(\ALT\AppBundle\Entity\Commentaire $enfant)
+    {
+        $this->enfants[] = $enfant;
+
+        return $this;
+    }
+
+    /**
+     * Remove enfant
+     *
+     * @param \ALT\AppBundle\Entity\Commentaire $enfant
+     */
+    public function removeEnfant(\ALT\AppBundle\Entity\Commentaire $enfant)
+    {
+        $this->enfants->removeElement($enfant);
+    }
+
+    /**
+     * Get enfants
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEnfants()
+    {
+        return $this->enfants;
     }
 }

@@ -30,16 +30,15 @@ class ConnexionController extends Controller
         // préremplit date du jour
         $connexion->setDate(new \Datetime());
         //Création du formulaire "FormBuilder" par le service form factory
-        $formConnexion= $this->get('form.factory')->createBuilder(FormType::class, $connexion)
+        $formConnexion = $this->get('form.factory')->createBuilder(FormType::class, $connexion)
             // On ajoute les champs de l'entité que l'on veut à notre formulaire
-            ->add('date',      DateType::class)
-            ->add('nom',    TextType::class)
-            ->add('prenom',    TextType::class)
-            ->add('email',    EmailType::class)
-            ->add('mot de passe',     PasswordType::class)
-            ->add('enregistrer',      SubmitType::class)
-            ->getForm()
-        ;
+            ->add('date', DateType::class)
+            ->add('nom', TextType::class)
+            ->add('prenom', TextType::class)
+            ->add('email', EmailType::class)
+            ->add('mot de passe', PasswordType::class)
+            ->add('enregistrer', SubmitType::class)
+            ->getForm();
 
         // Si la requête est en POST
         if ($request->isMethod('POST')) {

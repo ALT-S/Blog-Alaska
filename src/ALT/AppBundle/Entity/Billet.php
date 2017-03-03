@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Billet
- * 
+ *
  * @ORM\Table(name="billet")
  * @ORM\Entity(repositoryClass="ALT\AppBundle\Repository\BilletRepository")
  */
@@ -168,9 +168,33 @@ class Billet
     {
         return $this->publier;
     }
-    
+
     public function getCommentaires()
     {
         return $this->commentaires;
+    }
+
+    /**
+     * Add commentaire
+     *
+     * @param \ALT\AppBundle\Entity\Commentaire $commentaire
+     *
+     * @return Billet
+     */
+    public function addCommentaire(\ALT\AppBundle\Entity\Commentaire $commentaire)
+    {
+        $this->commentaires[] = $commentaire;
+
+        return $this;
+    }
+
+    /**
+     * Remove commentaire
+     *
+     * @param \ALT\AppBundle\Entity\Commentaire $commentaire
+     */
+    public function removeCommentaire(\ALT\AppBundle\Entity\Commentaire $commentaire)
+    {
+        $this->commentaires->removeElement($commentaire);
     }
 }

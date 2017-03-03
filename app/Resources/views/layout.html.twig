@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="{{ asset('bundles/altapp/css/blog.css') }}">
     {% endblock %}
     <script src="//cloud.tinymce.com/stable/tinymce.min.js"></script>
-    <script>tinymce.init({ selector:'textarea' });</script>
+    <script>tinymce.init({selector: 'textarea'});</script>
 
 </head>
 
@@ -39,9 +39,16 @@
             <div class="menu">
                 <h4>Menu</h4>
                 <ul class="nav nav-pills nav-stacked">
-                    <li><a class="{% if app.request.attributes.get('_route') == 'alt_app_homepage' %}navbar-brand{% endif %} " href="{{ path('alt_app_homepage') }}">Accueil<i class=" glyphicon glyphicon-home"></i></a></li>
-                    <li><a class="{% if app.request.attributes.get('_route') == 'alt_app_monblog' %}navbar-brand{% endif %}" href="{{ path('alt_app_monblog') }}">Mon blog</a></li>
-                    <li><a class="{% if app.request.attributes.get('_route') == 'alt_app_contact' %}navbar-brand{% endif %}" href="{{ path('alt_app_contact') }}">Contact</a></li>
+                    <li>
+                        <a class="{% if app.request.attributes.get('_route') == 'alt_app_homepage' %}navbar-brand{% endif %} "
+                           href="{{ path('alt_app_homepage') }}">Accueil<i class=" glyphicon glyphicon-home"></i></a>
+                    </li>
+                    <li>
+                        <a class="{% if app.request.attributes.get('_route') == 'alt_app_monblog' %}navbar-brand{% endif %}"
+                           href="{{ path('alt_app_monblog') }}">Mon blog</a></li>
+                    <li>
+                        <a class="{% if app.request.attributes.get('_route') == 'alt_app_contact' %}navbar-brand{% endif %}"
+                           href="{{ path('alt_app_contact') }}">Contact</a></li>
                 </ul>
             </div>
 
@@ -62,16 +69,19 @@
             </div>
 
             <div class="reseaux-sociaux">
-               <h3 class="sociaux">Suivez-moi</h3>
+                <h3 class="sociaux">Suivez-moi</h3>
                 <p class="icone">
-                    <a alt="Icone Facebook" href="https://www.facebook.com/profile.php?id=100014181913336"><img src= {{ asset('bundles/altapp/image/facebook.png') }}></a>
-                    <a alt="Icone OpenClassroom"href="https://openclassrooms.com/projects/creez-un-blog-pour-un-ecrivain-1"><img src= {{ asset('bundles/altapp/image/fav-icon.png') }}></a>
+                    <a alt="Icone Facebook" href="https://www.facebook.com/profile.php?id=100014181913336"><img
+                                src= {{ asset('bundles/altapp/image/facebook.png') }}></a>
+                    <a alt="Icone OpenClassroom"
+                       href="https://openclassrooms.com/projects/creez-un-blog-pour-un-ecrivain-1"><img
+                                src= {{ asset('bundles/altapp/image/fav-icon.png') }}></a>
                 </p>
             </div>
 
         </div><!-- /.sidebar -->
 
-        <div class="col-sm-8 blog">
+        <div class="col-sm-9 blog">
 
             <div class="blog-post">
                 {% if app.session.flashBag.has('notice') %}
@@ -91,8 +101,8 @@
     </div><!-- /.row -->
 
 
-
     <footer>
+        <hr>
         <div class="auteur " style="text-align: center">
             <p>
                 <a href="{{ path('login') }}"><i class=" glyphicon glyphicon-user"></i></a>

@@ -8,6 +8,7 @@
 
 namespace ALT\AppBundle\Controller;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use ALT\AppBundle\Entity\Billet;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -24,10 +25,10 @@ class BilletController extends Controller
         $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
         // On récupère le répository de l'entité Billet, on lui appelle la méthode "findBy"
         // pour récupérer des billets depuis notre base de données, triés par "id" en ordre descendant avec une limite
-        $listeBillets = $em->getRepository('ALTAppBundle:Billet')->findBy(array("publier" => 1),array("id"=>"desc"),$limit);
+        $listeBillets = $em->getRepository('ALTAppBundle:Billet')->findBy(array(), array("id" => "desc"), $limit);
 
         // On affiche la page qui va afficher le menu , on fait passer le paramètre dans la vue
-        return $this->render('ALTAppBundle:Billet:menu.html.twig',array(
+        return $this->render('ALTAppBundle:Billet:menu.html.twig', array(
             'listeBillets' => $listeBillets
         ));
     }
@@ -46,11 +47,10 @@ class BilletController extends Controller
         // pour récupérer les commentaires depuis notre base de données, en lui passant en  paramètre "id" de ce billet
         $listeCommentaires = $em
             ->getRepository('ALTAppBundle:Commentaire')
-            ->findBy(array('billet' => $billet))
-        ;
+            ->findBy(array('billet' => $billet));
         // On affiche la page qui va afficher la lecture , on fait passer les paramètres dans la vue
         return $this->render('ALTAppBundle:Billet:lecture.html.twig', array(
-            'billet'           => $billet,
+            'billet' => $billet,
             'listeCommentaires' => $listeCommentaires
         ));
     }
@@ -65,19 +65,43 @@ class BilletController extends Controller
         if ($page < 1) {
             // On déclenche une exception NotFoundHttpException, cela va afficher
             // une page d'erreur 404 (qu'on pourra personnaliser plus tard d'ailleurs)
-            throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
+            throw new NotFoundHttpException('Page "' . $page . '" inexistante.');
         }
+
+        $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
+
+        $qb = $em->getRepository('ALTAppBundle:Billet')->createQueryBuilder('b'); // Création du querybuilder pour l'entité "Billet"
+        $qb->select('COUNT(b.id)'); // On veut récupérer le  nombre de billets via la fonction COUNT()
+
+        $nbBillets = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbBillets
+
+        if ($page > $nbBillets) {
+            // On déclenche une exception NotFoundHttpException, cela va afficher
+            // une page d'erreur 404 (qu'on pourra personnaliser plus tard d'ailleurs)
+            throw new NotFoundHttpException('Page "' . $page . '" inexistante.');
+        }
+
+        $offset = ($page - 1) * 2;
 
         $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
 
         // On récupère le répository de l'entité Billet, on lui appelle la méthode "findBy"
         // pour récupérer les billets depuis notre base de données, triés par "id" en ordre descendant
         // avec en paramètre une limite de 5 billets
-        $listeBillets = $em->getRepository('ALTAppBundle:Billet')->findBy(array("publier" => 1),array("id"=>"desc"),5);
+        $listeBillets = $em->getRepository('ALTAppBundle:Billet')->findBy(array(), array("id" => "desc"), 5, $offset);
+
+
+        $qb = $em->getRepository('ALTAppBundle:Billet')->createQueryBuilder('b')
+            ->select('billet')
+            ->from('ALTAppBundle:Billet', 'billet');
+
+        $qb->setFirstResult($offset)
+            ->setMaxResults(1);
 
         // On affiche la page qui va afficher monblog , on fait passer le paramètre dans la vue
         return $this->render('ALTAppBundle:Billet:monblog.html.twig', array(
-            'billets' => $listeBillets
+            'billets' => $listeBillets,
+            'page' => $page
         ));
     }
 }

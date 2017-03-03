@@ -1,27 +1,33 @@
-{% extends "ALTAppBundle::layout.html.twig" %}
-{% block body %}
+{% for billet in billets %}
 
-    {% for billet in billets %}
+    <li class=" section-extrait">
+        <a href="{{ path('alt_app_lecture', {'id': billet.id}) }}">
+            <div class="date col-sm-2">Le {{ billet.date|date('d/m/Y') }}
+                <a class=" Nbre  glyphicon glyphicon-comment"
+                   href="{{ path('alt_app_lecture', {'id': billet.id}) }}">
+                    <span>Nbre de commentaire(s):</span>{{ billet.commentaires | length }}
+                </a>
+            </div>
+        </a>
 
-        <h2>
-            <a href="{{ path('alt_app_lecture', {'id': billet.id}) }}">{{ billet.titre }}</a>
-        </h2>
-        <i>Le {{ billet.date|date('d/m/Y') }}</i>
-
-        <div class="monblog_contenu">
-            {{ billet.contenu|raw }}
-        </div>
-
-        <div class="Nbr_com-blog  row col-sm-offset-8 ">
-
-        <p class="glyphicon glyphicon-comment"><a href="{{ path('alt_app_lecture', {'id': billet.id}) }}">
-            <span>Nombre de commentaire(s):</span> {{ billet.commentaires | length }}
+        <div class="extrait col-sm-9">
+            <a href="{{ path('alt_app_lecture', {'id': billet.id}) }}">
+                <h3>{{ billet.titre }}</h3>
+                <p style="color: black"> {{ billet.contenu| truncate(200) |raw }}</p>
             </a>
-        </p>
-
+            <a style=" margin: 0 0 0 0; padding: 0 0 0 0" class="btn btn-outline-primary"
+               href="{{ path('alt_app_lecture', {'id': billet.id}) }}" role="button">Voir plus... »
+            </a>
+            <hr>
         </div>
-        <hr>
-    {% endfor %}
 
+    </li>
 
-{% endblock %}
+{% endfor %}
+<div style="text-align: center" class="pagination">
+    <a href="{{ path('alt_app_monblog',{'page':  page  - 1 } ) }}"><i class="glyphicon glyphicon-arrow-left"></i>page
+        précédente</a>
+    Page : {{ page + 1 }}
+    <a href="{{ path('alt_app_monblog',{'page':  page  + 1 } ) }}">page suivante<i
+                class="glyphicon glyphicon-arrow-right"></i></a>
+</div>

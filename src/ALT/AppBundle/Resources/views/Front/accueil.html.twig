@@ -1,11 +1,11 @@
 {% extends "ALTAppBundle::layout.html.twig" %}
 {% block body %}
 
-    <h2>Derniers billets</h2>
+    <h2>Derniers billets :</h2>
 
-            <ul class="nav nav-pills nav-stacked">
-                <li> {{ render(controller("ALTAppBundle:Billet:menu", {'limit': 3})) }}</li>
-            </ul>
+    <ul class="nav nav-pills nav-stacked">
+        <li> {{ render(controller("ALTAppBundle:Billet:monBlog", {'page': 1})) }}</li>
+    </ul>
 
 {% endblock %}
 
