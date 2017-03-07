@@ -1,0 +1,4 @@
+services:
+#    alt_user.example:
+#        class: ALT\UserBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
