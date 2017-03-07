@@ -16,7 +16,6 @@ class ContactController extends Controller
     public function contactAction(Request $request)
     {
         $contact = new Contact();// Création de l'entité - objet Contact
-        $contact->setDate(new \Datetime());// On préremplit date du jour
 
         //Externalisation du formulaire dans Form DemandeContact
         $formContact = $this->get('form.factory')->create(DemandeContactType::class, $contact);

@@ -54,54 +54,5 @@ class BilletController extends Controller
             'listeCommentaires' => $listeCommentaires
         ));
     }
-
-    /**
-     * @param $page
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function monBlogAction($page)
-    {
-        // On ne sait pas combien de pages il y a, mais une page doit être supérieure ou égale à 1
-        if ($page < 1) {
-            // On déclenche une exception NotFoundHttpException, cela va afficher
-            // une page d'erreur 404 (qu'on pourra personnaliser plus tard d'ailleurs)
-            throw new NotFoundHttpException('Page "' . $page . '" inexistante.');
-        }
-
-        $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
-
-        $qb = $em->getRepository('ALTAppBundle:Billet')->createQueryBuilder('b'); // Création du querybuilder pour l'entité "Billet"
-        $qb->select('COUNT(b.id)'); // On veut récupérer le  nombre de billets via la fonction COUNT()
-
-        $nbBillets = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbBillets
-
-        if ($page > $nbBillets) {
-            // On déclenche une exception NotFoundHttpException, cela va afficher
-            // une page d'erreur 404 (qu'on pourra personnaliser plus tard d'ailleurs)
-            throw new NotFoundHttpException('Page "' . $page . '" inexistante.');
-        }
-
-        $offset = ($page - 1) * 2;
-
-        $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
-
-        // On récupère le répository de l'entité Billet, on lui appelle la méthode "findBy"
-        // pour récupérer les billets depuis notre base de données, triés par "id" en ordre descendant
-        // avec en paramètre une limite de 5 billets
-        $listeBillets = $em->getRepository('ALTAppBundle:Billet')->findBy(array(), array("id" => "desc"), 5, $offset);
-
-
-        $qb = $em->getRepository('ALTAppBundle:Billet')->createQueryBuilder('b')
-            ->select('billet')
-            ->from('ALTAppBundle:Billet', 'billet');
-
-        $qb->setFirstResult($offset)
-            ->setMaxResults(1);
-
-        // On affiche la page qui va afficher monblog , on fait passer le paramètre dans la vue
-        return $this->render('ALTAppBundle:Billet:monblog.html.twig', array(
-            'billets' => $listeBillets,
-            'page' => $page
-        ));
-    }
+    
 }

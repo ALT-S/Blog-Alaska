@@ -1,20 +1,8 @@
-alt_app_homepage:
-    path:     /
-    defaults:
-        _controller: ALTAppBundle:Front:accueil
-
 alt_app_contact:
     path:     /contact
     defaults:
         _controller: ALTAppBundle:Contact:contact
 
-alt_app_monblog:
-    path:      /blog/{page}
-    defaults:
-        _controller: ALTAppBundle:Billet:monBlog
-        page: 1
-    requirements:
-        id: \d+
 
 alt_app_lecture:
     path:    /lecture/{id}
@@ -27,6 +15,11 @@ alt_app_ajouter_commentaire:
     path:     /billet/{id}/ajouter_commentaire
     defaults:
         _controller: ALTAppBundle:Commentaires:ajouterCommentaire
+
+alt_app_repondre_commentaire:
+    path:     /commentaire/{id}/repondre_commentaire
+    defaults:
+        _controller: ALTAppBundle:Commentaires:repondreCommentaire
 
 alt_app_signaler_commentaire:
     path: /commentaire/{id}/signaler
@@ -126,5 +119,14 @@ alt_app_admin_contact_lecture:
     path:     /admin/contact/{id}/lecture
     defaults:
         _controller: ALTAppBundle:Admin:lectureContactReponse
+    requirements:
+        id: \d+
+
+
+alt_app_homepage:
+    path:     /{page}
+    defaults:
+        _controller: ALTAppBundle:Front:accueil
+        page: 1
     requirements:
         id: \d+

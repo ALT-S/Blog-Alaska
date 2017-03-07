@@ -2,7 +2,10 @@
 {% block body %}
 
     <div class="col-sm-11">
-        <h2>Laisser un commentaire sur le billet : " {{ billet.titre|raw }} "</h2>
+        <h2>Répondre</h2>
+
+        <strong>Répondre à :</strong> {{ commentaireParent.auteur|raw }}</br>
+        <strong>Commentaire :</strong> {{ commentaireParent.contenu |raw }}
 
         <p>Utilisez le formulaire de contact ci-dessous :</p>
 

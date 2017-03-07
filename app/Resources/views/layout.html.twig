@@ -43,12 +43,11 @@
                         <a class="{% if app.request.attributes.get('_route') == 'alt_app_homepage' %}navbar-brand{% endif %} "
                            href="{{ path('alt_app_homepage') }}">Accueil<i class=" glyphicon glyphicon-home"></i></a>
                     </li>
-                    <li>
-                        <a class="{% if app.request.attributes.get('_route') == 'alt_app_monblog' %}navbar-brand{% endif %}"
-                           href="{{ path('alt_app_monblog') }}">Mon blog</a></li>
+
                     <li>
                         <a class="{% if app.request.attributes.get('_route') == 'alt_app_contact' %}navbar-brand{% endif %}"
-                           href="{{ path('alt_app_contact') }}">Contact</a></li>
+                           href="{{ path('alt_app_contact') }}">Contact</a>
+                    </li>
                 </ul>
             </div>
 
