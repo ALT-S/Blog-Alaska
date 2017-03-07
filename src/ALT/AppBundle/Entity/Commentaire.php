@@ -238,6 +238,8 @@ class Commentaire
     {
         $this->parent = $parent;
 
+        $this->setBillet($parent->getBillet());
+        
         return $this;
     }
 

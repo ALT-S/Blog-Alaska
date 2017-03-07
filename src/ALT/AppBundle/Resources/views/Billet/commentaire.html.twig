@@ -1,0 +1,26 @@
+<div style="margin-left: {{ niveau * 20 }}px;">
+    <div class="billet-commentaire">
+
+        <h5>{{ commentaire.auteur }} <i>, Le {{ commentaire.date | date('d-m-Y H:i:s') }} </i></h5>
+
+        <div class="com_contenu">{{ commentaire.contenu|raw }}</div>
+    </div>
+
+    <p class="commentaire" style="text-align: right;">
+        {% if niveau < 2 %}
+        <a href="{{ path('alt_app_repondre_commentaire', {id: commentaire.id}) }}" class="btn btn-default comment">
+            <i class="glyphicon glyphicon-comment ajout"></i>
+            Répondre
+        </a>
+        {% endif %}
+        <a href="{{ path('alt_app_signaler_commentaire', {'id': commentaire.id}) }}"
+           class="btn btn-default warning">
+            <i class="glyphicon glyphicon-warning-sign"></i>
+            Signaler
+        </a>
+    </p>
+</div>
+
+{% for commentaireEnfant in listeCommentaires if commentaireEnfant.parent is not null and commentaireEnfant.parent.id == commentaire.id %}
+    {{ include('@ALTApp/Billet/commentaire.html.twig', {'commentaire' : commentaireEnfant, 'niveau': niveau + 1, 'listeCommentaires': listeCommentaires}) }}
+{% endfor %}
