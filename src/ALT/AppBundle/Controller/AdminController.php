@@ -151,7 +151,7 @@ class AdminController extends Controller
             $form->handleRequest($request);
 
             // On vérifie que les valeurs entrées sont correctes
-            if ($form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid()) {
                 // On enregistre notre objet $billet dans la base de données
                 $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
                 $em->persist($billet);// puis on « persiste » l'entité, garde cette entité en mémoire
@@ -383,7 +383,7 @@ class AdminController extends Controller
             $form->handleRequest($request);
 
             // On vérifie que les valeurs entrées sont correctes
-            if ($form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid()) {
                 // On enregistre notre objet $commentaire dans la base de données
                 $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
                 $commentaire->setSignale(false);
@@ -416,7 +416,7 @@ class AdminController extends Controller
             $form->handleRequest($request);
 
             // On vérifie que les valeurs entrées sont correctes
-            if ($form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid()) {
                 $contact->setDateReponse(new \DateTime());
 
                 // On enregistre notre objet $contact  dans la base de données
