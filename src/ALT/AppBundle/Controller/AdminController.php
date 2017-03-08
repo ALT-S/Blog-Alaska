@@ -297,7 +297,7 @@ class AdminController extends Controller
     public function supprimerCommentaireAction(Commentaire $commentaire)
     {
         $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
-        $em->remove($commentaire);//On supprime l'entité $billet
+        $em->remove($commentaire);//On supprime l'entité $commentaire
         $em->flush();// Et on déclenche l'enregistrement
 
         // Création du « flashBag » qui contient les messages flash

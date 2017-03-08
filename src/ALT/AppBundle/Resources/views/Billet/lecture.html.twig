@@ -5,37 +5,37 @@
 {% endblock %}
 
 {% block body %}
-    <div class="col-sm-11">
-        <h3>{{ billet.titre }}</h3>
-        <i>Le {{ billet.date|date('d/m/Y') }}</i>
+<div class="col-sm-11">
+    <h3>{{ billet.titre }}</h3>
+    <i>Le {{ billet.date|date('d/m/Y') }}</i>
 
-        <hr>
+    <hr>
 
-        <div class="lecture_contenu">
-            {{ billet.contenu|raw }}
-        </div>
-        <p>
-            {#<a href="{{ path('alt_app_ajouter_commentaire', {'id': billet.id}) }}" class=" row btn btn-default col-lg-offset-10 ">
-                <i class="glyphicon glyphicon-edit"></i>
-                Ajouter un commentaire
-            </a>#}
-        </p>
+    <div class="lecture_contenu">
+        {{ billet.contenu|raw }}
+    </div>
+    <p>
+        {#<a href="{{ path('alt_app_ajouter_commentaire', {'id': billet.id}) }}" class=" row btn btn-default col-lg-offset-10 ">
+            <i class="glyphicon glyphicon-edit"></i>
+            Ajouter un commentaire
+        </a>#}
+    </p>
 
-        <div class="com">
-            <div class="Nbr_com row col-sm-offset-8 ">
+    <div class="com">
+        <div class="Nbr_com row col-sm-offset-8 ">
 
-                <p class="glyphicon glyphicon-comment">
-                    <span>Nombre de commentaire(s):</span> {{ listeCommentaires | length }}
-                </p>
-
-            </div>
-            <p>
-                <a href="{{ path('alt_app_ajouter_commentaire', {id: billet.id}) }}" class="btn btn-default comment">
-                    <i class="glyphicon glyphicon-comment ajout"></i>
-                    Ajouter commentaire
-                </a>
+            <p class="glyphicon glyphicon-comment">
+                <span>Nombre de commentaire(s):</span> {{ listeCommentaires | length }}
             </p>
 
+        </div>
+        <p>
+            <a href="{{ path('alt_app_ajouter_commentaire', {id: billet.id}) }}" class="btn btn-default comment">
+                <i class="glyphicon glyphicon-comment ajout"></i>
+                Ajouter commentaire
+            </a>
+        </p>
+        <div>
             <h4>Commentaires :</h4>
 
             {% for commentaire in listeCommentaires if commentaire.parent is null %}
@@ -51,4 +51,4 @@
             </a>
         </p>
     </div>
-{% endblock %}
+    {% endblock %}

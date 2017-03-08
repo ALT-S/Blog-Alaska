@@ -50,7 +50,7 @@ class Billet
 
     /**
      * @var
-     * @ORM\OneToMany(targetEntity="ALT\AppBundle\Entity\Commentaire", mappedBy="billet", fetch="EXTRA_LAZY")
+     * @ORM\OneToMany(targetEntity="ALT\AppBundle\Entity\Commentaire", mappedBy="billet", fetch="EXTRA_LAZY", cascade={"remove"})
      */
     private $commentaires;
 

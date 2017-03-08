@@ -66,11 +66,16 @@
                     "Billet simple pour l'Alaska" est mon premier roman que je publie en ligne.
                 </p>
             </div>
+            <div class="derCommentaire">
+                <h4>Les derniers commentaires</h4>
+                {{ render(controller('ALTAppBundle:Front:menu',{"limit" :3})) }}
+
+            </div>
 
             <div class="reseaux-sociaux">
                 <h3 class="sociaux">Suivez-moi</h3>
                 <p class="icone">
-                    <a alt="Icone Facebook" href="https://www.facebook.com/profile.php?id=100014181913336"><img
+                    <a alt="Icone Facebook" href="https://fr-fr.facebook.com/openclassrooms/"><img
                                 src= {{ asset('bundles/altapp/image/facebook.png') }}></a>
                     <a alt="Icone OpenClassroom"
                        href="https://openclassrooms.com/projects/creez-un-blog-pour-un-ecrivain-1"><img

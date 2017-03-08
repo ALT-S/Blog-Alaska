@@ -16,7 +16,7 @@ use ALT\AppBundle\Entity\Billet;
 class Commentaire
 {
     /**
-     * @ORM\ManyToOne(targetEntity="ALT\AppBundle\Entity\Billet",inversedBy="commentaires", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="ALT\AppBundle\Entity\Billet",inversedBy="commentaires")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $billet;

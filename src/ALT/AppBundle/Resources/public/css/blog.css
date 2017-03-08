@@ -104,6 +104,17 @@ a.navbar-brand {
     padding: 10px;
 }
 
+.derCommentaire {
+    display: block;
+    padding: 8px 16px 6px;
+    margin-bottom: 0;
+    border-top: 3px solid #16212c;
+    border-bottom: 1px solid #16212c;
+    font-weight: bold;
+    font-size: 1.3rem;
+    box-sizing: border-box;
+}
+
 .sociaux {
     display: inline-block;
     padding: 0;
@@ -251,6 +262,6 @@ footer {
     margin-top: 50px;
 }
 
-li, .section-extrait{
+li, .section-extrait {
     list-style: none;
 }
