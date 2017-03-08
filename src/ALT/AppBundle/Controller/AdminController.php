@@ -308,6 +308,23 @@ class AdminController extends Controller
     }
 
     /**
+     * @param Commentaire $commentaireValider
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function validerCommentaireAction(Commentaire $commentaireValider)
+    {
+        $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
+        $commentaireValider->setSignale(false);
+        $em->flush();// Et on déclenche l'enregistrement
+
+        // Création du « flashBag » qui contient les messages flash
+        $this->addFlash('notice', 'Le commentaire a bien été validé !');
+
+        // On redirige vers la page qui va afficher la liste des commentaires
+        return $this->redirectToRoute('alt_app_admin_liste_commentaires');
+    }
+
+    /**
      * Récupération de billets via ParamConverter
      *
      * @param Billet $billetPublie
@@ -369,6 +386,7 @@ class AdminController extends Controller
             if ($form->isValid()) {
                 // On enregistre notre objet $commentaire dans la base de données
                 $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
+                $commentaire->setSignale(false);
                 $em->flush();// Et on déclenche l'enregistrement
             }
 
