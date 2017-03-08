@@ -15,7 +15,8 @@ class FrontController extends Controller
         $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
 
         $qb = $em->getRepository('ALTAppBundle:Billet')->createQueryBuilder('b'); // Création du querybuilder pour l'entité "Billet"
-        $qb->select('COUNT(b.id)'); // On veut récupérer le  nombre de billets via la fonction COUNT()
+        $qb->select('COUNT(b.id)') // On veut récupérer le  nombre de billets via la fonction COUNT()
+        ->andWhere($qb->expr()->in('b.publier', 1));
 
         $nbBillets = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbBillets
 
