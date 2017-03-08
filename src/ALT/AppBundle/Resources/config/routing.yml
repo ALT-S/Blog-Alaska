@@ -26,7 +26,6 @@ alt_app_signaler_commentaire:
     defaults:
          _controller: ALTAppBundle:Commentaires:signaler
 
-
 alt_app_admin_ajouter:
     path:      /admin/billet/ajouter
     defaults:
@@ -50,6 +49,13 @@ alt_app_admin_supprimer_commentaire:
     path:      /admin/commentaire/{id}/supprimer
     defaults:
         _controller: ALTAppBundle:Admin:supprimerCommentaire
+    requirements:
+        id: \d+
+
+alt_app_admin_valider_commentaire:
+    path:      /admin/commentaire/{id}/valider
+    defaults:
+        _controller: ALTAppBundle:Admin:validerCommentaire
     requirements:
         id: \d+
 

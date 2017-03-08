@@ -19,7 +19,7 @@ class FrontController extends Controller
 
         $nbBillets = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbBillets
 
-        $billetsParPage = 5; // Fixe le nombre de billets affichés par page
+        $billetsParPage = 4; // Fixe le nombre de billets affichés par page
 
         $pagesTotal = (int) ceil($nbBillets / $billetsParPage); // Compte le nombre de pages totales (ceil() fait l'arrondie à l'entier supérieur)
 

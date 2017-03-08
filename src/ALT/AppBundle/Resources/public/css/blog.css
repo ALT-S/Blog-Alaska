@@ -250,3 +250,7 @@ span {
 footer {
     margin-top: 50px;
 }
+
+li, .section-extrait{
+    list-style: none;
+}
