@@ -22,9 +22,9 @@
 
                 <th>Nom / Prénom</th>
                 <th>Email</th>
-                <th style="width: 120px">Date</th>
+                <th class="style">Date</th>
                 <th>Sujet</th>
-                <th style="width:150px;">&nbsp;</th>
+                <th class="nbsp-contacts">&nbsp;</th>
 
             </tr>
         </thead>
@@ -49,6 +49,10 @@
                             Répondre
                         </a>
                     {% endif %}
+                    <a href="{{ path('alt_app_admin_supprimer_contacts', {id: contact.id}) }}" class="btn btn-danger">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        Supprimer
+                    </a>
                 </td>
 
             </tr>

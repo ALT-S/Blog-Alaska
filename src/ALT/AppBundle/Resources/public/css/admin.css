@@ -118,8 +118,8 @@ thead {
     margin-right: 10px;
 }
 
-.action {
-    text-align: center;
+td.action {
+    text-align: left;
 }
 
 .glyphicon-trash {
@@ -167,6 +167,57 @@ thead {
     color: #18344c;
 }
 
+h3.admin-accueil {
+    font-family: cursive;
+    color: #428bca;
+    text-decoration: underline;
+}
+
+li.red {
+    color: red;
+}
+
+a.red {
+    color: red;
+}
+
+td {
+    text-align: center;
+}
+
+em.underline {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+
+h3.bonjour {
+    font-family: ELEGANCE, Helvetica, Arial, sans-serif;
+    font-size: 26px;
+}
+p.auteur {
+    font-style: italic
+}
+
+th.nbsp-contacts {
+    width: 150px;
+}
+
+th.nbsp-billets {
+    width: 487px;
+}
+
+th.nbsp-commentaires {
+    width: 280px;
+}
+
+th.style{
+    width: 120px
+}
+
+h4.message-original {
+    text-decoration: underline
+}
 
 
 

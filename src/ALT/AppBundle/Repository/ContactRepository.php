@@ -10,4 +10,33 @@ namespace ALT\AppBundle\Repository;
  */
 class ContactRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function countNbContacts()
+    {
+        $qb = $this->createQueryBuilder('c'); // Création du querybuilder pour l'entité "Contact"
+        $qb->select('COUNT(c.id)'); // On veut récupérer le  nombre de messages via la fonction COUNT()
+
+        return $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans  $nbContacts
+    }
+
+    public function countNbContactsAttenteReponse()
+    {
+        $qb = $this->createQueryBuilder('c'); // Création du querybuilder pour l'entité "Contact"
+        $qb
+            ->andWhere($qb->expr()->isNull('c.dateReponse'))
+            ->select('COUNT(c.id)'); // On veut récupérer le  nombre de contacts via la fonction COUNT()
+
+        return $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbContactsAttenteReponse
+    }
+    public function listeContacts($filtre = null)
+    {
+        $qb = $this->createQueryBuilder('c'); // Création du querybuilder pour l'entité "Contact"
+        $qb->orderBy('c.id', 'desc');// pour récupérer des contacts depuis notre base de données, triés par "id" en ordre descendant.
+
+        if (isset($filtre) && $filtre == 'attente') {
+            $qb->andWhere('c.dateReponse  IS NULL');
+        }
+
+        return $qb->getQuery()->getResult(); // On retourne le résultat 
+
+    }
 }

@@ -22,7 +22,7 @@
                 <th>Date</th>
                 <th>Publié</th>
                 <th>Nbr de commentaire(s)</th>
-                <th style="width: 487px;">&nbsp;</th>
+                <th class="nbsp-billets">&nbsp;</th>
             </tr>
         </thead>
 
@@ -46,10 +46,10 @@
                     {% endif %}
                 </td>
                 <td>
-                    <a href="{{ path('alt_app_admin_liste_commentaires_par_id', {'id': billet.id}) }}" title="Lire les commentaires" > {{ billet.commentaires | length }}
+                    <a href="{{ path('alt_app_admin_liste_commentaires', {'filtre': 'billet', 'id': billet.id}) }}" title="Lire les commentaires" > {{ billet.commentaires | length }}
                     </a>
                 </td>
-                <td class="action">
+                <td>
                     {% if billet.publier == 1 %}
                         <a href="{{ path('alt_app_admin_depublier_billet', {'id': billet.id}) }}" class="btn btn-default">
                             <i class="glyphicon glyphicon-remove"></i>

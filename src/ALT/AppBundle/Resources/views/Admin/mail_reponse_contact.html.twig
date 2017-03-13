@@ -8,14 +8,14 @@
         <div>
             <h4>Bonjour {{ contact.prenom }} {{ contact.nom }},</h4>
             <p>{{ contact.contenuReponse |raw}}</p>
-            <p style="font-style: italic">Jean Forteroche</p>
+            <p class="auteur">Jean Forteroche</p>
 
         </div>
 
         <hr>
 
         <div>
-            <h4 style="text-decoration: underline">Votre message original :</h4> <i>Du : {{ contact.date | date('d-m-Y H:i:s') }}</i>
+            <h4 class="message-original">Votre message original :</h4> <i>Du : {{ contact.date | date('d-m-Y H:i:s') }}</i>
             <p>
                 {{ contact.contenu|raw }}
             </p>

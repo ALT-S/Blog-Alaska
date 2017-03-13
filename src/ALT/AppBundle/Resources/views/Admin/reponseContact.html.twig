@@ -2,12 +2,12 @@
 
 {% block body %}
 
-    <em style="text-decoration: underline; font-weight: bold">De</em> : {{ contact.prenom }} {{ contact.nom }}<br>
-    <em style="text-decoration: underline; font-weight: bold">Titre</em> : {{ contact.sujet }}<br><br>
-    <em style="text-decoration: underline; font-weight: bold">Contenu</em> : {{ contact.contenu|raw }}
+    <em class="underline">De</em> : {{ contact.prenom }} {{ contact.nom }}<br>
+    <em class="underline">Titre</em> : {{ contact.sujet }}<br><br>
+    <em class="underline">Contenu</em> : {{ contact.contenu|raw }}
     <hr>
     <div>
-        <h3 style="font-family: ELEGANCE;font-size: 26px;">Bonjour {{ contact.prenom }} {{ contact.nom }},</h3>
+        <h3 class="bonjour">Bonjour {{ contact.prenom }} {{ contact.nom }},</h3>
         <div class="form-group">
             {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
@@ -27,7 +27,7 @@
             {{ form_end(form) }}
     </div>
     <div>
-        <p style="font-style: italic">Jean Forteroche</p>
+        <p class="auteur">Jean Forteroche</p>
     </div>
 
 {% endblock %}

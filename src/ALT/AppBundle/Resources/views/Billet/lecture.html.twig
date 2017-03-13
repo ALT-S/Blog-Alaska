@@ -25,7 +25,7 @@
         <div class="Nbr_com row col-sm-offset-8 ">
 
             <p class="glyphicon glyphicon-comment">
-                <span>Nombre de commentaire(s):</span> {{ listeCommentaires | length }}
+                <span>Nombre de commentaire(s):</span> {{ billet.commentaires | length }}
             </p>
 
         </div>
@@ -38,8 +38,8 @@
         <div>
             <h4>Commentaires :</h4>
 
-            {% for commentaire in listeCommentaires if commentaire.parent is null %}
-                {{ include('@ALTApp/Billet/commentaire.html.twig', {'commentaire' : commentaire, 'niveau': 0, 'listeCommentaires': listeCommentaires}) }}
+            {% for commentaire in billet.commentaires if commentaire.parent is null %}
+                {{ include('@ALTApp/Billet/commentaire.html.twig', {'commentaire' : commentaire, 'niveau': 0}) }}
                 <hr>
             {% endfor %}
         </div>

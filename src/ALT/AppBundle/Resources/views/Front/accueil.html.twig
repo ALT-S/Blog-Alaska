@@ -16,9 +16,9 @@
             <div class="extrait col-sm-9">
                 <a href="{{ path('alt_app_lecture', {'id': billet.id}) }}">
                     <h3>{{ billet.titre }}</h3>
-                    <p style="color: black"> {{ billet.contenu| truncate(650) |raw }}</p>
+                    <p> {{ billet.contenu| truncate(650) |raw }}</p>
                 </a>
-                <a style=" margin: 0 0 0 0; padding: 0 0 0 0" class="btn btn-outline-primary"
+                <a class="voir-plus btn btn-outline-primary"
                    href="{{ path('alt_app_lecture', {'id': billet.id}) }}" role="button">Voir plus... »
                 </a>
                 <hr>
@@ -30,17 +30,18 @@
 
 
     {% if pagesTotal > 1 %}
-    <div style="text-align: center" class="pagination">
-        {% if page > 1 %}
-        <a href="{{ path('alt_app_homepage',{'page':  page - 1 } ) }}"><i class="glyphicon glyphicon-arrow-left"></i>page
-            précédente</a>
-        {% endif %}
-        Page : {{ page }}
-        {% if page < pagesTotal %}
-        <a href="{{ path('alt_app_homepage',{'page':  page + 1 } ) }}">page suivante<i
-                    class="glyphicon glyphicon-arrow-right"></i></a>
-        {% endif %}
-    </div>
+        <div class="pagination col-sm-12">
+            {% if page > 1 %}
+                <a href="{{ path('alt_app_homepage',{'page':  page - 1 } ) }}"><i
+                            class="glyphicon glyphicon-arrow-left"></i>page
+                    précédente</a>
+            {% endif %}
+            Page : {{ page }}
+            {% if page < pagesTotal %}
+                <a href="{{ path('alt_app_homepage',{'page':  page + 1 } ) }}">page suivante<i
+                            class="glyphicon glyphicon-arrow-right"></i></a>
+            {% endif %}
+        </div>
     {% endif %}
 
 

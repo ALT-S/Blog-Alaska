@@ -147,6 +147,10 @@ a.navbar-brand {
     padding-right: 0;
 }
 
+.pagination {
+    text-align: center;
+}
+
 .date a {
     color: #036;
 }
@@ -209,6 +213,10 @@ h3 {
     margin-bottom: 0;
 }
 
+p.commentaire {
+    text-align: left;
+}
+
 .glyphicon {
     margin-left: 10px;
     margin-right: 10px;
@@ -241,6 +249,28 @@ a.btn .btn-default {
     background-color: #eaf1f8;
 }
 
+.billet-comm:hover {
+    background-color: #eee !important;
+}
+
+.combtnLecture {
+    margin-left: 8px;
+}
+
+a.btnLecture {
+    margin: 0;
+    padding: 3px;
+    text-align: left;
+}
+
+.com_contenu {
+    margin-bottom: 5px;
+}
+
+.billet-commentaire {
+    margin-bottom: 5px;
+}
+
 .ajout {
     margin-top: 0;
 }
@@ -253,9 +283,7 @@ span {
 }
 
 .page {
-
     margin: 20px 0;
-
 }
 
 footer {
@@ -265,3 +293,17 @@ footer {
 li, .section-extrait {
     list-style: none;
 }
+
+.commentaire {
+    text-align: right;
+}
+
+.voir-plus {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0
+}
+
+.Billet {
+    margin-bottom: 0
+}
+

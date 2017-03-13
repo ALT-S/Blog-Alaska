@@ -4,10 +4,10 @@
 
                 <div class="extrait col-sm-10">
                     <a href="{{ path('alt_app_lecture', {'id': commentaire.billet.id}) }}">
-                        <p style="color: black"> {{ commentaire.contenu| truncate(200) |raw }}</p>
+                        <p> {{ commentaire.contenu| truncate(200) |raw }}</p>
                     </a>
-                    <h6 style="margin-bottom: 0">Billet : {{ commentaire.billet.titre }}</h6>
-                    <a style=" margin: 0 0 0 0; padding: 0 0 0 0" class="btn btn-outline-primary"
+                    <h6 class="Billet">Billet : {{ commentaire.billet.titre }}</h6>
+                    <a class="voir-plus btn btn-outline-primary"
                        href="{{ path('alt_app_lecture', {'id': commentaire.billet.id}) }}" role="button">
                         Voir plus... »
                     </a>

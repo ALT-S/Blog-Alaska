@@ -88,17 +88,18 @@ alt_app_admin_liste_contacts:
     defaults:
         _controller: ALTAppBundle:Admin:listeContacts
 
+alt_app_admin_supprimer_contacts:
+    path:      /admin/contact/{id}/supprimer
+    defaults:
+        _controller: ALTAppBundle:Admin:supprimerContact
+    requirements:
+        id: \d+
+
 alt_app_admin_liste_commentaires:
     path: /admin/commentaires/liste
     defaults:
         _controller: ALTAppBundle:Admin:listeCommentaires
 
-alt_app_admin_liste_commentaires_par_id:
-    path: /admin/commentaires/liste/{id}
-    defaults:
-        _controller: ALTAppBundle:Admin:listeCommentairesParId
-    requirements:
-        id: \d+
 
 alt_app_admin_publier_billet:
     path:    /admin/billet/{id}/publier
