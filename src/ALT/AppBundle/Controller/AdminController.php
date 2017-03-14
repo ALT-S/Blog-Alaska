@@ -26,51 +26,28 @@ class AdminController extends Controller
      */
     public function accueilAction()
     {
-        $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
+        $em = $this->getDoctrine()->getManager();
+        
+        $repository = $em->getRepository('ALTAppBundle:Billet');
+        $nbBillets = $repository->countNbBillets(); // On récupère le résultat du comptage dans $nbBillets
+        $nbBilletsDepublies = $repository->countNbBilletDepublie();; // On récupère le résultat du comptage dans $nbBilletsDepublies
+        $nbBilletsPublies = $repository->countNbBilletPublie();; // On récupère le résultat du comptage dans $nbBilletsPublies
 
-        $qb = $em->getRepository('ALTAppBundle:Billet')->createQueryBuilder('b'); // Création du querybuilder pour l'entité "Billet"
-        $qb->select('COUNT(b.id)'); // On veut récupérer le  nombre de billets via la fonction COUNT()
+        $repository = $em->getRepository('ALTAppBundle:Commentaire');
+        $nbCommentaires = $repository->countNbCommentaires(); // On récupère le résultat du comptage dans $nbCommentaires
+        $nbCommentairesSignales = $repository->countNbCommentairesSignales();// On récupère le résultat du comptage dans $nbContactsSignales
 
-        $nbBillets = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbBillets
-
-        $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
-
-        $qb = $em->getRepository('ALTAppBundle:Billet')->createQueryBuilder('b'); // Création du querybuilder pour l'entité "Billet"
-        $qb->andWhere($qb->expr()->in('b.publier', 0))
-            ->select('COUNT(b.id)'); // On veut récupérer le  nombre de billets via la fonction COUNT()
-
-        $nbBilletsDepublies = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbBillets
-
-        $qb = $em->getRepository('ALTAppBundle:Commentaire')->createQueryBuilder('c'); // Création du querybuilder pour l'entité "Commentaire"
-        $qb->select('COUNT(c.id)'); // On veut récupérer le nombre de commentaires via la fonction COUNT()
-
-        $nbCommentaires = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbCommentaires
-
-        $qb = $em->getRepository('ALTAppBundle:Commentaire')->createQueryBuilder('c'); // Création du querybuilder pour l'entité "Commentaire"
-        $qb->andWhere($qb->expr()->in('c.signale', 1))// ->andWhere('c.signale = 1')
-        ->select('COUNT(c.id)'); // On veut récupérer le nombre de commentaires via la fonction COUNT()
-
-        $nbContactsSignales = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbCommentaires
-
-
-        $qb = $em->getRepository('ALTAppBundle:Contact')->createQueryBuilder('c'); // Création du querybuilder pour l'entité "Contact"
-        $qb->select('COUNT(c.id)'); // On veut récupérer le  nombre de contacts via la fonction COUNT()
-
-        $nbContacts = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbContacts
-
-        $qb = $em->getRepository('ALTAppBundle:Contact')->createQueryBuilder('cr'); // Création du querybuilder pour l'entité "Contact"
-        $qb->andWhere($qb->expr()->isNull('cr.dateReponse'))
-            ->select('COUNT(cr.id)'); // On veut récupérer le  nombre de contacts via la fonction COUNT()
-
-        $nbContactsAttenteReponse = $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbContacts
-
+        $repository = $em->getRepository('ALTAppBundle:Contact');
+        $nbContacts = $repository->countNbContacts(); // On récupère le résultat du comptage dans $nbContacts
+        $nbContactsAttenteReponse = $repository->countNbContactsAttenteReponse(); // On récupère le résultat du comptage dans $nbContacts
 
         // On affiche la page qui va afficher l'accueil, on fait passer les paramètres dans la vue
         return $this->render('@ALTApp/Admin/accueil.html.twig', array(
             'nbBillets' => $nbBillets,
+            'nbBilletsPublies' => $nbBilletsPublies,
             'nbBilletsDepublies' => $nbBilletsDepublies,
             'nbCommentaires' => $nbCommentaires,
-            'nbContactsSignales' => $nbContactsSignales,
+            'nbCommentairesSignales' => $nbCommentairesSignales,
             'nbContacts' => $nbContacts,
             'nbContactsAttenteReponse' => $nbContactsAttenteReponse
         ));
@@ -151,7 +128,7 @@ class AdminController extends Controller
             $form->handleRequest($request);
 
             // On vérifie que les valeurs entrées sont correctes
-            if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->isValid()) {
                 // On enregistre notre objet $billet dans la base de données
                 $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
                 $em->persist($billet);// puis on « persiste » l'entité, garde cette entité en mémoire
@@ -201,16 +178,8 @@ class AdminController extends Controller
 
         $filtre = $request->query->get('filtre');//On récupère le paramètre dans l'URL qui s'appel filtre
 
-        $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
-        $qb = $em->getRepository('ALTAppBundle:Billet')->createQueryBuilder('b');// Création du querybuilder pour l'entité "Billet"
-        $qb->orderBy('b.id', 'desc');// pour récupérer des billets depuis notre base de données, triés par "id" en ordre descendant.
-
-        //Si on  récupère le paramètre filtre et que celui-ci est bien depublie, alors on récupère les billets qui sont dépubliés
-        if (isset($filtre) && $filtre == 'depublie') {
-            $qb->andWhere('b.publier = 0');
-        }
-
-        $billets = $qb->getQuery()->getResult();
+        $repository = $this->getDoctrine()->getManager()->getRepository('ALTAppBundle:Billet');
+        $billets = $repository->listeBillets($filtre);
 
         // On affiche la page qui va afficher la liste des billets, on fait passer le paramètre dans la vue
         return $this->render('ALTAppBundle:Admin:liste_billets.html.twig', array(
@@ -225,17 +194,8 @@ class AdminController extends Controller
     {
         $filtre = $request->query->get('filtre');//On récupère le paramètre dans l'URL qui s'appel filtre
 
-        $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
-        $qb = $em->getRepository('ALTAppBundle:Contact')->createQueryBuilder('c');// Création du querybuilder pour l'entité "BContact"
-        $qb->orderBy('c.id', 'desc');// pour récupérer des contacts depuis notre base de données, triés par "id" en ordre descendant.
-
-        //Si on  récupère le paramètre filtre et que celui-ci est bien attente, alors on récupère les contact qui sont en attente de réponses
-        if (isset($filtre) && $filtre == 'attente') {
-            $qb->andWhere('c.dateReponse IS NULL');
-        }
-
-        $contacts = $qb->getQuery()->getResult();
-
+        $repository = $this->getDoctrine()->getManager()->getRepository('ALTAppBundle:Contact');
+        $contacts  = $repository->listeContacts($filtre);
 
         // On affiche la page qui va afficher la liste des contacts, on fait passer le paramètre dans la vue
         return $this->render('ALTAppBundle:Admin:liste_contacts.html.twig', array(
@@ -251,41 +211,36 @@ class AdminController extends Controller
     {
         $filtre = $request->query->get('filtre');
 
-        $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
-        $qb = $em->getRepository('ALTAppBundle:Commentaire')->createQueryBuilder('c');// Création du querybuilder pour l'entité "Commentaire"
-        $qb->orderBy('c.id', 'desc');// pour récupérer des commentaires depuis notre base de données, triés par "id" en ordre descendant.
+        $em = $this->getDoctrine()->getManager();
 
-        //Si on  récupère le paramètre filtre et que celui-ci est bien signaler, alors on récupère les commentaire qui sont signalés
-        if (isset($filtre) && $filtre == 'signaler') {
-            $qb->andWhere('c.signale = 1');
+        $billet = null;
+        if (isset($filtre) && $filtre == 'billet') {
+            $billet = $em->find('ALTAppBundle:Billet', $request->query->get('id'));
         }
 
-        $commentaires = $qb->getQuery()->getResult();
+        $repository = $em->getRepository('ALTAppBundle:Commentaire');//On récupère le manager pour dialoguer avec la base de données
+        $commentaires = $repository->listeCommentaires($filtre, $billet);
+
+        $parametres = ['commentaires' => $commentaires]; // On prépare les paramètres pour la vue
+        if (isset($billet)) { // Si le billet "existe" (c'est à dire qu'on a un filtre "billet" + son ID
+            $parametres['billet'] = $billet; // on ajoute ce fameux billet aux paramètres de la vue.
+        }
 
         // On affiche la page qui va afficher la liste des commentaires, on fait passer le paramètre dans la vue
-        return $this->render('ALTAppBundle:Admin:liste_commentaires.html.twig', array(
-            'commentaires' => $commentaires,
-        ));
+        return $this->render('ALTAppBundle:Admin:liste_commentaires.html.twig', $parametres);
     }
 
-    /**
-     * Récupération de billets via ParamConverter
-     *
-     * @param Billet $billet
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function listeCommentairesParIdAction(Billet $billet)
+    public function supprimerContactAction(Contact $contact)
     {
         $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
-        // On récupère le répository de l'entité Commentaire, on lui appelle la méthode "findBy"
-        // pour récupérer des commentaires depuis notre base de données, qui prend en paramètre "id" du billet et triés par "id" en ordre descendant.
-        $commentaires = $em->getRepository('ALTAppBundle:Commentaire')->findBy(array('billet' => $billet), array("id" => "desc"));
+        $em->remove($contact);//On supprime l'entité $billet
+        $em->flush();// Et on déclenche l'enregistrement
 
-        // On affiche la page qui va afficher la liste des commentaires par "id", on fait passer les paramètres dans la vue
-        return $this->render('ALTAppBundle:Admin:liste_commentaires_par_id.html.twig', array(
-            'commentaires' => $commentaires,
-            'billet' => $billet
-        ));
+        // Création du « flashBag » qui contient les messages flash
+        $this->addFlash('notice', 'Le ccontact a bien été supprimé !');
+
+        // On redirige vers la page qui va afficher la liste des commentaires
+        return $this->redirectToRoute('alt_app_admin_liste_contacts');
     }
 
     /**
@@ -297,28 +252,11 @@ class AdminController extends Controller
     public function supprimerCommentaireAction(Commentaire $commentaire)
     {
         $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
-        $em->remove($commentaire);//On supprime l'entité $commentaire
+        $em->remove($commentaire);//On supprime l'entité $billet
         $em->flush();// Et on déclenche l'enregistrement
 
         // Création du « flashBag » qui contient les messages flash
         $this->addFlash('notice', 'Le commentaire a bien été supprimé !');
-
-        // On redirige vers la page qui va afficher la liste des commentaires
-        return $this->redirectToRoute('alt_app_admin_liste_commentaires');
-    }
-
-    /**
-     * @param Commentaire $commentaireValider
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    public function validerCommentaireAction(Commentaire $commentaireValider)
-    {
-        $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
-        $commentaireValider->setSignale(false);
-        $em->flush();// Et on déclenche l'enregistrement
-
-        // Création du « flashBag » qui contient les messages flash
-        $this->addFlash('notice', 'Le commentaire a bien été validé !');
 
         // On redirige vers la page qui va afficher la liste des commentaires
         return $this->redirectToRoute('alt_app_admin_liste_commentaires');
@@ -383,10 +321,9 @@ class AdminController extends Controller
             $form->handleRequest($request);
 
             // On vérifie que les valeurs entrées sont correctes
-            if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->isValid()) {
                 // On enregistre notre objet $commentaire dans la base de données
                 $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
-                $commentaire->setSignale(false);
                 $em->flush();// Et on déclenche l'enregistrement
             }
 
@@ -416,7 +353,7 @@ class AdminController extends Controller
             $form->handleRequest($request);
 
             // On vérifie que les valeurs entrées sont correctes
-            if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->isValid()) {
                 $contact->setDateReponse(new \DateTime());
 
                 // On enregistre notre objet $contact  dans la base de données

@@ -34,7 +34,7 @@ class CommentaireType extends AbstractType
             $builder->add('date', DateType::class);
         }
         $builder
-            ->add('contenu',   TextareaType::class, array('required' => false))
+            ->add('contenu',   TextareaType::class)
             ->add('auteur', TextType::class)
             ->add('enregistrer',      SubmitType::class)
         ;

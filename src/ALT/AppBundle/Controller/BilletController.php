@@ -25,18 +25,9 @@ class BilletController extends Controller
      */
     public function lectureAction(Billet $billet)
     {
-        $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
-
-        // On récupère le répository de l'entité Commentaire, on lui appelle la méthode "findBy"
-        // pour récupérer les commentaires depuis notre base de données, en lui passant en  paramètre "id" de ce billet
-        $listeCommentaires = $em
-            ->getRepository('ALTAppBundle:Commentaire')
-            ->findBy(array('billet' => $billet));
         // On affiche la page qui va afficher la lecture , on fait passer les paramètres dans la vue
         return $this->render('ALTAppBundle:Billet:lecture.html.twig', array(
             'billet' => $billet,
-            'listeCommentaires' => $listeCommentaires
         ));
     }
-
 }

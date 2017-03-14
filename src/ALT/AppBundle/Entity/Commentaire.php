@@ -24,13 +24,13 @@ class Commentaire
     /**
      * @var
      * @ORM\ManyToOne(targetEntity="ALT\AppBundle\Entity\Commentaire",inversedBy="enfants")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $parent;
     
     /**
      * @var
-     * @ORM\OneToMany(targetEntity="ALT\AppBundle\Entity\Commentaire",mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="ALT\AppBundle\Entity\Commentaire",mappedBy="parent", cascade={"remove"})
      */
     private $enfants;
 
