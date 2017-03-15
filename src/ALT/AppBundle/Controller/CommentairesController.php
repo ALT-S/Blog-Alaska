@@ -48,7 +48,6 @@ class CommentairesController extends Controller
             return $this->redirectToRoute('alt_app_lecture', array('id' => $billet->getId()));
         }
         
-
         // À ce stade, le formulaire n'est pas valide car :
         // - Soit la requête est de type GET, donc le visiteur vient d'arriver sur la page et veut voir le formulaire
         // - Soit la requête est de type POST, mais le formulaire contient des valeurs invalides, donc on l'affiche de nouveau
