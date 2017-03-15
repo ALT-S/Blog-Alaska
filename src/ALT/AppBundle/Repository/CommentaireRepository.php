@@ -10,28 +10,58 @@ namespace ALT\AppBundle\Repository;
  */
 class CommentaireRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Création du querybuilder pour l'entité "Commentaire"
+     * On veut récupérer le  nombre de commentaires via la fonction COUNT()
+     * 
+     * On retourne le résultat du comptage 
+     * 
+     * @return mixed
+     */
     public function countNbCommentaires()
     {
-        $qb = $this->createQueryBuilder('c'); // Création du querybuilder pour l'entité "Commentaire"
-        $qb->select('COUNT(c.id)'); // On veut récupérer le  nombre de billets via la fonction COUNT()
+        $qb = $this->createQueryBuilder('c');
+        $qb->select('COUNT(c.id)');
 
-        return $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbCommentaires 
+        return $qb->getQuery()->getSingleScalarResult();
     }
 
+    /**
+     * Création du querybuilder pour l'entité "Commentaire"
+     * On veut récupérer le  nombre de commentaire via la fonction COUNT()
+     * et sélectionner seulement les commentaire où signale = 1
+     *
+     * On retourne le résultat du comptage
+     * 
+     * @return mixed
+     */
     public function countNbCommentairesSignales()
     {
-        $qb = $this->createQueryBuilder('c'); // Création du querybuilder pour l'entité "Commentaire"
+        $qb = $this->createQueryBuilder('c'); 
         $qb
-            ->andWhere($qb->expr()->in('c.signale', 1))// ->andWhere('c.signale = 1')
-            ->select('COUNT(c.id)'); // On veut récupérer le nombre de commentaires via la fonction COUNT()
+            ->andWhere($qb->expr()->in('c.signale', 1))
+            ->select('COUNT(c.id)'); 
 
-        return $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans  $nbCommentairesSignales
+        return $qb->getQuery()->getSingleScalarResult(); 
     }
-    
+
+    /**
+     * Création du querybuilder pour l'entité "Commentaire"
+     * pour récupérer des commentaires depuis notre base de données, triés par "id" en ordre descendant.
+     * 
+     * Si on a un filtre ....
+     * 
+     * On retourne le résultat 
+     * 
+     * @param null $filtre
+     * @param null $billet
+     * @return array
+     * @throws \Exception
+     */
     public function listeCommentaires($filtre = null, $billet = null)
     {
-        $qb = $this->createQueryBuilder('c');// Création du querybuilder pour l'entité "Commentaire"
-        $qb->orderBy('c.id', 'desc');// pour récupérer des commentaires depuis notre base de données, triés par "id" en ordre descendant.
+        $qb = $this->createQueryBuilder('c');
+        $qb->orderBy('c.id', 'desc');
 
         if (isset($filtre)) { // Si on a un filtre dans l'URL
             switch ($filtre) { // On regarde quel filtre on demande :

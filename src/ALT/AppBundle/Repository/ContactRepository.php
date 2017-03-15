@@ -10,33 +10,63 @@ namespace ALT\AppBundle\Repository;
  */
 class ContactRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Création du querybuilder pour l'entité "Contact"
+     * On veut récupérer le  nombre de messages via la fonction COUNT()
+     *
+     * On récupère le résultat du comptage
+     *
+     * @return mixed
+     */
     public function countNbContacts()
     {
-        $qb = $this->createQueryBuilder('c'); // Création du querybuilder pour l'entité "Contact"
-        $qb->select('COUNT(c.id)'); // On veut récupérer le  nombre de messages via la fonction COUNT()
+        $qb = $this->createQueryBuilder('c');
+        $qb->select('COUNT(c.id)');
 
-        return $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans  $nbContacts
+        return $qb->getQuery()->getSingleScalarResult();
     }
 
+    /**
+     * Création du querybuilder pour l'entité "Contact"
+     * On veut récupérer le  nombre de contacts via la fonction COUNT()
+     * et seulement ceux où la dateReponse est nulle
+     *
+     * On récupère le résultat du comptage
+     *
+     * @return mixed
+     */
     public function countNbContactsAttenteReponse()
     {
-        $qb = $this->createQueryBuilder('c'); // Création du querybuilder pour l'entité "Contact"
+        $qb = $this->createQueryBuilder('c');
         $qb
             ->andWhere($qb->expr()->isNull('c.dateReponse'))
-            ->select('COUNT(c.id)'); // On veut récupérer le  nombre de contacts via la fonction COUNT()
+            ->select('COUNT(c.id)');
 
-        return $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbContactsAttenteReponse
+        return $qb->getQuery()->getSingleScalarResult();
     }
+
+    /**
+     * Création du querybuilder pour l'entité "Contact"
+     * pour récupérer des contacts depuis notre base de données, triés par "id" en ordre descendant.
+     *
+     * Si le filtre existe et si il vaut "attente"
+     * Alors on séléctionne que ceux ou la dateReponse est nulle
+     *
+     * On récupère le résultat
+     *
+     * @param null $filtre
+     * @return array
+     */
     public function listeContacts($filtre = null)
     {
-        $qb = $this->createQueryBuilder('c'); // Création du querybuilder pour l'entité "Contact"
-        $qb->orderBy('c.id', 'desc');// pour récupérer des contacts depuis notre base de données, triés par "id" en ordre descendant.
+        $qb = $this->createQueryBuilder('c');
+        $qb->orderBy('c.id', 'desc');
 
         if (isset($filtre) && $filtre == 'attente') {
             $qb->andWhere('c.dateReponse  IS NULL');
         }
 
-        return $qb->getQuery()->getResult(); // On retourne le résultat 
+        return $qb->getQuery()->getResult();
 
     }
 }

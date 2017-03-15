@@ -15,17 +15,14 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BilletController extends Controller
 {
-    
-
     /**
-     * Récupération de billets via ParamConverter
+     * On affiche la page de la lecture d'un billet
      *
      * @param Billet $billet
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function lectureAction(Billet $billet)
     {
-        // On affiche la page qui va afficher la lecture , on fait passer les paramètres dans la vue
         return $this->render('ALTAppBundle:Billet:lecture.html.twig', array(
             'billet' => $billet,
         ));

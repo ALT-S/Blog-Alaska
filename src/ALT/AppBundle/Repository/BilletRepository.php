@@ -10,71 +10,121 @@ namespace ALT\AppBundle\Repository;
  */
 class BilletRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Création du querybuilder pour l'entité "Billet"
+     * On veut récupérer le  nombre de billets via la fonction COUNT()
+     *
+     * On récupère le résultat du comptage
+     *
+     * @return mixed
+     */
     public function countNbBillets()
     {
+        $qb = $this->createQueryBuilder('b');
+        $qb->select('COUNT(b.id)');
 
-
-        $qb = $this->createQueryBuilder('b'); // Création du querybuilder pour l'entité "Billet"
-        $qb->select('COUNT(b.id)'); // On veut récupérer le  nombre de billets via la fonction COUNT()
-
-        return $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbBillets
-
+        return $qb->getQuery()->getSingleScalarResult();
     }
 
+    /**
+     * Création du querybuilder pour l'entité "Billet"
+     * On veut récupérer le  nombre de billets via la fonction COUNT()
+     * et sélectionner seulement les billets où publié = 1
+     *
+     * On récupère le résultat du comptage
+     *
+     * @return mixed
+     */
     public function countNbBilletPublie()
     {
-        $qb = $this->createQueryBuilder('b'); // Création du querybuilder pour l'entité "Billet"
+        $qb = $this->createQueryBuilder('b');
         $qb
-            ->select('COUNT(b.id)')// On veut récupérer le  nombre de billets via la fonction COUNT()
-            ->andWhere($qb->expr()->in('b.publier', 1));
+            ->select('COUNT(b.id)')
+            ->andWhere('b.publier = 1');
 
-        return $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbBilletsPublies
+        return $qb->getQuery()->getSingleScalarResult();
     }
 
+    /**
+     *Création du querybuilder pour l'entité "Billet"
+     *On veut récupérer le  nombre de billets via la fonction COUNT()
+     *et sélectionner seulement les billets où publié = 0
+     *
+     *On récupère le résultat du comptage
+     *
+     * @return mixed
+     */
     public function countNbBilletDepublie()
     {
-        $qb = $this->createQueryBuilder('b'); // Création du querybuilder pour l'entité "Billet"
+        $qb = $this->createQueryBuilder('b');
         $qb
-            ->select('COUNT(b.id)')// On veut récupérer le  nombre de billets via la fonction COUNT()
+            ->select('COUNT(b.id)')
             ->andWhere($qb->expr()->in('b.publier', 0));
 
-        return $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbBilletsDepublies 
+        return $qb->getQuery()->getSingleScalarResult();
     }
 
+    /**
+     * Création du querybuilder pour l'entité "Billet"
+     * triés par "id" en ordre descendant.
+     *
+     * Si filtre existe et si il est égal à depublie
+     * alors on sélectionne seulement les billets où publié = 0
+     *
+     * On retourne le résultat
+     *
+     * @param null $filtre
+     * @return array
+     */
     public function listeBillets($filtre = null)
     {
-        $qb = $this->createQueryBuilder('b'); // Création du querybuilder pour l'entité "Billet"
-        $qb->orderBy('b.id', 'desc');// pour récupérer des billets depuis notre base de données, triés par "id" en ordre descendant.
+        $qb = $this->createQueryBuilder('b');
+        $qb->orderBy('b.id', 'desc');
 
         if (isset($filtre) && $filtre == 'depublie') {
-             $qb->andWhere('b.publier = 0');
-         }
+            $qb->andWhere('b.publier = 0');
+        }
 
-        return $qb->getQuery()->getResult(); // On récupère le résultat du comptage dans $nbBilletsDepublies
-
+        return $qb->getQuery()->getResult();
     }
 
+    /**
+     *
+     * $nbBillets vaut la méthode countNbBilletPublie
+     *
+     * Compte le nombre de pages totales (ceil() fait l'arrondie à l'entier supérieur)
+     *
+     * Calcul du point de départ pour récupérer les enregistrements en base de données
+     *
+     * la méthode "findBy" pour récupérer les billets depuis notre base de données,
+     * Avec pour contrainte les billets publiés
+     * triés par "id" en ordre descendant
+     * avec en paramètre une limite de $billetsParPage en partant de $offset
+     *
+     * On retourne le résultat
+     *
+     * @param $page
+     * @param $billetsParPage
+     * @return array
+     * @throws \Exception
+     */
     public function paginerBillets($page, $billetsParPage)
     {
         $nbBillets = $this->countNbBilletPublie();
 
-        $pagesTotal = (int)ceil($nbBillets / $billetsParPage); // Compte le nombre de pages totales (ceil() fait l'arrondie à l'entier supérieur)
+        $pagesTotal = (int)ceil($nbBillets / $billetsParPage);
 
         if ($page > $pagesTotal) {
             throw new \Exception("Page > à nombre totale de pages");
         }
 
-        $offset = ($page - 1) * $billetsParPage; // Calcul du point de départ pour récupérer les enregistrements en base de données
+        $offset = ($page - 1) * $billetsParPage;
 
-        // On récupère le répository de l'entité Billet, on lui appelle la méthode "findBy"
-        // pour récupérer les billets depuis notre base de données, triés par "id" en ordre descendant
-        // avec en paramètre une limite de $billetsParPage en partant de $offset
         $listeBillets = $this->findBy(array("publier" => true), array("id" => "desc"), $billetsParPage, $offset);
 
         return [
             'billets' => $listeBillets,
             'pagesTotal' => $pagesTotal
         ];
-
     }
 }

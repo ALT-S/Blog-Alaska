@@ -13,45 +13,50 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class CommentairesController extends Controller
 {
     /**
-     * Récupération de billets via ParamConverter
-     *
+     * On récupère le manager de Doctrine
+     * 
+     * Création de l'entité - objet Commentaire
+     * 
+     * On lie le billet au commentaire
+     * 
+     * Création d'un formulaire du type commentaireType
+     * 
+     * Si la requête est en POST alors :
+     * On attache les données du formulaire dans l'objet de formulaire et rempli l'objet $commentaire de ces données
+     * 
+     * Si le formulaire a été soumis et qu'il est valide alors :
+     * On demande au manager de garder en mémoire l'objet $billet
+     * On demande au manager de mettre à jour la base de données en prenant en compte les changements
+     * 
+     * On redirige l'utilisateur vers une autre route
+     * 
+     * Sinon, on affiche la vue contenant le formulaire et ses possibles erreurs si il y en a.
+     * 
      * @param Billet $billet
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function ajouterCommentaireAction(Billet $billet, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
+        $em = $this->getDoctrine()->getManager();
 
-        $commentaire = new Commentaire();// Création de l'entité - objet Commentaire
+        $commentaire = new Commentaire();
 
-        $commentaire->setBillet($billet); // On lie le billet au commentaire
-
-        //Externalisation du formulaire dans Form Commentaire
+        $commentaire->setBillet($billet);
+        
         $form = $this->get('form.factory')->create(CommentaireType::class, $commentaire);
-
-        // On fait le lien Requête <-> Formulaire
-        // À partir de maintenant, la variable $billet contient les valeurs entrées dans le formulaire par le visiteur
+        
         $form->handleRequest($request);
-
-        // On vérifie que les valeurs entrées sont correctes
+        
         if ($form->isSubmitted() && $form->isValid()) {
-            // On enregistre notre objet $commentaire dans la base de données
-            // On a déjà récupèré l'EntityManager pour dialoguer avec la base de données
-            $em->persist($commentaire);// puis on « persiste » l'entité, garde cette entité en mémoire
-            $em->flush();// Et on déclenche l'enregistrement
-
-            // Création du « flashBag » qui contient les messages flash
+            $em->persist($commentaire);
+            $em->flush();
+            
             $this->addFlash('notice', 'Le commentaire a bien été enregistré !');
-
-            // On redirige vers la page qui va afficher la lecture du billet on fait passer le paramètre dans la vue
+            
             return $this->redirectToRoute('alt_app_lecture', array('id' => $billet->getId()));
         }
         
-        // À ce stade, le formulaire n'est pas valide car :
-        // - Soit la requête est de type GET, donc le visiteur vient d'arriver sur la page et veut voir le formulaire
-        // - Soit la requête est de type POST, mais le formulaire contient des valeurs invalides, donc on l'affiche de nouveau
-        // Donc on affiche la page qui va afficher ajouter un commentaire, on fait passer le paramètre form dans la vue
         return $this->render('ALTAppBundle:Billet:ajout_commentaire.html.twig', array(
             'billet'=> $billet,
             'form' => $form->createView()
@@ -59,44 +64,50 @@ class CommentairesController extends Controller
     }
 
     /**
+     * On récupère le manager de Doctrine
+     * 
+     * Création de l'entité - objet Commentaire
+     * 
+     * On lie le commentaire au commentaireParent
+     * 
+     * Création d'un formulaire du type reponseType
+     * 
+     * Si la requête est en POST alors :
+     * On attache les données du formulaire dans l'objet de formulaire et rempli l'objet $commentaire de ces données
+     * 
+     * Si le formulaire a été soumis et qu'il est valide alors :
+     * On récupère le manager de Doctrine
+     * On demande au manager de garder en mémoire l'objet $commentaire
+     * On demande au manager de mettre à jour la base de données en prenant en compte les changements
+     * On redirige l'utilisateur vers une autre route
+     *
+     * Sinon, on affiche la vue contenant le formulaire et ses possibles erreurs si il y en a.
+     * 
      * @param Commentaire $commentaireParent
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function repondreCommentaireAction(Commentaire $commentaireParent, Request $request){
-        //creation formulaire pour rédiger un commentaire
-        //setParent =
-        $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
+    public function repondreCommentaireAction(Commentaire $commentaireParent, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
 
-        $commentaire = new Commentaire();// Création de l'entité - objet Commentaire
+        $commentaire = new Commentaire();
 
-        $commentaire->setParent($commentaireParent); // On lie le billet au commentaire
-
-        //Externalisation du formulaire dans Form Commentaire
+        $commentaire->setParent($commentaireParent);
+        
         $form = $this->get('form.factory')->create(ReponseType::class, $commentaire);
-
-        // On fait le lien Requête <-> Formulaire
-        // À partir de maintenant, la variable $billet contient les valeurs entrées dans le formulaire par le visiteur
+        
         $form->handleRequest($request);
-
-        // On vérifie que les valeurs entrées sont correctes
+        
         if ($form->isSubmitted() && $form->isValid()) {
-            // On enregistre notre objet $commentaire dans la base de données
-            // On a déjà récupèré l'EntityManager pour dialoguer avec la base de données
-            $em->persist($commentaire);// puis on « persiste » l'entité, garde cette entité en mémoire
-            $em->flush();// Et on déclenche l'enregistrement
-
-            // Création du « flashBag » qui contient les messages flash
+            $em->persist($commentaire);
+            $em->flush();
+            
             $this->addFlash('notice', 'Le commentaire a bien été enregistré !');
-
-            // On redirige vers la page qui va afficher la lecture du billet on fait passer le paramètre dans la vue
+            
             return $this->redirectToRoute('alt_app_lecture', array("id" => $commentaireParent->getBillet()->getId()));
         }
-
-
-        // À ce stade, le formulaire n'est pas valide car :
-        // - Soit la requête est de type GET, donc le visiteur vient d'arriver sur la page et veut voir le formulaire
-        // - Soit la requête est de type POST, mais le formulaire contient des valeurs invalides, donc on l'affiche de nouveau
-        // Donc on affiche la page qui va afficher ajouter un commentaire, on fait passer le paramètre form dans la vue
+        
         return $this->render('ALTAppBundle:Billet:formulaire_reponse.html.twig', array(
             'commentaireParent'=>$commentaireParent,
             'form' => $form->createView()
@@ -104,16 +115,21 @@ class CommentairesController extends Controller
     }
 
     /**
+     * On récupère le manager de Doctrine
+     * On dit que le signale du commentaire est vrai
+     * On demande au manager de mettre à jour la base de données en prenant en compte les changements
+     * 
+     * On redirige l'utilisateur vers une autre route
+     * 
      * @param Commentaire $commentaire
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function signalerAction(Commentaire $commentaire)
     {
-        $em = $this->getDoctrine()->getManager();//On récupère le manager pour dialoguer avec la base de données
+        $em = $this->getDoctrine()->getManager();
         $commentaire->setSignale(true);
-        $em->flush();// Et on déclenche l'enregistrement
-
-        // Création du « flashBag » qui contient les messages flash
+        $em->flush();
+        
         $this->addFlash('notice', 'Le commentaire a bien été signalé !');
 
         return $this->redirectToRoute('alt_app_lecture', array(
