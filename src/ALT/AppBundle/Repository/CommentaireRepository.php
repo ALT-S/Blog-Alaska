@@ -10,7 +10,7 @@ namespace ALT\AppBundle\Repository;
  */
 class CommentaireRepository extends \Doctrine\ORM\EntityRepository
 {
-    function countNbCommentaires()
+    public function countNbCommentaires()
     {
         $qb = $this->createQueryBuilder('c'); // Création du querybuilder pour l'entité "Commentaire"
         $qb->select('COUNT(c.id)'); // On veut récupérer le  nombre de billets via la fonction COUNT()
@@ -18,7 +18,7 @@ class CommentaireRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getSingleScalarResult(); // On récupère le résultat du comptage dans $nbCommentaires 
     }
 
-    function countNbCommentairesSignales()
+    public function countNbCommentairesSignales()
     {
         $qb = $this->createQueryBuilder('c'); // Création du querybuilder pour l'entité "Commentaire"
         $qb
