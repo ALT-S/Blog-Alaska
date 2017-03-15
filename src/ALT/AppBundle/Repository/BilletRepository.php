@@ -10,7 +10,7 @@ namespace ALT\AppBundle\Repository;
  */
 class BilletRepository extends \Doctrine\ORM\EntityRepository
 {
-    function countNbBillets()
+    public function countNbBillets()
     {
 
 
@@ -21,7 +21,7 @@ class BilletRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
-    function countNbBilletPublie()
+    public function countNbBilletPublie()
     {
         $qb = $this->createQueryBuilder('b'); // Création du querybuilder pour l'entité "Billet"
         $qb
@@ -75,6 +75,6 @@ class BilletRepository extends \Doctrine\ORM\EntityRepository
             'billets' => $listeBillets,
             'pagesTotal' => $pagesTotal
         ];
-        
+
     }
 }
