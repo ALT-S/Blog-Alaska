@@ -234,39 +234,55 @@ class AdminController extends Controller
      *
      * On récupère le manager de Doctrine
      *
+     * On récupère le répo de la classe "Commentaire"
+     *
      * Initialise le billet à null
      * Si le filtre existe et si il vaut "billet" alors
      * on demande au manager de rechercher un objet de la classe billet via son id
      * l'id étant récupéré depuis l'URL
      *
-     * On récupère le répo de la classe "Commentaire"
-     * On demande au repo de récupérer la liste des commentaires via un filtre et un billet si ils existent
+     * On demande au repo de récupérer paginerCommentaire via une page,nbCommentaireParPage, un filtre et un billet si ils existent
      *
-     * On prépare les paramètres pour la vue en ajoutant les commentaires
+     * On prépare les paramètres pour la vue en ajoutant les commentaires, page et totalpages
      * Si billet existe depuis la BD  alors
      * on ajoute ce billet dans la liste des paramètres de la vue
      *
      * On affiche la vue liste des commentaires
      *
+     * @param $page
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function listeCommentairesAction(Request $request)
+    public function listeCommentairesAction($page, Request $request)
     {
         $filtre = $request->query->get('filtre');
 
         $em = $this->getDoctrine()->getManager();
+
+        $repository = $em->getRepository('ALTAppBundle:Commentaire');
 
         $billet = null;
         if (isset($filtre) && $filtre == 'billet') {
             $billet = $em->find('ALTAppBundle:Billet', $request->query->get('id'));
         }
 
-        $repository = $em->getRepository('ALTAppBundle:Commentaire');
-        $commentaires = $repository->listeCommentaires($filtre, $billet);
+        $resultat = $repository->paginerCommentaires(
+            $page,
+            $this->getParameter('nbCommentaireParPage'),
+            $filtre,
+            $billet
+        );
 
-        $parametres = ['commentaires' => $commentaires];
+        $listeCommentaires = $resultat['commentaires'];
+        $pagesTotal = $resultat['pagesTotal'];
+
+        $parametres = [
+            'commentaires' => $listeCommentaires ,
+            'page' => $page,
+            'pagesTotal' => $pagesTotal
+        ];
+
         if (isset($billet)) {
             $parametres['billet'] = $billet;
         }

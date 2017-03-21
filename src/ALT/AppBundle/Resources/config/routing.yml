@@ -96,10 +96,12 @@ alt_app_admin_supprimer_contacts:
         id: \d+
 
 alt_app_admin_liste_commentaires:
-    path: /admin/commentaires/liste
+    path: /admin/commentaires/liste/{page}
     defaults:
         _controller: ALTAppBundle:Admin:listeCommentaires
-
+        page: 1
+    requirements:
+        id: \d+
 
 alt_app_admin_publier_billet:
     path:    /admin/billet/{id}/publier
