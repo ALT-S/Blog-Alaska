@@ -14,22 +14,16 @@
     <div class="lecture_contenu">
         {{ billet.contenu|raw }}
     </div>
-    <p>
-        {#<a href="{{ path('alt_app_ajouter_commentaire', {'id': billet.id}) }}" class=" row btn btn-default col-lg-offset-10 ">
-            <i class="glyphicon glyphicon-edit"></i>
-            Ajouter un commentaire
-        </a>#}
-    </p>
 
     <div class="com">
         <div class="Nbr_com row col-sm-offset-8 ">
 
             <p class="glyphicon glyphicon-comment">
-                <span>Nombre de commentaire(s):</span> {{ billet.commentaires | length }}
+                <span class="nbr-com-lecture">Nombre de commentaire(s):</span> {{ billet.commentaires | length }}
             </p>
 
         </div>
-        <p>
+        <p class="ajouter-un-com-lecture">
             <a href="{{ path('alt_app_ajouter_commentaire', {id: billet.id}) }}" class="btn btn-default comment">
                 <i class="glyphicon glyphicon-comment ajout"></i>
                 Ajouter commentaire
@@ -40,7 +34,6 @@
 
             {% for commentaire in billet.commentaires if commentaire.parent is null %}
                 {{ include('@ALTApp/Billet/commentaire.html.twig', {'commentaire' : commentaire, 'niveau': 0}) }}
-                <hr>
             {% endfor %}
         </div>
 
@@ -51,4 +44,6 @@
             </a>
         </p>
     </div>
-    {% endblock %}
+
+</div>
+{% endblock %}

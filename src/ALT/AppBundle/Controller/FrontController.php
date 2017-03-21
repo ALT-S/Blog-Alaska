@@ -24,12 +24,10 @@ class FrontController extends Controller
      */
     public function accueilAction($page)
     {
-        $billetsParPage = 4;
-
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('ALTAppBundle:Billet');
 
-        $resultat = $repository->paginerBillets($page, $billetsParPage);
+        $resultat = $repository->paginerBillets($page, $this->getParameter('nbBilletParPage'));
 
         $listeBillets = $resultat['billets'];
         $pagesTotal = $resultat['pagesTotal'];

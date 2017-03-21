@@ -12,6 +12,7 @@ namespace ALT\AppBundle\Form;
 use ALT\AppBundle\Entity\Billet;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -32,7 +33,7 @@ class BilletType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         if ($builder->getData()->getId() !== null) {
-            $builder->add('date', DateType::class);
+            $builder->add('date', DateTimeType::class);
         }
 
         $builder

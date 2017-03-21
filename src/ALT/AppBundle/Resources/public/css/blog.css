@@ -209,13 +209,10 @@ h3 {
     margin-bottom: 20px;
 }
 
-.commentaire a.btn.btn-default {
+ a.btn.btn-default {
     margin-bottom: 0;
 }
 
-p.commentaire {
-    text-align: left;
-}
 
 .glyphicon {
     margin-left: 10px;
@@ -247,28 +244,34 @@ a.btn .btn-default {
 .comment {
     border-color: #036;
     background-color: #eaf1f8;
+    margin-top: 5px;
 }
 
-.billet-comm:hover {
+.ajouter-un-com-lecture{
+    margin-bottom: 55px;
+}
+
+.page-accueil{
+
+}
+.billet-inner:hover {
     background-color: #eee !important;
 }
 
-.combtnLecture {
-    margin-left: 8px;
+
+.billet-inner{
+    background-color: aliceblue;
+    border-left: 1px solid #ccc;
+    border-top:1px solid #ccc;
+    border : 1px solid #ccc;
+    padding: 8px;
+    margin-top: 15px;
 }
 
 a.btnLecture {
     margin: 0;
     padding: 3px;
     text-align: left;
-}
-
-.com_contenu {
-    margin-bottom: 5px;
-}
-
-.billet-commentaire {
-    margin-bottom: 5px;
 }
 
 .ajout {
@@ -294,10 +297,6 @@ li, .section-extrait {
     list-style: none;
 }
 
-.commentaire {
-    text-align: right;
-}
-
 .voir-plus {
     margin: 0 0 0 0;
     padding: 0 0 0 0
@@ -307,3 +306,23 @@ li, .section-extrait {
     margin-bottom: 0
 }
 
+.billet-comm:first-of-type {
+    padding-left:0 !important;
+}
+.billet-comm > .billet-inner {
+    margin-top: 0;
+}
+.billet-comm > .billet-comm {
+    border-left: 1px solid #eee;
+}
+.billet-comm + .billet-comm {
+    padding-top: 15px;
+}
+
+.row .billet-inner{
+    margin-left: 0;
+}
+
+.nbr-com-lecture{
+    text-decoration: none;
+}

@@ -1,29 +1,32 @@
-<div class="billet-comm" style="padding-left: {{ niveau * 40 }}px; padding-top:5px; padding-bottom:5px;">
-    <div class="billet-commentaire col-sm-12">
+<div class="billet-comm " style="padding-left: 20px; padding-top:3px; padding-bottom:5px;">
+    <div class="billet-inner row">
 
-        <h5>{{ commentaire.auteur }} <i>, Le {{ commentaire.date | date('d-m-Y H:i:s') }} </i></h5>
+        <div class="billet-gauche col-sm-3" style="border-right: 1px solid #ddd;">
+            <h5 style="font-weight:bold;text-align:center;">{{ commentaire.auteur }}</h5>
+            <h6 style="text-align: center;font-style:italic">{{ commentaire.date | date('d-m-Y H:i:s') }}</h6>
 
-        <div class="com_contenu ">{{ commentaire.contenu|raw }}</div>
+        </div>
+
+        <div class="billet-droite col-sm-9">
+            {{ commentaire.contenu|raw }}
+            <div class="billet-actions" style="margin-top:30px;text-align: right">
+                {% if niveau < 3 %}
+
+                    <a href="{{ path('alt_app_repondre_commentaire', {'id': commentaire.id}) }}" title="Ajouter une réponse à ce commentaire" class="btnLecture btn btn-default comment">
+                        <i class="glyphicon glyphicon-comment ajout"></i>
+                    </a>
+
+                {% endif %}
+                <a href="{{ path('alt_app_signaler_commentaire', {'id': commentaire.id}) }}" title="Signaler ce commentaire"
+                   class="btnLecture btn btn-default warning">
+                    <i class="glyphicon glyphicon-warning-sign"></i>
+                </a>
+            </div>
+        </div>
+
     </div>
-
-    <p class="commentaire">
-        {% if niveau < 3 %}
-    <div class=" combtnLecture">
-        <a href="{{ path('alt_app_repondre_commentaire', {'id': commentaire.id}) }}" class="btnLecture btn btn-default comment">
-            <i class="glyphicon glyphicon-comment ajout"></i>
-            Répondre
-        </a>
-
-        {% endif %}
-        <a href="{{ path('alt_app_signaler_commentaire', {'id': commentaire.id}) }}"
-           class="btnLecture btn btn-default warning">
-            <i class="glyphicon glyphicon-warning-sign"></i>
-            Signaler
-        </a>
-    </div>
-    </p>
+    {% for commentaireEnfant in commentaire.enfants %}
+        {{ include('@ALTApp/Billet/commentaire.html.twig', {'commentaire' : commentaireEnfant, 'niveau': niveau + 1}) }}
+    {% endfor %}
 </div>
 
-{% for commentaireEnfant in commentaire.enfants %}
-    {{ include('@ALTApp/Billet/commentaire.html.twig', {'commentaire' : commentaireEnfant, 'niveau': niveau + 1}) }}
-{% endfor %}
