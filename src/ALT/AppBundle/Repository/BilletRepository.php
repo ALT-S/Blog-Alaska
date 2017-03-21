@@ -120,7 +120,7 @@ class BilletRepository extends \Doctrine\ORM\EntityRepository
 
         $offset = ($page - 1) * $billetsParPage;
 
-        $listeBillets = $this->findBy(array("publier" => true), array("id" => "desc"), $billetsParPage, $offset);
+        $listeBillets = $this->findBy(array("publier" => true), array("date" => "desc"), $billetsParPage, $offset);
 
         return [
             'billets' => $listeBillets,
