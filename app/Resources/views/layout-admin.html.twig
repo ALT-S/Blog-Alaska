@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="{{ asset('bundles/altapp/css/admin.css') }}">
 
     {% endblock %}
-    <script src="//cloud.tinymce.com/stable/tinymce.min.js"></script>
+    <script src="{{ asset('bundles/altapp/tinymce/tinymce.min.js') }}"></script>
     <script>tinymce.init({
             selector: 'textarea',
             plugins: ["textcolor, advlist, lists "],
