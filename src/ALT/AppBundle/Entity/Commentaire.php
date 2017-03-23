@@ -4,6 +4,7 @@ namespace ALT\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use ALT\AppBundle\Entity\Billet;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Commentaire
@@ -53,6 +54,7 @@ class Commentaire
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime")
+     * @Assert\NotBlank()
      */
     private $date;
 
@@ -60,6 +62,8 @@ class Commentaire
      * @var string
      *
      * @ORM\Column(name="auteur", type="string", length=255)
+     * @Assert\Length(min=3)
+     * @Assert\NotBlank()
      */
     private $auteur;
 
@@ -68,6 +72,8 @@ class Commentaire
      * @var string
      *
      * @ORM\Column(name="contenu", type="text")
+     * @Assert\Length(min=5)
+     * @Assert\NotBlank()
      */
     private $contenu;
 
