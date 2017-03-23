@@ -48,21 +48,18 @@
                     <td>
                         {% if  commentaire.signale != 0 %}
                             <a href="{{ path('alt_app_admin_valider_commentaire', {'id': commentaire.id}) }}"
-                               class="btn btn-default">
+                               title="Valider le commentaire" class="btn btn-default">
                                 <i class="glyphicon glyphicon-ok"></i>
-                                Valider
                             </a>
                         {% endif %}
                         <a href="{{ path('alt_app_admin_modifier_commentaire', {'id': commentaire.id}) }}"
-                           class="btn btn-default">
+                           title="Modifier le commentaire" class="btn btn-default">
                             <i class="glyphicon glyphicon-edit"></i>
-                            Modifier
                         </a>
 
                         <a href="{{ path('alt_app_admin_supprimer_commentaire', {'id': commentaire.id}) }}"
-                           class="btn btn-danger">
+                           title="Supprimer le commentaire" class="btn btn-danger">
                             <i class="glyphicon glyphicon-trash"></i>
-                            Supprimer
                         </a>
                     </td>
 

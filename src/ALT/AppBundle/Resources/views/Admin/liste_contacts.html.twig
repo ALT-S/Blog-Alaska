@@ -40,18 +40,16 @@
                 <td class="action">
                     {% if contact.dateReponse %}
                             <i class="glyphicon glyphicon-ok"></i>
-                        <a href="{{ path('alt_app_admin_contact_lecture', {id: contact.id}) }}">
+                        <a href="{{ path('alt_app_admin_contact_lecture', {id: contact.id}) }}" title="Lire la réponse envoyée" class="date-reponse">
                         {{ contact.dateReponse | date('d-m-Y H:i:s') }}
                             </a>
                     {% else %}
-                        <a href="{{ path('alt_app_admin_contact_repondre', {id: contact.id}) }}" class="btn btn-default">
+                        <a href="{{ path('alt_app_admin_contact_repondre', {id: contact.id}) }}" title="Répondre à la demande de contact"class="btn btn-default">
                             <i class="glyphicon glyphicon-edit"></i>
-                            Répondre
                         </a>
                     {% endif %}
-                    <a href="{{ path('alt_app_admin_supprimer_contacts', {id: contact.id}) }}" class="btn btn-danger">
+                    <a href="{{ path('alt_app_admin_supprimer_contacts', {id: contact.id}) }}" title="Supprimer la demande de contact"class="btn btn-danger">
                         <i class="glyphicon glyphicon-trash"></i>
-                        Supprimer
                     </a>
                 </td>
 

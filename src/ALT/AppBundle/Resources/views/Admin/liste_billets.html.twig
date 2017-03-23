@@ -51,26 +51,22 @@
                 </td>
                 <td>
                     {% if billet.publier == 1 %}
-                        <a href="{{ path('alt_app_admin_depublier_billet', {'id': billet.id}) }}" class="btn btn-default">
+                        <a href="{{ path('alt_app_admin_depublier_billet', {'id': billet.id}) }}" title= "Dépulier le billet" class="btn btn-default">
                             <i class="glyphicon glyphicon-remove"></i>
-                            Dépublier
                         </a>
                     {% else %}
-                        <a href="{{ path('alt_app_admin_publier_billet', {'id': billet.id}) }}" class="btn btn-default">
+                        <a href="{{ path('alt_app_admin_publier_billet', {'id': billet.id}) }}" title="Billet pulié" class="btn btn-default">
                             <i class="glyphicon glyphicon-ok"></i>
-                            Publier
                         </a>
                     {% endif %}
 
 
-                    <a href="{{ path('alt_app_admin_modifier', {'id': billet.id}) }}" class="btn btn-default">
+                    <a href="{{ path('alt_app_admin_modifier', {'id': billet.id}) }}" title="Modifier le billet" class="btn btn-default">
                         <i class="glyphicon glyphicon-edit"></i>
-                        Modifier
                     </a>
 
-                    <a href="{{ path('alt_app_admin_supprimer', {'id': billet.id}) }}" class="btn btn-danger">
+                    <a href="{{ path('alt_app_admin_supprimer', {'id': billet.id}) }}" title="Supprimer le billet" class="btn btn-danger">
                         <i class="glyphicon glyphicon-trash"></i>
-                        Supprimer
                     </a>
                 </td>
 
