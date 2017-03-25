@@ -22,8 +22,8 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th class="style">Signalement</th>
-                <th class="style">Titre du Billet</th>
+                <th class="signalement">Signalement</th>
+                <th class="titre-billet">Titre du Billet</th>
                 <th>Auteur</th>
                 <th class="style">Date</th>
                 <th>Contenu</th>
@@ -41,7 +41,7 @@
                             <span class="glyphicon glyphicon-remove"></span>
                         {% endif %}
                     </td>
-                    <td>{{ commentaire.billet.titre }}</td>
+                    <td class="titre-billet-alignement">{{ commentaire.billet.titre }}</td>
                     <td>{{ commentaire.auteur }}</td>
                     <td>{{ commentaire.date | date('d-m-Y H:i:s') }}</td>
                     <td class="action">{{ commentaire.contenu|raw }}</td>

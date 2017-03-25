@@ -19,7 +19,7 @@
         <thead>
             <tr>
                 <th>Titre</th>
-                <th>Date</th>
+                <th class="style">Date</th>
                 <th>Publié</th>
                 <th>Nbr de commentaire(s)</th>
                 <th class="nbsp-billets">&nbsp;</th>
@@ -30,7 +30,7 @@
             {% for billet in billets %}
             <tr>
 
-                <td>
+                <td class="titre-billet">
                     <h4>
                         <a href="{{ path('alt_app_admin_lecture', {'id': billet.id}) }} " title="Lire l'article">
                         {{ billet.titre }}
@@ -45,7 +45,7 @@
                         <span class="glyphicon glyphicon-remove"></span>
                     {% endif %}
                 </td>
-                <td>
+                <td class="nb-com-liste-billet">
                     <a href="{{ path('alt_app_admin_liste_commentaires', {'filtre': 'billet', 'id': billet.id}) }}" title="Lire les commentaires" > {{ billet.commentaires | length }}
                     </a>
                 </td>

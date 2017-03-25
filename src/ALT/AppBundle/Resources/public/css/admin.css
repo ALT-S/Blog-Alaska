@@ -119,7 +119,7 @@ thead {
 }
 
 td.action {
-    text-align: left;
+    width: 200px;
 }
 
 .glyphicon-trash {
@@ -199,20 +199,41 @@ p.auteur {
     font-style: italic
 }
 
+th{
+    text-align: center;
+}
+
 th.nbsp-contacts {
     width: 150px;
 }
 
 th.nbsp-billets {
-    width: 487px;
+    width: 270px;
+}
+
+.nb-com-liste-billet{
+    width: 170px;
 }
 
 th.nbsp-commentaires {
-    width: 280px;
+    width: 200px;
 }
 
 th.style{
-    width: 120px
+    width: 200px
+}
+
+td.titre-billet-alignement{
+    text-align: left;
+}
+
+th.signalement{
+    width: 140px
+}
+
+h4, a.titre-billet{
+   text-align: left;
+    padding-left: 30px;
 }
 
 h4.message-original {
