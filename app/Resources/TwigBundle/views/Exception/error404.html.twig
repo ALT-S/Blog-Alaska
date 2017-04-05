@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('bundles/altapp/css/erreurs.css') }}">
+    <title>An Error Occurred: {{ status_text }}</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div id="header" class="jumbotron">
+            <h1>Mon blog "Billet simple pour l'Alaska"</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm-12">
+
+            <div class="erreur">
+                <h1 class="error">Oups! Une erreur s'est produite</h1>
+                <h2>Le serveur a renvoyé une "{{ status_code }} {{ status_text }}".</h2>
+
+                <div>
+                    <p class="fr">Quelque chose est cassé. Veuillez nous envoyer un courriel à [email@email.fr]
+                        et nous faire savoir ce que vous faisiez lorsque cette erreur s'est produite.
+                        Nous allons le réparer dès que possible. Désolé pour les inconvénients causés ...</p>
+
+                    <hr>
+
+                    <div>
+                        <h5>Oops! An Error Occurred</h5>
+                        <h6>The server returned a "{{ status_code }} {{ status_text }}".</h6>
+                        <p class="en">Something is broken. Please e-mail us at [email@email.fr] and let us know
+                            what you were doing when this error occurred. We will fix it as soon
+                            as possible. Sorry for any inconvenience caused.</p>
+                    </div>
+                </div>
+            </div><!-- /.blog-post -->
+
+        </div><!-- /.blog-main -->
+
+    </div><!-- /.row -->
+
+</div>
+
+</body>
+</html>

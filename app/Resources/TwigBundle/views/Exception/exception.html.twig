@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('bundles/altapp/css/erreurs.css') }}">
+    <title>An Error Occurred: {{ status_text }}</title>
+</head>
+<body>
+<div class="container">
+    <div class="rowdev">
+        <div id="header">
+            <h1>"Billet simple pour l'Alaska"</h1>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+
+        <div class="erreurdev">
+            <h1 class="errordev">Oups! Une erreur s'est produite</h1>
+            <h2>Le serveur a renvoyé une "{{ status_code }} {{ status_text }}".</h2>
+
+            <hr>
+
+            <div>
+                <h5>Oops! An Error Occurred</h5>
+                <h6>The server returned a "{{ status_code }} {{ status_text }}".</h6>
+
+            </div>
+        </div><!-- /.blog-post -->
+
+    </div><!-- /.blog-main -->
+
+</div><!-- /.row -->
+
+</body>
+</html>

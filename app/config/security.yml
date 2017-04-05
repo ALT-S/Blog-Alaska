@@ -2,18 +2,20 @@
 # http://symfony.com/doc/current/security.html
 security:
   encoders:
-    Symfony\Component\Security\Core\User\User: plaintext
+    ALT\UserBundle\Entity\User:
+        algorithm: sha512
+        iterations: 1
+        encode_as_base64: false
 
   role_hierarchy:
-     ROLE_ADMIN:  ROLE_USER
-     ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+     ROLE_ADMIN:  [ROLE_ALLOWED_TO_SWITCH]
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
   providers:
-     in_memory:
-        memory:
-          users:
-            admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+      main:
+          entity:
+              class: ALT\UserBundle\Entity\User
+              property: username
 
   firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -24,7 +26,7 @@ security:
     main:
         pattern:      ^/
         anonymous:    true
-        provider:     in_memory
+        provider:     main
         form_login:
            login_path: login
            check_path: login_check

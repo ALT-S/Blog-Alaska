@@ -1,0 +1,89 @@
+body {
+    background: #e9edf0;
+}
+
+* {
+    color: black;
+}
+
+h1 {
+    margin-bottom: 84px;
+    padding-bottom: 30px;
+}
+
+
+p{
+    margin: 30px 0 10px;
+}
+
+h4, h3, h2 {
+    color: #036;
+    font-weight: bold;
+}
+
+h5{
+    font-size: 24px;
+}
+h6{
+    color: #036;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.container {
+    background-color: rgb(255, 255, 255);
+    padding: 48px;
+}
+
+.jumbotron {
+    color: white;
+    background-image: url(../image/club.jpg);
+    text-align: center;
+    height: 297px;
+}
+
+.error{
+    text-align: center;
+    border-bottom: 3px solid #ffc600;
+}
+
+.erreur{
+    padding: 40px;
+    border: solid 1px #036;
+    margin-right: 40px;
+    margin-left: 40px;
+    box-shadow: 10px 10px 15px 0 #86b3da;
+    border-radius: 10px;
+}
+
+.fr{
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.en{
+    margin: 16px 0 10px;
+}
+
+.rowdev{
+    text-align: center;
+    border-bottom: 3px solid #ffc600;
+}
+
+.sf-reset div, .sf-reset dl, .sf-reset dt, .sf-reset dd, .sf-reset ul, .sf-reset ol, .sf-reset li, .sf-reset h1, .sf-reset h2, .sf-reset h3, .sf-reset h4, .sf-reset h5, .sf-reset h6, .sf-reset pre, .sf-reset code, .sf-reset form, .sf-reset fieldset, .sf-reset legend, .sf-reset input, .sf-reset textarea, .sf-reset p, .sf-reset blockquote, .sf-reset th, .sf-reset td{
+    margin: 10px;
+    padding: 6px;
+}
+
+.containerdev {
+    padding: 52px;
+    background-color: rgb(255, 255, 255);
+}
+
+.errordev{
+    text-align: center;
+}
+.erreurdev{
+    border-radius: 10px;
+    text-align: center;
+}
