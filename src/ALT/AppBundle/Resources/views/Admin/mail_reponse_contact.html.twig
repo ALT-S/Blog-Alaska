@@ -17,7 +17,7 @@
         <div>
             <h4 class="message-original">Votre message original :</h4> <i>Du : {{ contact.date | date('d-m-Y H:i:s') }}</i>
             <p>
-                {{ contact.contenu|raw }}
+                {{ contact.contenu|nl2br }}
             </p>
         </div>
     </body>

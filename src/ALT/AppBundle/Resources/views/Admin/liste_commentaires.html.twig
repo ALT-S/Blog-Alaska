@@ -44,7 +44,7 @@
                     <td class="titre-billet-alignement">{{ commentaire.billet.titre }}</td>
                     <td>{{ commentaire.auteur }}</td>
                     <td>{{ commentaire.date | date('d-m-Y H:i:s') }}</td>
-                    <td class="action">{{ commentaire.contenu|raw }}</td>
+                    <td class="action">{{ commentaire.contenu|nl2br }}</td>
                     <td>
                         {% if  commentaire.signale != 0 %}
                             <a href="{{ path('alt_app_admin_valider_commentaire', {'id': commentaire.id}) }}"

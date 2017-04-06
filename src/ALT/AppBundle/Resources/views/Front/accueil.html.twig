@@ -16,7 +16,7 @@
             <div class="extrait col-sm-9">
                 <a href="{{ path('alt_app_lecture', {'id': billet.id}) }}">
                     <h3>{{ billet.titre }}</h3>
-                    <p> {{ billet.contenu| truncate(650) |raw }}</p>
+                    <p> {{ billet.contenu|striptags| truncate(650) |raw }}</p>
                 </a>
                 <a class="voir-plus btn btn-outline-primary"
                    href="{{ path('alt_app_lecture', {'id': billet.id}) }}" role="button">Voir plus... »

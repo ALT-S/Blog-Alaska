@@ -4,7 +4,7 @@
 
                 <div class="extrait col-sm-10">
                     <a href="{{ path('alt_app_lecture', {'id': commentaire.billet.id}) }}">
-                        <p> {{ commentaire.contenu| truncate(200) |raw }}</p>
+                        <p> {{ commentaire.contenu |truncate(200)  }}</p>
                     </a>
                     <h6 class="Billet">Billet : {{ commentaire.billet.titre }}</h6>
                     <a class="voir-plus btn btn-outline-primary"

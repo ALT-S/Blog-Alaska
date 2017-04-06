@@ -9,7 +9,7 @@
         </div>
 
         <div class="billet-droite col-sm-9">
-            {{ commentaire.contenu|raw }}
+            {{ commentaire.contenu|nl2br }}
             <div class="billet-actions" style="margin-top:30px;text-align: right">
                 {% if niveau < 3 %}
 
