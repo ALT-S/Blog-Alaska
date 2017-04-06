@@ -326,3 +326,39 @@ li, .section-extrait {
 .nbr-com-lecture{
     text-decoration: none;
 }
+
+.oursphoto{
+    width: 30%;
+}
+
+.ours {
+    text-align: center;
+}
+
+.error{
+    text-align: center;
+    border-bottom: 3px solid #ffc600;
+}
+
+.errorpage{
+    text-align: center;
+}
+
+
+.erreur{
+    padding: 40px;
+    border: solid 1px #036;
+    margin-right: 40px;
+    margin-left: 40px;
+    box-shadow: 10px 10px 15px 0 #86b3da;
+    border-radius: 10px;
+}
+
+.fr{
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.en{
+    margin: 16px 0 10px;
+}
